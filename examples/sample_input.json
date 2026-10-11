@@ -1,0 +1,30 @@
+{
+  "wallet": "0x0000000000000000000000000000000000000001",
+  "wallet_label": "example-wallet",
+  "source_url": "https://etherscan.io/tx/0xabc123",
+  "tx_hash": "0xabc123",
+  "timestamp_utc": "2026-10-11 14:05",
+  "asset": "ETH",
+  "direction": "sent",
+  "amount": "2.5",
+  "action_type": "unknown",
+  "token_risk_note": "",
+  "price_at_observation": null,
+  "history_file": "sample_history.txt",
+  "notes": "Example only. Replace every field with data you verified yourself on Etherscan.",
+  "market": {
+    "price": 2500.0,
+    "liquidity_usd": 50000000,
+    "spread_pct": 0.02,
+    "source": "your exchange or data provider",
+    "time_utc": "2026-10-11 14:10"
+  },
+  "rules": {
+    "account_size": 2000,
+    "max_risk_pct": 1,
+    "entry": 2500,
+    "stop": 2400,
+    "max_position_pct": 50,
+    "max_snapshot_age_minutes": 15
+  }
+}

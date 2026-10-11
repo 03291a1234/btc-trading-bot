@@ -1,0 +1,4 @@
+Public transaction history for 0x0000000000000000000000000000000000000001 (example data, not real)
+timestamp_utc | direction | value_eth | method | action_type_guess | failed | tx_hash
+2026-10-11 14:05 | sent | 2.500000 | transfer | transfer | False | 0xabc123
+2026-10-09 09:12 | received | 3.000000 | transfer | transfer | False | 0xdef456
