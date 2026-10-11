@@ -32,8 +32,8 @@ untrusted source material, and the earlier agents' reports, exactly as the guide
   (anything but `action_type: "trade"`); missing or stale price/liquidity data; position over your
   limit; unexplained token/contract risk for non-ETH assets. Any hit forces **SKIP**.
 - **Boss guardrails**: Risk `REJECT` forces SKIP. A `COPY IN SIMULATION` is downgraded to WAIT if
-  Risk did not approve, Copier did not say REVIEW, or Sizer returned NO SIZE. An unreadable decision
-  defaults to WAIT.
+  Risk did not approve, Copier did not say REVIEW, Sizer returned NO SIZE, or the final checklist
+  was not fully confirmed. An unreadable decision defaults to WAIT.
 
 ## Setup
 
@@ -62,8 +62,24 @@ python -m copytrader template -o tx.json
 python -m copytrader check tx.json
 
 # 4–5. Run all six agents and record the simulated decision.
-python -m copytrader run tx.json
+python -m copytrader run tx.json --step
 ```
+
+**`--step` (source check after every prompt).** After each agent the report is shown and you choose:
+
+| Key | Action |
+| --- | --- |
+| Enter | Continue to the next agent |
+| `n` | Add a source-check note; later agents see it as `HUMAN SOURCE CHECK` |
+| `e` | Edit the report in `$EDITOR` (delete unsupported claims) |
+| `u` | Mark the transaction UNKNOWN and stop; records **SKIP** and skips the remaining agents |
+| `q` | Quit without recording anything |
+
+Without `--step`, all six agents run back to back.
+
+**Final checklist.** Before the decision is recorded you are asked the guide's eight checklist items.
+The result goes in the log's `Checklist` column. Any item not confirmed, or no terminal to ask in,
+means a COPY is recorded as WAIT.
 
 Each run writes `runs/<time>_<hash>/` containing `01 Hunter Report.txt` … `06 Boss Decision.txt`,
 `input.json`, and `decision.json`, and appends a row to `wallet_log.csv` with the guide's columns
@@ -71,7 +87,18 @@ Each run writes `runs/<time>_<hash>/` containing `01 Hunter Report.txt` … `06 
 rating, Copier result, proposed size, Risk verdict, Boss decision, review notes).
 
 ```bash
-# 6. After at least five simulations, run the weekly review coach.
+# 6. Later, compare the decision with what happened.
+python -m copytrader outcome --tx 0xHASH --price 2650 --note "ran up after the alert"
+python -m copytrader outcome --row 3 --stop-hit --note "dumped within the hour"
+```
+
+`outcome` fills the `Outcome time`, `Outcome price`, `Stop hit`, `Simulated P&L (if copied)` and
+`Outcome notes` columns. P&L is worked out for every decision, including WAIT and SKIP, so the review
+can see which rejections protected you: `size × (price − entry)` for a long (stop below entry),
+reversed for a short, or the full risk budget lost if the stop was hit. Fees and slippage are ignored.
+
+```bash
+# Weekly: after at least five simulations, run the review coach on the log.
 python -m copytrader review
 ```
 

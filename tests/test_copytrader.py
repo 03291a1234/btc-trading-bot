@@ -4,7 +4,11 @@ from pathlib import Path
 from copytrader import SIMULATION_FOOTER, journal
 from copytrader.cli import main
 from copytrader.models import MarketSnapshot, RuleSet, TransactionInput
-from copytrader.pipeline import enforce, parse_verdict, run
+import pytest
+
+from copytrader.interactive import ask_checklist, step_reviewer
+from copytrader.outcome import simulated_pnl
+from copytrader.pipeline import Review, RunAborted, enforce, parse_verdict, run
 from copytrader.rules import check
 from copytrader.sizer import size_position
 
@@ -83,7 +87,9 @@ def test_parse_verdict_prefers_longest_label():
 def test_enforce_hard_and_soft_rules():
     size = size_position(clean_tx().rules)
     ok = {"copier": "REVIEW", "risk": "APPROVE FOR SIMULATION"}
-    assert enforce("COPY IN SIMULATION", ok, size, [])[0] == "COPY IN SIMULATION"
+    assert enforce("COPY IN SIMULATION", ok, size, [], [])[0] == "COPY IN SIMULATION"
+    assert enforce("COPY IN SIMULATION", ok, size, [])[0] == "WAIT"  # checklist not completed
+    assert enforce("COPY IN SIMULATION", ok, size, [], ["I reviewed the final decision myself."])[0] == "WAIT"
     assert enforce("COPY IN SIMULATION", {**ok, "risk": "REJECT"}, size, [])[0] == "SKIP"
     assert enforce("COPY IN SIMULATION", {**ok, "risk": "NEEDS REVIEW"}, size, [])[0] == "WAIT"
     assert enforce(None, ok, size, [])[0] == "WAIT"
@@ -92,7 +98,7 @@ def test_enforce_hard_and_soft_rules():
 def test_pipeline_runs_six_agents_and_writes_outputs(tmp_path):
     llm = FakeLLM(APPROVE)
     result = run(clean_tx(), llm, out_dir=tmp_path / "runs", journal_path=tmp_path / "log.csv",
-                 now=NOW, log=lambda m: None)
+                 now=NOW, log=lambda m: None, checklist=lambda: [])
     assert len(llm.prompts) == 6
     # Each agent sees the earlier reports, and the Boss sees all five.
     assert "hunter report" in llm.prompts[1]
@@ -104,6 +110,7 @@ def test_pipeline_runs_six_agents_and_writes_outputs(tmp_path):
     rows = journal.read(tmp_path / "log.csv")
     assert rows[0]["Boss decision"] == "COPY IN SIMULATION"
     assert rows[0]["Proposed simulated size"] == "0.2"
+    assert rows[0]["Checklist"] == "8/8 confirmed"
 
 
 def test_pipeline_forces_skip_on_rejection_rule(tmp_path):
@@ -118,3 +125,90 @@ def test_example_input_loads_and_check_cli_flags_it(capsys):
     assert "0xdef456" in tx.history
     assert main(["check", str(EXAMPLE)]) == 1  # example is labelled action_type=unknown
     assert "possible-transfer" in capsys.readouterr().out
+
+
+def quiet_run(tx, llm, **kw):
+    return run(tx, llm, now=NOW, log=lambda m: None, **kw)
+
+
+def test_step_note_reaches_later_agents():
+    llm = FakeLLM(APPROVE)
+    notes = {"tracker": Review("continue", note="amount confirmed on Etherscan")}
+    quiet_run(clean_tx(), llm, out_dir=None, journal_path=None,
+              reviewer=lambda agent, text: notes.get(agent, Review("continue")))
+    assert "HUMAN SOURCE CHECK: amount confirmed on Etherscan" in llm.prompts[2]
+
+
+def test_step_edit_replaces_report_and_verdict():
+    llm = FakeLLM(APPROVE)
+    edit = {"risk": Review("continue", edited_text="rewritten\nVERDICT: REJECT")}
+    result = quiet_run(clean_tx(), llm, out_dir=None, journal_path=None, checklist=lambda: [],
+                       reviewer=lambda agent, text: edit.get(agent, Review("continue")))
+    assert result.verdicts["risk"] == "REJECT"
+    assert result.final_decision == "SKIP"
+
+
+def test_step_stop_records_skip_and_skips_remaining_agents(tmp_path):
+    llm = FakeLLM(APPROVE)
+    result = quiet_run(clean_tx(), llm, out_dir=tmp_path / "runs", journal_path=tmp_path / "log.csv",
+                       reviewer=lambda agent, text: Review("stop", note="looks like a bridge")
+                       if agent == "tracker" else Review("continue"))
+    assert len(llm.prompts) == 2
+    assert result.final_decision == "SKIP" and result.stopped_after == "tracker"
+    assert sorted(p.name for p in result.run_dir.glob("0*")) == ["01 Hunter Report.txt", "02 Tracker Record.txt"]
+    row = journal.read(tmp_path / "log.csv")[0]
+    assert "looks like a bridge" in row["Review notes"]
+    assert row["Checklist"] == "skipped (run stopped)"
+
+
+def test_step_abort_records_nothing(tmp_path):
+    with pytest.raises(RunAborted):
+        quiet_run(clean_tx(), FakeLLM(APPROVE), out_dir=tmp_path / "runs",
+                  journal_path=tmp_path / "log.csv", reviewer=lambda a, t: Review("abort"))
+    assert not (tmp_path / "log.csv").exists() and not (tmp_path / "runs").exists()
+
+
+def test_interactive_step_reviewer_choices():
+    answers = iter(["e", "n", "checked hash"])
+    review = step_reviewer(input_fn=lambda _: next(answers), print_fn=lambda *a: None,
+                           editor=lambda text: "edited")("hunter", "original")
+    assert review == Review("continue", note="checked hash", edited_text="edited")
+    answers = iter(["u", ""])
+    review = step_reviewer(input_fn=lambda _: next(answers), print_fn=lambda *a: None)("hunter", "x")
+    assert review.action == "stop" and review.note == "marked UNKNOWN"
+
+
+def test_ask_checklist_returns_unconfirmed_items():
+    answers = iter(["y"] * 7 + ["n"])
+    missed = ask_checklist(input_fn=lambda _: next(answers), print_fn=lambda *a: None)
+    assert missed == ["I reviewed the final decision myself."]
+
+
+def test_simulated_pnl_long_short_and_stop():
+    long_row = {"Entry": "2500", "Stop": "2400", "Proposed simulated size": "0.2"}
+    assert simulated_pnl(long_row, 2600, False) == pytest.approx(20)
+    assert simulated_pnl(long_row, None, True) == pytest.approx(-20)
+    short_row = {"Entry": "2500", "Stop": "2600", "Proposed simulated size": "0.2"}
+    assert simulated_pnl(short_row, 2400, False) == pytest.approx(20)
+    assert simulated_pnl({**long_row, "Proposed simulated size": "NO SIZE"}, 2600, False) is None
+
+
+def test_outcome_cli_updates_logged_row(tmp_path, capsys):
+    log = tmp_path / "log.csv"
+    quiet_run(clean_tx(), FakeLLM(APPROVE), out_dir=None, journal_path=log, checklist=lambda: [])
+    assert main(["outcome", "--tx", "0xabc", "--price", "2650", "--note", "ran up",
+                 "--journal", str(log)]) == 0
+    row = journal.read(log)[0]
+    assert row["Outcome price"] == "2650.0"
+    assert row["Simulated P&L (if copied)"] == "30.00"
+    assert row["Outcome notes"] == "ran up"
+    assert main(["outcome", "--tx", "0xmissing", "--price", "1", "--journal", str(log)]) == 1
+
+
+def test_old_log_is_migrated_to_new_columns(tmp_path):
+    log = tmp_path / "log.csv"
+    log.write_text("Date and time,Boss decision\n2026-10-01,SKIP\n")
+    journal.append(log, {"Boss decision": "WAIT"})
+    rows = journal.read(log)
+    assert [r["Boss decision"] for r in rows] == ["SKIP", "WAIT"]
+    assert list(rows[0]) == journal.COLUMNS

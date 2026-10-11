@@ -100,3 +100,14 @@ REVIEW_COACH = (
     "ideas. Separate process quality from market outcome. Do not claim the strategy is profitable "
     "from a small sample. Give me three process changes to test next week."
 )
+
+FINAL_CHECKLIST = [
+    "I used only public data and saved the source URLs.",
+    "I did not share a seed phrase, private key, password, or authentication code.",
+    "I verified the transaction hash, address, timestamp, asset, and amount.",
+    "I separated transfers from confirmed trades.",
+    "I labeled missing and stale market information.",
+    "I followed my own risk limits and allowed the Risk agent to reject the idea.",
+    "I recorded a simulation, not a live trade.",
+    "I reviewed the final decision myself.",
+]
