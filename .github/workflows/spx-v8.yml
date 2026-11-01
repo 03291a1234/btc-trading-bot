@@ -1,0 +1,31 @@
+name: spx-v8
+on:
+  push: { paths: [ "spx-v8/**", ".github/workflows/spx-v8.yml" ] }
+  pull_request: { paths: [ "spx-v8/**", ".github/workflows/spx-v8.yml" ] }
+permissions: { contents: read }
+defaults: { run: { working-directory: spx-v8 } }
+jobs:
+  dotnet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with: { dotnet-version: "8.0.x" }
+      - run: dotnet test SpxQuant.sln -c Release
+  research:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install pandas numpy pytest
+      - run: python -m pytest
+        working-directory: spx-v8/research
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "22" }
+      - run: npm ci && npm test && npm run build
+        working-directory: spx-v8/web

@@ -1,0 +1,40 @@
+# SPX Quant Scalper Pro v8 — local stack. PAPER ONLY: no service here can submit brokerage orders.
+# Host ports bind to 127.0.0.1 only. Never expose these services publicly.
+#   cp .env.example .env   # then set SPXQ_API_KEY (>= 32 chars)
+#   docker compose up --build                      # API + web (synthetic replay)
+#   docker compose --profile data up --build       # also PostgreSQL/TimescaleDB + Redis (used from Phase 2)
+name: spx-quant-v8
+services:
+  api:
+    build: { context: ., dockerfile: deploy/api.Dockerfile }
+    environment:
+      Api__Key: ${SPXQ_API_KEY:?set SPXQ_API_KEY in .env}
+      Platform__DataSource: ${SPXQ_DATA_SOURCE:-Replay}
+      Tradier__Token: ${TRADIER_TOKEN:-}
+    volumes: [ "audit:/data/audit" ]
+    ports: [ "127.0.0.1:5080:5080" ]
+    healthcheck:
+      test: ["CMD", "bash", "-c", "exec 3<>/dev/tcp/127.0.0.1/5080 && printf 'GET /health/live HTTP/1.0\\r\\n\\r\\n' >&3 && grep -q 200 <&3"]
+      interval: 10s
+      retries: 6
+  web:
+    build: { context: ./web, dockerfile: ../deploy/web.Dockerfile }
+    depends_on: { api: { condition: service_healthy } }
+    ports: [ "127.0.0.1:8080:8080" ]
+  timescaledb:
+    profiles: [ "data" ]
+    image: timescale/timescaledb:2.17.2-pg16
+    environment:
+      POSTGRES_DB: spxquant
+      POSTGRES_USER: spxquant
+      POSTGRES_PASSWORD: ${SPXQ_DB_PASSWORD:-}  # postgres refuses to start if empty
+    volumes: [ "pgdata:/var/lib/postgresql/data" ]
+    ports: [ "127.0.0.1:5432:5432" ]
+  redis:
+    profiles: [ "data" ]
+    image: redis:7.4-alpine
+    command: [ "redis-server", "--save", "", "--appendonly", "no" ]
+    ports: [ "127.0.0.1:6379:6379" ]
+volumes:
+  audit: {}
+  pgdata: {}

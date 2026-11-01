@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "coverageStart": "2026-01-01",
+  "coverageEnd": "2026-12-31",
+  "source": "Tradier GET /v1/markets/calendar for 2026-01,02,04,05,06,07,09,11,12 retrieved 2026-11-01; months 03,08,10 not fetched (no exceptions expected) - verify before relying on them. Cash-index session hours; SPXW option close times on early-close days NOT verified.",
+  "exceptions": [
+    { "date": "2026-01-01", "status": "Closed", "description": "New Year's Day" },
+    { "date": "2026-01-19", "status": "Closed", "description": "Martin Luther King, Jr. Day" },
+    { "date": "2026-02-16", "status": "Closed", "description": "Washington's Birthday" },
+    { "date": "2026-04-03", "status": "Closed", "description": "Good Friday" },
+    { "date": "2026-05-25", "status": "Closed", "description": "Memorial Day" },
+    { "date": "2026-06-19", "status": "Closed", "description": "Juneteenth" },
+    { "date": "2026-07-03", "status": "Closed", "description": "Independence Day (observed)" },
+    { "date": "2026-09-07", "status": "Closed", "description": "Labor Day" },
+    { "date": "2026-11-26", "status": "Closed", "description": "Thanksgiving Day" },
+    { "date": "2026-11-27", "status": "EarlyClose", "close": "13:00:00", "description": "Early close 13:00" },
+    { "date": "2026-12-24", "status": "EarlyClose", "close": "13:00:00", "description": "Early close 13:00" },
+    { "date": "2026-12-25", "status": "Closed", "description": "Christmas Day" }
+  ]
+}
