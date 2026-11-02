@@ -43,6 +43,22 @@ public class TradierJsonTests
         Assert.Null(p.Greeks);
         Assert.Null(p.BidAt);
     }
+    [Fact] public void LiveShapeGreeksTimestampIsUtcEndOfDay()
+    {
+        // Field layout as observed live on 2026-11-02 09:36 ET (values altered): Greeks stamped at the PRIOR session's close.
+        var row = """
+        {"options":{"option":[{"symbol":"SPXW261102P07490000","root_symbol":"SPXW","option_type":"put","expiration_date":"2026-11-02",
+          "expiration_type":"weeklys","strike":7490.0,"bid":0.3,"ask":0.4,"bidsize":500,"asksize":450,"bid_date":1793630179000,
+          "ask_date":1793630177000,"volume":1500,"open_interest":1600,"contract_size":100,
+          "greeks":{"delta":-0.15,"gamma":0.002,"theta":-3.6,"vega":1.5,"rho":0.4,"phi":-0.4,"bid_iv":0.13,"mid_iv":0.14,"ask_iv":0.14,"smv_vol":0.14,"updated_at":"2026-10-30 20:00:06"}}]}}
+        """;
+        var q = TradierJson.ParseChain(row, Exp, TimeZoneInfo.Utc).Quotes.Single();
+        Assert.Equal(new DateTimeOffset(2026, 10, 30, 16, 0, 6, TimeSpan.FromHours(-4)), q.Greeks!.UpdatedAt); // Friday's close (EDT)
+        var issues = QuoteValidator.Validate(q, DateTimeOffset.FromUnixTimeMilliseconds(1793630180000), QuoteValidationPolicy.Default, Exp);
+        Assert.Contains(QuoteIssue.StaleGreeks, issues);
+        Assert.Equal("UTC", new TradierOptions().GreeksTimestampZone);
+    }
+
     [Fact] public void SingleObjectAndNullChainsHandled()
     {
         var single = """{"options":{"option":{"symbol":"S","root_symbol":"SPXW","option_type":"put","expiration_date":"2026-11-02","strike":7000,"bid":1,"ask":1.1}}}""";

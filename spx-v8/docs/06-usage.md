@@ -102,11 +102,13 @@ PY
 
 | Value | Behavior |
 |---|---|
-| `Vendor` (default) | Uses Tradier's Greeks and rejects contracts whose Greeks are older than 5 minutes |
-| `LocalEstimated` | Computes Black-Scholes Greeks from the bid/ask mid and SPX last, labeled **Estimated** |
+| `LocalEstimated` (**default**) | Computes Black-Scholes Greeks from each contract's bid/ask mid and SPX last, labeled **Estimated**. A contract with a stale quote gets equally stale Greeks and is rejected. |
+| `Vendor` | Uses Tradier's Greeks and rejects any older than 5 minutes |
 | `VendorThenLocal` | Uses Tradier's Greeks when fresh, otherwise local estimates |
 
-The Phase 2 report has what Tradier's Greeks timestamps looked like live, and which setting it supports.
+Why local is the default: on 2026-11-02 at 09:36 ET, every SPXW contract's Tradier Greeks were stamped at the **previous
+session's close** (Friday 16:00 ET). The vendor delta for a contract was off by 0.10–0.19 from one computed on live quotes.
+`Vendor` therefore rejects everything intraday (safe, but useless), and using those deltas would pick the wrong strikes.
 
 ## 6. Stop, back up, reset
 

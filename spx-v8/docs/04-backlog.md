@@ -7,7 +7,10 @@ validation results reported as passed/failed/not-run, and known limitations.
 ## Phase 1: assessment and architecture ✅ (this delivery)
 Details in `05-phase1-report.md`.
 
-## Phase 2: market data ingestion and validation
+## Phase 2: market data ingestion and validation ✅ (2026-11-02; see `07-phase2-report.md`)
+Done: P2-01 (partly: chain/Greeks/quotes verified live; timesales and clock not yet), P2-02, P2-03, P2-04, P2-05, P2-06, P2-07, P2-09 (cross-check endpoint; 2027 file still to add).
+Carried forward: P2-08 (XSP, dropped: you chose SPX), P2-10 (OpenTelemetry), live verification of timesales, clock and rate limits on first recorder run.
+
 | ID | P | Item |
 |---|---|---|
 | P2-01 | P0 | **Live-session Tradier verification** (market hours): SPX chain `root_symbol` mix (SPXW vs SPX), `greeks.updated_at` time zone **and refresh cadence**, `bid_date`/`ask_date` presence, `timesales` 1 m history depth, VIX availability, rate limits. Record findings in a dated evidence file. |
@@ -40,6 +43,7 @@ Details in `05-phase1-report.md`.
 | P4-04 | P1 | Dataset manifests (hashes, date ranges, provenance) attached to every run |
 
 ## Phase 5: options contract selection
+**Blocked on decision D-1 (SPX chosen; how to reconcile with the $100 caps is open).**
 | ID | P | Item |
 |---|---|---|
 | P5-01 | P1 | Calibrated multi-factor ranking (delta proximity, spread/mid, size, IV, gamma/theta, expected slippage), validated against realized execution quality |

@@ -7,8 +7,9 @@ Research-driven SPX/SPXW 0DTE options **paper-trading and research** platform, t
 > guard blocks any Tradier request that isn't a `GET /v1/markets/*`. Nothing here promises profitability. Every number is labeled
 > Observed, Estimated, Simulated or Synthetic.
 
-**Status: Phase 1 of 10 complete** (assessment, architecture, ported risk, selection and quote validation, calendar, audit chain,
-replay, API, web shell, Compose). There is no signal engine or backtester yet. See [the Phase 1 report](docs/05-phase1-report.md).
+**Status: Phase 2 of 10 complete.** Phase 1 delivered the core: assessment, risk, selection and quote rules, calendar, audit chain, API, web shell and Compose.
+Phase 2 adds live SPX data recording into TimescaleDB, replay of recorded days with no look-ahead, local Greeks, and a calendar cross-check.
+There is no signal engine or backtester yet. **Start with [How to use it](docs/06-usage.md).**
 
 | Doc | Contents |
 |---|---|
@@ -17,6 +18,8 @@ replay, API, web shell, Compose). There is no signal engine or backtester yet. S
 | [03 API](docs/03-api.md) | Implemented and planned endpoints |
 | [04 Backlog](docs/04-backlog.md) | Prioritized items for Phases 2–10 |
 | [05 Phase 1 report](docs/05-phase1-report.md) | Validation results, limitations, run instructions |
+| [06 How to use it](docs/06-usage.md) | Step-by-step: synthetic demo, live recording, replay, research, backup |
+| [07 Phase 2 report](docs/07-phase2-report.md) | Live Tradier findings (2026-11-02), validation results, limitations |
 
 ## Quick start
 
@@ -33,4 +36,6 @@ Target |Δ| 0.40 ± 0.15 · max spread $0.50/share · planned loss ≤ $100 and 
 aggregate premium ≤ $100 · daily loss ≤ $200 · 1 open position · 3 trades/day · ×100 multiplier · quotes ≤ 15 s old ·
 entries 09:35 ET until 30 min before close · SPXW (PM-settled) same-day expiry only.
 
-Under these rules a 0.40-delta SPXW contract almost never qualifies. That's an open decision for you (D-1 in the migration plan), and the system rejects rather than loosening limits.
+**Instrument: SPX/SPXW (decided 2026-11-02).** On the live chain that morning, a 0.40-delta 0DTE SPXW cost $12–13 per share,
+about $1,200–1,300 worst case per contract, so under the $100 caps nothing qualifies. How to reconcile SPX with the caps is still open
+(see the Phase 2 report). Until then the system rejects rather than loosening limits.

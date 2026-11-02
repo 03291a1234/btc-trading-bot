@@ -27,7 +27,7 @@ services:
       ConnectionStrings__Postgres: Host=timescaledb;Port=5432;Database=spxquant;Username=spxquant;Password=${SPXQ_DB_PASSWORD}
       Tradier__Token: ${TRADIER_TOKEN:-}
       Recorder__Enabled: ${SPXQ_RECORDER:-false}
-      Greeks__Source: ${SPXQ_GREEKS_SOURCE:-Vendor}
+      Greeks__Source: ${SPXQ_GREEKS_SOURCE:-LocalEstimated}
     volumes: [ "audit:/data/audit" ]
     ports: [ "127.0.0.1:5080:5080" ]
     healthcheck:

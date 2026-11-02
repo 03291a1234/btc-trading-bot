@@ -54,7 +54,10 @@ Options, none of which v8 will choose for you:
 | (c) Gate on **planned (stop) loss only**, allowing worst case > $100 | Many SPXW contracts become eligible | **Reverses a decision you confirmed in v7**; gap risk on 0DTE is real |
 | (d) Keep SPXW and the caps, and **lower target delta** (~0.05–0.10) | Eligible contracts exist | Completely different payoff profile (lottery-like); 0.40 Δ was your spec |
 
-My recommendation is to evaluate (a) first: in Phase 2, verify XSP chain availability and liquidity against real data. Until you decide, v8 keeps rejecting rather than loosening.
+**Update 2026-11-02:** you chose **SPX** (not XSP), so option (a) is out. The live chain confirmed the conflict:
+0.40 Δ SPXW cost $12.10 (call) and $13.00 (put) at 09:36 ET, i.e. ~$1,200–1,300 worst case. Choosing among (b), (c) and (d), or raising the caps, is still open.
+
+Original recommendation: evaluate (a) first: in Phase 2, verify XSP chain availability and liquidity against real data. Until you decide, v8 keeps rejecting rather than loosening.
 
 **D-2. Where v8 lives.** This session could push only to `03291a1234/btc-trading-bot` (branch `ccr-a6397824-p0m8dq`), so v8 is
 self-contained under `spx-v8/` there. Recommended: move it into `spx-v7` (as `v8/` or a new branch) or a new `spx-v8`

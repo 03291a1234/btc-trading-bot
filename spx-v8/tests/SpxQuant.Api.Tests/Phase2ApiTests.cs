@@ -37,7 +37,7 @@ public sealed class Phase2ApiTests : IClassFixture<ApiFactory>
     [Fact] public async Task SelectionReportsGreeksSource()
     {
         var r = await (await _factory.Authed().PostAsJsonAsync("/api/v8/options/select", new { right = "CALL" })).Content.ReadFromJsonAsync<JsonElement>();
-        Assert.Equal("Vendor", r.GetProperty("greeksSource").GetString());
+        Assert.Equal("LocalEstimated", r.GetProperty("greeksSource").GetString());
     }
 }
 
@@ -105,6 +105,7 @@ public sealed class RecordedReplayApiTests : IAsyncLifetime
         {
             ["Platform:DataSource"] = "RecordedReplay", ["Platform:Storage"] = "Postgres",
             ["Platform:ReplayStart"] = T0.ToString("O"), ["ConnectionStrings:Postgres"] = SchemaCs,
+            ["Greeks:Source"] = "Vendor", // this test is about replay timing; the fixture carries vendor Greeks
         });
         var c = f.Authed();
         var sys = await c.GetFromJsonAsync<JsonElement>("/api/v8/system");

@@ -8,8 +8,9 @@ public sealed class TradierOptions
     public string? Token { get; set; }
     public int TimeoutSeconds { get; set; } = 10;
     /// <summary>
-    /// Time zone of greeks.updated_at ("yyyy-MM-dd HH:mm:ss", no offset). UNVERIFIED: confirm during a live session.
-    /// Either wrong interpretation makes Greeks look stale or future-dated and therefore rejected (fail closed).
+    /// Time zone of greeks.updated_at ("yyyy-MM-dd HH:mm:ss", no offset). OBSERVED 2026-11-02 09:36 ET: every SPXW contract carried
+    /// "2026-10-30 20:00:06", which is the prior session's 16:00:06 ET close only when read as UTC. Tradier Greeks are therefore an
+    /// end-of-day snapshot and are stale all session; use Greeks:Source=LocalEstimated.
     /// </summary>
-    public string GreeksTimestampZone { get; set; } = "America/New_York";
+    public string GreeksTimestampZone { get; set; } = "UTC";
 }

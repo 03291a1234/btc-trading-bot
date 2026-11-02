@@ -20,6 +20,7 @@ const assert = require('node:assert/strict');
     await page.getByRole('button', { name: 'Evaluate 0DTE CALL' }).click();
     await page.getByText('Contract selection').waitFor();
     await page.getByText('WorstCaseLossExceeded').waitFor();
+    await page.getByText(/Market data — (HEALTHY|UNHEALTHY|NO_DATA_YET)/).waitFor();
     // The key must never be persisted by the page.
     const stored = await page.evaluate(() => JSON.stringify({ ...localStorage }) + JSON.stringify({ ...sessionStorage }));
     assert.ok(!stored.includes(key), 'API key leaked into web storage');

@@ -17,7 +17,7 @@ public enum GreeksSource
     VendorThenLocal,
 }
 
-public sealed record GreeksOptions(GreeksSource Source = GreeksSource.Vendor, double RiskFreeRate = 0.04);
+public sealed record GreeksOptions(GreeksSource Source = GreeksSource.LocalEstimated, double RiskFreeRate = 0.04);
 
 public sealed record SelectionReport(
     DateTimeOffset EvaluatedAt,
