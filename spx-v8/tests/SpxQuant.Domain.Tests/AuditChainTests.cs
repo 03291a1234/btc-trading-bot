@@ -28,5 +28,11 @@ public class AuditChainTests
         var c = Chain(3); (c[0], c[1]) = (c[1], c[0]);
         Assert.NotNull(AuditRecord.VerifyChain(c));
     }
+    [Fact] public void TimestampsAreTruncatedToMicroseconds()
+    {
+        var r = AuditRecord.Create(null, Fixtures.Now.AddTicks(1234567), "K", null, "{}");
+        Assert.Equal(0, r.At.Ticks % 10);
+        Assert.Null(AuditRecord.VerifyChain([r]));
+    }
     [Fact] public void FirstRecordLinksToGenesis() => Assert.Equal(AuditRecord.GenesisHash, Chain(1)[0].PreviousHash);
 }

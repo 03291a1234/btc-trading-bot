@@ -28,3 +28,10 @@ internal static class RepoPaths
         }
     }
 }
+
+internal static class Fixtures
+{
+    public static SpxQuant.Domain.Market.OptionQuote Quote(DateTimeOffset at) => new("SPXW261102C07600000", "SPXW", SpxQuant.Domain.Market.OptionRight.Call,
+        new DateOnly(2026, 11, 2), 7600m, 0.80m, 0.90m, 10, 10, at.AddSeconds(-2), at.AddSeconds(-2), 100, 500,
+        new SpxQuant.Domain.Market.OptionGreeks(0.40m, 0.01m, -1m, 0.1m, 0.16m, at.AddSeconds(-60)));
+}

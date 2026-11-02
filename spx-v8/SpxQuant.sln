@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpxQuant.Domain.Tests", "te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpxQuant.Infrastructure.Tests", "tests\SpxQuant.Infrastructure.Tests\SpxQuant.Infrastructure.Tests.csproj", "{415C0FF8-0222-4B70-AE34-7AC7180AD86B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpxQuant.Application.Tests", "tests\SpxQuant.Application.Tests\SpxQuant.Application.Tests.csproj", "{42937B5B-0FA7-4F8F-BC88-159197DF2E82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{415C0FF8-0222-4B70-AE34-7AC7180AD86B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{415C0FF8-0222-4B70-AE34-7AC7180AD86B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{415C0FF8-0222-4B70-AE34-7AC7180AD86B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42937B5B-0FA7-4F8F-BC88-159197DF2E82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42937B5B-0FA7-4F8F-BC88-159197DF2E82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42937B5B-0FA7-4F8F-BC88-159197DF2E82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42937B5B-0FA7-4F8F-BC88-159197DF2E82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C231E954-7034-4FE7-B0A8-7AB03D764AF1} = {ED8C90C8-D9C7-40DC-BF4D-AB63360BFCF8}
@@ -67,5 +73,6 @@ Global
 		{2D2ABF1D-8F68-4B42-B802-72D5A463EDC4} = {6832DFC4-6F9A-48C4-BD24-FA344E598570}
 		{B0671A03-E3DA-48E8-893B-2D4CA85AFEF8} = {6832DFC4-6F9A-48C4-BD24-FA344E598570}
 		{415C0FF8-0222-4B70-AE34-7AC7180AD86B} = {6832DFC4-6F9A-48C4-BD24-FA344E598570}
+		{42937B5B-0FA7-4F8F-BC88-159197DF2E82} = {6832DFC4-6F9A-48C4-BD24-FA344E598570}
 	EndGlobalSection
 EndGlobal

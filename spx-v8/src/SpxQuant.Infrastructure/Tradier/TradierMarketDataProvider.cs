@@ -10,7 +10,8 @@ namespace SpxQuant.Infrastructure.Tradier;
 /// Single consolidated Tradier client (v7 had two with different base-URL conventions).
 /// Every request passes through <see cref="ReadOnlyMarketDataGuard"/>. Response bodies are never logged.
 /// </summary>
-public sealed class TradierMarketDataProvider(HttpClient http, TradierOptions options, IClock clock, ILogger<TradierMarketDataProvider> logger) : IMarketDataProvider
+public sealed class TradierMarketDataProvider(HttpClient http, TradierOptions options, IClock clock, ILogger<TradierMarketDataProvider> logger)
+    : IMarketDataProvider, IBarSource, IBrokerSessionInfo
 {
     private readonly TimeZoneInfo _greeksZone = TimeZoneInfo.FindSystemTimeZoneById(options.GreeksTimestampZone);
     public DataSourceKind Kind => DataSourceKind.TradierReadOnly;
@@ -30,6 +31,23 @@ public sealed class TradierMarketDataProvider(HttpClient http, TradierOptions op
         if (skipped > 0) logger.LogWarning("Tradier chain: skipped {Skipped} malformed or mismatched rows for {Expiration}", skipped, date);
         return quotes;
     }
+
+    public async Task<IReadOnlyList<Bar>> GetOneMinuteBarsAsync(string symbol, DateTimeOffset from, DateTimeOffset to, CancellationToken ct)
+    {
+        // Tradier expects Eastern wall-clock "yyyy-MM-dd HH:mm". session_filter=open limits to regular hours.
+        string Et(DateTimeOffset t) => EasternTime.ToEastern(t).ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+        var body = await GetAsync($"/v1/markets/timesales?symbol={Uri.EscapeDataString(symbol)}&interval=1min&start={Uri.EscapeDataString(Et(from))}&end={Uri.EscapeDataString(Et(to))}&session_filter=open", ct);
+        var (bars, skipped) = TradierBrokerJson.ParseTimeSales(body, TimeSpan.FromMinutes(1));
+        if (skipped > 0) logger.LogWarning("Tradier timesales: skipped {Skipped} malformed rows for {Symbol}", skipped, symbol);
+        return bars;
+    }
+
+    public async Task<BrokerClock> GetClockAsync(CancellationToken ct) =>
+        TradierBrokerJson.ParseClock(await GetAsync("/v1/markets/clock", ct), clock.UtcNow)
+        ?? throw new MarketDataUnavailableException("Tradier clock response unreadable");
+
+    public async Task<IReadOnlyList<Domain.Calendar.CalendarDay>> GetCalendarMonthAsync(int year, int month, CancellationToken ct) =>
+        TradierBrokerJson.ParseCalendar(await GetAsync($"/v1/markets/calendar?month={month:00}&year={year}", ct));
 
     private async Task<string> GetAsync(string pathAndQuery, CancellationToken ct)
     {

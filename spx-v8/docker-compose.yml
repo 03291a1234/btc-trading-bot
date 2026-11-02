@@ -1,16 +1,33 @@
 # SPX Quant Scalper Pro v8 — local stack. PAPER ONLY: no service here can submit brokerage orders.
-# Host ports bind to 127.0.0.1 only. Never expose these services publicly.
-#   cp .env.example .env   # then set SPXQ_API_KEY (>= 32 chars)
-#   docker compose up --build                      # API + web (synthetic replay)
-#   docker compose --profile data up --build       # also PostgreSQL/TimescaleDB + Redis (used from Phase 2)
+# Host ports bind to 127.0.0.1 only. Never expose these services publicly. See docs/06-usage.md.
+#   cp .env.example .env            # set SPXQ_API_KEY and SPXQ_DB_PASSWORD
+#   docker compose up --build -d    # api + web + timescaledb
 name: spx-quant-v8
 services:
+  timescaledb:
+    image: timescale/timescaledb:2.17.2-pg16
+    environment:
+      POSTGRES_DB: spxquant
+      POSTGRES_USER: spxquant
+      POSTGRES_PASSWORD: ${SPXQ_DB_PASSWORD:?set SPXQ_DB_PASSWORD in .env}
+    volumes: [ "pgdata:/var/lib/postgresql/data" ]
+    ports: [ "127.0.0.1:5432:5432" ]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U spxquant -d spxquant"]
+      interval: 5s
+      retries: 20
   api:
     build: { context: ., dockerfile: deploy/api.Dockerfile }
+    depends_on: { timescaledb: { condition: service_healthy } }
     environment:
       Api__Key: ${SPXQ_API_KEY:?set SPXQ_API_KEY in .env}
       Platform__DataSource: ${SPXQ_DATA_SOURCE:-Replay}
+      Platform__Storage: Postgres
+      Platform__ReplayStart: ${SPXQ_REPLAY_START:-}
+      ConnectionStrings__Postgres: Host=timescaledb;Port=5432;Database=spxquant;Username=spxquant;Password=${SPXQ_DB_PASSWORD}
       Tradier__Token: ${TRADIER_TOKEN:-}
+      Recorder__Enabled: ${SPXQ_RECORDER:-false}
+      Greeks__Source: ${SPXQ_GREEKS_SOURCE:-Vendor}
     volumes: [ "audit:/data/audit" ]
     ports: [ "127.0.0.1:5080:5080" ]
     healthcheck:
@@ -21,17 +38,8 @@ services:
     build: { context: ./web, dockerfile: ../deploy/web.Dockerfile }
     depends_on: { api: { condition: service_healthy } }
     ports: [ "127.0.0.1:8080:8080" ]
-  timescaledb:
-    profiles: [ "data" ]
-    image: timescale/timescaledb:2.17.2-pg16
-    environment:
-      POSTGRES_DB: spxquant
-      POSTGRES_USER: spxquant
-      POSTGRES_PASSWORD: ${SPXQ_DB_PASSWORD:-}  # postgres refuses to start if empty
-    volumes: [ "pgdata:/var/lib/postgresql/data" ]
-    ports: [ "127.0.0.1:5432:5432" ]
   redis:
-    profiles: [ "data" ]
+    profiles: [ "cache" ]   # not used before Phase 7 (live streaming)
     image: redis:7.4-alpine
     command: [ "redis-server", "--save", "", "--appendonly", "no" ]
     ports: [ "127.0.0.1:6379:6379" ]

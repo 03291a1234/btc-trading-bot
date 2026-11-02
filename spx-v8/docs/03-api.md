@@ -7,7 +7,7 @@ Base URL: `http://127.0.0.1:5080` locally (`dotnet run`), or through Compose on 
 
 **Provenance** values: `Observed` (vendor), `Estimated` (model or assumption), `Simulated` (paper engine), `Synthetic` (fixture, not market data).
 
-## Implemented in Phase 1
+## Implemented (Phases 1–2)
 
 | Method | Path | Purpose |
 |---|---|---|
@@ -19,6 +19,12 @@ Base URL: `http://127.0.0.1:5080` locally (`dotnet run`), or through Compose on 
 | GET | `/api/v8/market/index/{SPX\|VIX}` | `{ quote: {symbol,last,tradeAt,receivedAt}, provenance, valid, problems[] }`. Index bid/ask are deliberately not exposed. Upstream failure returns `502`. |
 | GET | `/api/v8/options/chain/0dte?right=CALL\|PUT` | Today's (ET) chain from the active source; each row has `quote` plus `issues[]` (`QuoteIssue` names) |
 | POST | `/api/v8/options/select` | Body `{ "right": "CALL" \| "PUT" }`. Evaluates hard constraints, ranks eligible contracts, appends a `CONTRACT_SELECTION` audit record. **Creates no order or position.** |
+| GET | `/api/v8/market/health` | **(Phase 2)** Per-stream health (`chain`, `index`, `bars1m`, `calendar`): status, last success/failure, consecutive failures, last error; recorder state and its last result per step |
+| GET | `/api/v8/market/bars/{SPX\|VIX}?tf=1m\|5m&from&to` | **(Phase 2)** Stored bars, confirmed at the current (or replay) clock only; ≤ 31 days. For today's 1m range also `gaps[]` (missing elapsed minutes). `503` without storage. |
+| GET | `/api/v8/market/snapshots?from&to&limit` | **(Phase 2)** Recorded chain snapshot index `{id, underlying, expiration, capturedAt, source, provenance, optionCount, indexLast, contentSha256}` |
+| GET | `/api/v8/market/snapshots/{id}` | **(Phase 2)** One snapshot in the replay-file format (`schemaVersion`, `capturedAt`, `provenance`, `index`, `options`). Content hash verified on read; tampering returns `500`. |
+| POST | `/api/v8/recorder/run?step=chain\|bars[&date=yyyy-MM-dd]` | **(Phase 2)** Run one recorder step now (bars for a past date backfills that day). `503` unless TradierReadOnly + Postgres; `502` on vendor failure. |
+| GET | `/api/v8/calendar/crosscheck?year&month` | **(Phase 2)** Local calendar vs Tradier `markets/calendar`: `{consistent, discrepancies[{date, local, broker}]}`. TradierReadOnly only. |
 | GET | `/api/v8/audit?after={seq}&limit={1..1000}` | Audit records `{sequence, at, kind, subject, payloadJson, previousHash, hash}` |
 | GET | `/api/v8/audit/verify` | `200 {intact:true}`, or `409 {intact:false, error}` if the on-disk chain was edited, truncated or reordered |
 
@@ -31,6 +37,7 @@ Base URL: `http://127.0.0.1:5080` locally (`dotnet run`), or through Compose on 
   "entryWindowOpen": true, "entryWindowReason": "OK",   // or MARKET_CLOSED, CALENDAR_UNKNOWN, BEFORE_ENTRY_WINDOW, AFTER_ENTRY_CUTOFF
   "dataSource": "Replay", "quoteProvenance": "Synthetic", "riskProvenance": "Estimated",
   "auditSequence": 1,
+  "greeksSource": "Vendor", "estimatedGreeksCount": 0,   // Phase 2: Vendor | LocalEstimated | VendorThenLocal
   "received": 110, "eligibleCount": 0,
   "summary": "No eligible contract among 110; rejected rather than loosening limits.",
   "selected": null,                // or a contract object (below)
@@ -45,7 +52,7 @@ Base URL: `http://127.0.0.1:5080` locally (`dotnet run`), or through Compose on 
 ```
 
 Contract object: `symbol, root, right, strike, expiration, bid, ask, spread, bidSize, askSize, volume, openInterest,
-greeks{delta,gamma,theta,vega,midIv,updatedAt}, deltaDistance, risk{quantity, entryPricePerShare, stopTriggerPerShare,
+greeks{delta,gamma,theta,vega,midIv,updatedAt}, greeksProvenance (Observed|Estimated), deltaDistance, risk{quantity, entryPricePerShare, stopTriggerPerShare,
 targetPerShare, entryDebit, plannedLoss, worstCaseLoss, roundTripFees}` (all risk values in $, `Estimated`).
 
 Errors: `400` invalid `right`; `502` market data unavailable (an audit record `SELECTION_FAILED` is written).
@@ -54,8 +61,6 @@ Errors: `400` invalid `right`; `502` market data unavailable (an audit record `S
 
 | Phase | Method | Path | Notes |
 |---|---|---|---|
-| 2 | GET | `/api/v8/market/bars/{symbol}?tf=1m\|5m&from&to` | Confirmed bars only; a forming bar is flagged separately |
-| 2 | GET | `/api/v8/market/health` | Per-feed staleness, gaps, last error |
 | 3 | GET | `/api/v8/signals/current` | Per strategy A–G: state, 0–100 calibrated score, feature contributions, regime |
 | 3 | GET | `/api/v8/signals/history?from&to&strategy` | Every evaluated signal, accepted or not |
 | 4/8 | POST | `/api/v8/research/backtests` | Starts a run (dataset hash, params, cost model); returns a run ID |

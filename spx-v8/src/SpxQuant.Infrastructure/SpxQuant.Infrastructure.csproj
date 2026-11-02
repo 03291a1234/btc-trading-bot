@@ -2,5 +2,7 @@
   <ItemGroup>
     <ProjectReference Include="../SpxQuant.Application/SpxQuant.Application.csproj" />
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Npgsql" Version="8.0.6" />
+    <EmbeddedResource Include="Persistence/Migrations/*.sql" />
   </ItemGroup>
 </Project>

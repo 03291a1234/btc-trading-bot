@@ -22,7 +22,9 @@ public sealed record OptionQuote(
     long? OpenInterest,
     OptionGreeks? Greeks,
     /// <summary>True only when trusted metadata establishes PM settlement. Root SPXW is PM-settled by product definition.</summary>
-    bool IsPmSettled = false)
+    bool IsPmSettled = false,
+    /// <summary>Observed for vendor Greeks; Estimated when computed locally (Black-Scholes from the quote mid).</summary>
+    Common.Provenance GreeksProvenance = Common.Provenance.Observed)
 {
     public decimal? Spread => Bid is { } b && Ask is { } a ? a - b : null;
     public decimal? Mid => Bid is { } b && Ask is { } a ? (a + b) / 2m : null;

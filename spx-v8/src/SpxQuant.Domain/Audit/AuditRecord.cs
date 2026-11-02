@@ -24,7 +24,9 @@ public sealed record AuditRecord(long Sequence, DateTimeOffset At, string Kind, 
         if (string.IsNullOrWhiteSpace(kind)) throw new ArgumentException("Audit kind required", nameof(kind));
         var seq = (previous?.Sequence ?? 0) + 1;
         var prev = previous?.Hash ?? GenesisHash;
+        // Truncate to whole microseconds: PostgreSQL timestamptz stores microseconds, and the hash must survive a round trip.
         var utc = at.ToUniversalTime();
+        utc = utc.AddTicks(-(utc.Ticks % 10));
         return new(seq, utc, kind, subject, payloadJson, prev, ComputeHash(prev, seq, utc, kind, subject, payloadJson));
     }
 

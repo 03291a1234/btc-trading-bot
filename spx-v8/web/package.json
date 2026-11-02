@@ -1,7 +1,7 @@
 {
   "name": "spx-quant-web",
   "private": true,
-  "version": "8.0.0-phase1",
+  "version": "8.0.0-phase2",
   "type": "module",
   "scripts": {
     "dev": "vite",

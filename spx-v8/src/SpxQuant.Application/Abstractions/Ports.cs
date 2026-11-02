@@ -7,7 +7,7 @@ namespace SpxQuant.Application.Abstractions;
 
 public interface IClock { DateTimeOffset UtcNow { get; } }
 
-public enum DataSourceKind { Replay, TradierReadOnly }
+public enum DataSourceKind { Replay, RecordedReplay, TradierReadOnly }
 
 /// <summary>
 /// Read-only market data port. There is deliberately no order, account or position method anywhere in v8;

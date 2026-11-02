@@ -11,7 +11,12 @@ export interface Selection {
   auditSequence: number; note: string;
   selected: null | { symbol: string; strike: number; bid: number; ask: number; spread: number; risk: { plannedLoss: number; worstCaseLoss: number } };
   rejectionCounts: Record<string, number>;
+  greeksSource?: string;
+  estimatedGreeksCount?: number;
 }
+
+export interface StreamHealth { status: 'HEALTHY' | 'UNHEALTHY' | 'NO_DATA_YET'; lastSuccess: string | null; consecutiveFailures: number; lastError: string | null }
+export interface MarketHealth { dataSource: string; evaluatedAt: string; streams: Record<string, StreamHealth>; recorder: { enabled: boolean } }
 
 /** API key lives only in memory for this page; never in localStorage, URLs or source. */
 export class ApiClient {
@@ -27,6 +32,7 @@ export class ApiClient {
   }
 
   system = () => this.request<SystemInfo>('/api/v8/system');
+  health = () => this.request<MarketHealth>('/api/v8/market/health');
   select = (right: 'CALL' | 'PUT') => this.request<Selection>('/api/v8/options/select', { method: 'POST', body: JSON.stringify({ right }) });
 }
 
@@ -42,4 +48,12 @@ export function provenanceLabel(p: Provenance): string {
 
 export function nonZeroRejections(counts: Record<string, number>): [string, number][] {
   return Object.entries(counts).filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+}
+
+/** Worst stream status wins; an empty stream map means nothing has been fetched yet. */
+export function overallHealth(streams: Record<string, StreamHealth>): StreamHealth['status'] {
+  const values = Object.values(streams).map((s) => s.status);
+  if (values.length === 0) return 'NO_DATA_YET';
+  if (values.includes('UNHEALTHY')) return 'UNHEALTHY';
+  return values.every((v) => v === 'HEALTHY') ? 'HEALTHY' : 'NO_DATA_YET';
 }

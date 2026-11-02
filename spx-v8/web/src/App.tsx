@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ApiClient, nonZeroRejections, provenanceLabel, type Selection, type SystemInfo } from './api';
+import { ApiClient, nonZeroRejections, overallHealth, provenanceLabel, type MarketHealth, type Selection, type SystemInfo } from './api';
 
 const css = {
   page: { fontFamily: 'Inter, system-ui, sans-serif', background: '#0b0f17', color: '#d7dde8', minHeight: '100vh', padding: 24 },
@@ -14,21 +14,22 @@ export function App() {
   const [client, setClient] = useState<ApiClient | null>(null);
   const [system, setSystem] = useState<SystemInfo | null>(null);
   const [selection, setSelection] = useState<Selection | null>(null);
+  const [health, setHealth] = useState<MarketHealth | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const connect = async () => {
     const c = new ApiClient(key);
-    try { setSystem(await c.system()); setClient(c); setError(null); } catch (e) { setError(String(e)); }
+    try { setSystem(await c.system()); setHealth(await c.health()); setClient(c); setError(null); } catch (e) { setError(String(e)); }
   };
   const evaluate = async (right: 'CALL' | 'PUT') => {
     if (!client) return;
-    try { setSelection(await client.select(right)); setError(null); } catch (e) { setError(String(e)); }
+    try { setSelection(await client.select(right)); setHealth(await client.health()); setError(null); } catch (e) { setError(String(e)); }
   };
 
   return (
     <div style={css.page}>
       <div style={css.banner}>PAPER / RESEARCH ONLY — no live brokerage orders exist in this system. Not financial advice.</div>
-      <h1 style={{ marginTop: 0 }}>SPX Quant Scalper Pro v8 <small style={{ fontSize: 14 }}>Phase 1</small></h1>
+      <h1 style={{ marginTop: 0 }}>SPX Quant Scalper Pro v8 <small style={{ fontSize: 14 }}>Phase 2</small></h1>
       {!client && (
         <div style={css.card}>
           <label>Local API key (kept in page memory only):{' '}
@@ -49,10 +50,21 @@ export function App() {
           </div>
         </div>
       )}
+      {health && (
+        <div style={css.card}>
+          <h3 style={{ marginTop: 0 }}>Market data — {overallHealth(health.streams)} · recorder {health.recorder.enabled ? 'ON' : 'off'}</h3>
+          <table><tbody>
+            {Object.entries(health.streams).map(([name, s]) => (
+              <tr key={name}><td style={{ paddingRight: 16 }}>{name}</td><td style={{ paddingRight: 16 }}>{s.status}</td>
+                <td style={{ paddingRight: 16 }}>{s.lastSuccess ?? '—'}</td><td>{s.lastError ?? ''}</td></tr>
+            ))}
+          </tbody></table>
+        </div>
+      )}
       {selection && (
         <div style={css.card}>
           <h3 style={{ marginTop: 0 }}>Contract selection — {selection.right} {selection.expiration}</h3>
-          <div style={css.tag}>Quotes: {provenanceLabel(selection.quoteProvenance)} · Risk: {provenanceLabel(selection.riskProvenance)}</div>
+          <div style={css.tag}>Quotes: {provenanceLabel(selection.quoteProvenance)} · Risk: {provenanceLabel(selection.riskProvenance)} · Greeks: {selection.greeksSource}{selection.estimatedGreeksCount ? ` (${selection.estimatedGreeksCount} ESTIMATED)` : ''}</div>
           <p>{selection.summary}</p>
           <p>Entry window: {selection.entryWindowOpen ? 'open' : `closed (${selection.entryWindowReason})`} · audit #{selection.auditSequence}</p>
           {selection.selected && (
