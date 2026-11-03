@@ -37,18 +37,40 @@ tr:last-child td{border-bottom:0}
 .warn{background:var(--obg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:16px;font-size:13px}
 .disc{margin-top:24px;padding:14px;border-radius:10px;background:var(--head);font-size:13px}
 a{color:var(--acc)}
+.tabs{position:sticky;top:0;z-index:5;display:flex;gap:4px;overflow-x:auto;margin:14px -16px 0;padding:8px 16px;background:var(--bg);border-bottom:1px solid var(--line);scrollbar-width:thin}
+.tabs button{flex:0 0 auto;font:inherit;font-size:13px;padding:7px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer}
+.tabs button:hover{border-color:var(--acc)}
+.tabs button[aria-selected="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
+.tn{display:inline-block;font-size:11px;opacity:.7;margin-right:6px}
+.panel{display:none}.panel.on{display:block}
+body.all .panel{display:block}
+.pager{display:flex;justify-content:space-between;gap:8px;margin-top:18px}
+.pager button{font:inherit;font-size:13px;padding:7px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer}
+.pager button[disabled]{opacity:.35;cursor:default}
+body.all .pager{display:none}
+th{top:0}
 </style>
 </head>
 <body>
 <div class="wrap">
 <h1>Daily Options Dashboard — Tue Nov 3, 2026</h1>
 <p class="sub">US midterm Election Day · data snapshot ≈ 12:15 ET (intraday) · EMA/RSI/MACD as of Nov 2 close · Greeks/IV are live chain marks · ⚠️ = unverified</p>
-<nav>
-<a href="#s1">1 Macro</a><a href="#s2">2 Universe</a><a href="#s3">3 Technicals</a><a href="#s4">4 Greeks &amp; EM</a><a href="#s5">5 Deep dive</a><a href="#s6">6 Top 3</a><a href="#s7">7 Avoid</a><a href="#s8">8 Risk</a><a href="#s9">9 Calendar</a><a href="#s10">10 Rules</a>
-</nav>
+<div class="tabs" role="tablist">
+<button role="tab" id="t1" data-tab="s1" aria-controls="panel-s1"><span class="tn">1</span>Macro</button>
+<button role="tab" id="t2" data-tab="s2" aria-controls="panel-s2"><span class="tn">2</span>Universe</button>
+<button role="tab" id="t3" data-tab="s3" aria-controls="panel-s3"><span class="tn">3</span>Technicals</button>
+<button role="tab" id="t4" data-tab="s4" aria-controls="panel-s4"><span class="tn">4</span>Greeks &amp; EM</button>
+<button role="tab" id="t5" data-tab="s5" aria-controls="panel-s5"><span class="tn">5</span>Deep Dive</button>
+<button role="tab" id="t6" data-tab="s6" aria-controls="panel-s6"><span class="tn">6</span>Top 3</button>
+<button role="tab" id="t7" data-tab="s7" aria-controls="panel-s7"><span class="tn">7</span>Avoid</button>
+<button role="tab" id="t8" data-tab="s8" aria-controls="panel-s8"><span class="tn">8</span>Risk</button>
+<button role="tab" id="t9" data-tab="s9" aria-controls="panel-s9"><span class="tn">9</span>Calendar</button>
+<button role="tab" id="t10" data-tab="s10" aria-controls="panel-s10"><span class="tn">10</span>Rules</button>
+<button role="tab" id="tall" data-tab="all">All</button>
+</div>
 
-<!-- ============ 1 ============ -->
-<h2 id="s1">1 · Macro Pulse</h2>
+<section class="panel" id="panel-s1" role="tabpanel" aria-labelledby="t1">
+<h2>1 · Macro Pulse</h2>
 <div class="tw"><table>
 <tr><th>Asset</th><th>Level</th><th>Chg</th><th>Read</th></tr>
 <tr><td>ES (proxy SPY)</td><td class="num"><b>$755.21</b></td><td class="num g">+0.42%</td><td class="w"><span class="pill pg">🟢</span> Chips lifting index · ⚠️ futures level not pulled</td></tr>
@@ -76,8 +98,9 @@ a{color:var(--acc)}
 </table></div>
 <div class="bias"><b>Bias: 🟠 NEUTRAL</b> — semis rotation bid, but narrow breadth (RSP −0.13% vs SPY +0.42%), 10Y ~4.9%, VIX ~21, and a binary election print tonight.</div>
 
-<!-- ============ 2 ============ -->
-<h2 id="s2">2 · Universe Main Grid</h2>
+</section>
+<section class="panel" id="panel-s2" role="tabpanel" aria-labelledby="t2">
+<h2>2 · Universe Main Grid</h2>
 <h3>A + B · Mag 7 + watchlist (by conviction)</h3>
 <div class="tw"><table>
 <tr><th>Ticker</th><th>Sent.</th><th class="num">Price</th><th class="num">%Chg</th><th class="num">Vol (intraday)</th><th>Catalyst</th><th>Rating / mean PT</th><th class="num">Support</th><th class="num">Resistance</th><th class="num">EM ±$ (1d)</th><th class="num">IV %</th><th>Conv.</th></tr>
@@ -126,8 +149,9 @@ a{color:var(--acc)}
 </table></div>
 <p class="note">⚠️ Average daily volume was not returned for the bull/bear lists, so the &gt;500K filter is not verified (IBTA, EVER, SRAD, AEHR most at risk).</p>
 
-<!-- ============ 3 ============ -->
-<h2 id="s3">3 · EMA / Technical Stack <span class="note">(Nov 2 close; price = live)</span></h2>
+</section>
+<section class="panel" id="panel-s3" role="tabpanel" aria-labelledby="t3">
+<h2>3 · EMA / Technical Stack <span class="note">(Nov 2 close; price = live)</span></h2>
 <div class="tw"><table>
 <tr><th>Ticker</th><th class="num">Price</th><th class="num">9 EMA</th><th class="num">21 EMA</th><th class="num">50 EMA</th><th class="num">200 EMA</th><th>Stack</th><th class="num">RSI</th><th>MACD (hist)</th><th>Pattern / flags</th></tr>
 <tr><td>IBTA</td><td class="num">63.89</td><td class="num">48.66</td><td class="num">46.70</td><td class="num">43.07</td><td class="num">36.32</td><td><span class="pill pg">BULL</span></td><td class="num">70.8</td><td class="g">Bull +0.02</td><td>Breakaway gap; overbought</td></tr>
@@ -165,8 +189,9 @@ a{color:var(--acc)}
 </table></div>
 <p class="note">Breaks: no Mag 7 name has a full bull stack. AVGO is in a full bear stack. GOOGL / META / MRVL / OKLO are below their 200 EMA. NVDA is defending its 200 EMA at <b>$205.77</b>; DT sits on its 200 EMA at <b>$49.15</b>.</p>
 
-<!-- ============ 4 ============ -->
-<h2 id="s4">4 · Greeks &amp; Expected Move</h2>
+</section>
+<section class="panel" id="panel-s4" role="tabpanel" aria-labelledby="t4">
+<h2>4 · Greeks &amp; Expected Move</h2>
 <p class="note">Live marks. Θ and ν per share (ν per 1 IV pt). Small caps without weeklies use Nov 20. 1w EM = 5 sessions; EM = spot × IV × √(days/252).</p>
 <div class="tw"><table>
 <tr><th>Ticker</th><th class="num">Spot</th><th>ATM strike / exp</th><th>Type</th><th class="num">Δ</th><th class="num">Γ</th><th class="num">Θ/day</th><th class="num">ν</th><th class="num">IV %</th><th class="num">1d EM ±%</th><th class="num">1w EM ±$</th></tr>
@@ -252,8 +277,9 @@ a{color:var(--acc)}
 <tr><td>⚠️ Caveat</td><td class="w">No IV-rank history in the feed; labels compare against typical levels for each name</td></tr>
 </table></div>
 
-<!-- ============ 5 ============ -->
-<h2 id="s5">5 · Deep Dive (★★★★☆+)</h2>
+</section>
+<section class="panel" id="panel-s5" role="tabpanel" aria-labelledby="t5">
+<h2>5 · Deep Dive (★★★★☆+)</h2>
 <div class="tw"><table>
 <tr><th></th><th><span class="pill pg">🟢 NVDA long</span></th><th><span class="pill pr">🔴 AAPL short</span></th><th><span class="pill pg">🟢 NBIX long</span></th></tr>
 <tr><td><b>TA</b></td><td class="w">Held <b>200 EMA $205.77</b> (11/2 low $201.66); below 9/21/50; RSI 33.3; MACD bear but histogram narrowing</td><td class="w">Lost <b>50 EMA $334.37</b> (now resistance); 9 &gt; 21 rolling over; MACD bear cross</td><td class="w"><b>Gapped over all 4 EMAs</b> incl. 200 ($148.36); MACD bull cross; RSI 53.5</td></tr>
@@ -268,8 +294,9 @@ a{color:var(--acc)}
 </table></div>
 <div class="warn"><b>AMD tonight (★★★☆☆, event-only):</b> ran +5.4% into the print. Company guide ~$13.0B ± $300M; consensus EPS $1.94–1.95 / rev $13.1B. Priced move ≈ <b>±$52 ($440–$544)</b>. If exposure is required: <b>Nov 6 490/540 call spread @ $17.50</b> (24.20 − 6.70) — max $50, breakeven <b>$507.50</b>, short strike at the top of the implied range, net vega ≈ 0.05 (IV crush mostly cancels). <b>Size ≤ 0.5%.</b></div>
 
-<!-- ============ 6 ============ -->
-<h2 id="s6">6 · Top 3 Plays</h2>
+</section>
+<section class="panel" id="panel-s6" role="tabpanel" aria-labelledby="t6">
+<h2>6 · Top 3 Plays</h2>
 <div class="cards">
 <div class="card"><h4><span class="pill pg">🟢 LONG</span> NVDA Nov 20 $210/$225 call spread · $5.65 debit</h4>
 <p>Bounced off its <b>200 EMA ($205.77)</b> with RSI 33 on a day semis led everything (SMH +2.6%). AMD sympathy tonight; Street PT $332 is 59% above spot. 210 strike carries 90K OI — magnet and call wall.</p>
@@ -285,8 +312,9 @@ a{color:var(--acc)}
 <p><b>Risk:</b> thin options (2.40 × 6.00, OI 52) — never pay the ask; biotech gaps can fade. <b>Stop:</b> close &lt; <b>$158.79</b>.</p></div>
 </div>
 
-<!-- ============ 7 ============ -->
-<h2 id="s7">7 · Avoid List</h2>
+</section>
+<section class="panel" id="panel-s7" role="tabpanel" aria-labelledby="t7">
+<h2>7 · Avoid List</h2>
 <div class="tw"><table>
 <tr><th>Ticker / sector</th><th>Reason</th><th>Detail</th></tr>
 <tr><td><span class="pill pr">🔴</span> <b>AMD naked long options</b></td><td>IV trap / pre-event</td><td class="w">Weekly IV 125.7%; 490C theta −$3.64/day (15%/day). Post-print crush near-certain — spread or nothing</td></tr>
@@ -297,8 +325,9 @@ a{color:var(--acc)}
 <tr><td><span class="pill po">🟠</span> <b>Policy-sensitive sectors</b> (managed care, pharma, energy)</td><td>Pre-event uncertainty</td><td class="w">Midterm outcome (~75% Dem Senate) not priced per CNBC — wait for Wednesday</td></tr>
 </table></div>
 
-<!-- ============ 8 ============ -->
-<h2 id="s8">8 · Risk Dashboard</h2>
+</section>
+<section class="panel" id="panel-s8" role="tabpanel" aria-labelledby="t8">
+<h2>8 · Risk Dashboard</h2>
 <div class="tw"><table>
 <tr><th>Metric</th><th>Reading</th><th>Signal</th></tr>
 <tr><td>VIX</td><td><b>20.83</b> (−1.5% today, +19% over 5 days)</td><td><span class="pill po">🟠</span></td></tr>
@@ -312,8 +341,9 @@ a{color:var(--acc)}
 <tr><td><b>Overall bias</b></td><td class="w"><b>NEUTRAL</b> — semis risk-on, breadth/rates risk-off, binary election overnight</td><td><span class="pill po">🟠</span></td></tr>
 </table></div>
 
-<!-- ============ 9 ============ -->
-<h2 id="s9">9 · Week-Ahead Calendar</h2>
+</section>
+<section class="panel" id="panel-s9" role="tabpanel" aria-labelledby="t9">
+<h2>9 · Week-Ahead Calendar</h2>
 <div class="tw"><table>
 <tr><th>Day</th><th>Time</th><th>Ticker / event</th><th>What to watch</th></tr>
 <tr><td>Tue 11/3</td><td>10:00</td><td>JOLTS (Sept), factory orders</td><td class="w">Openings vs 7.13M</td></tr>
@@ -327,8 +357,9 @@ a{color:var(--acc)}
 <tr><td>Fri 11/6</td><td>8:30</td><td><b>October NFP</b> (+55K, 4.2%)</td><td class="w">Hot print + 10Y ~4.9% = multiple risk; weekly expiry</td></tr>
 </table></div>
 
-<!-- ============ 10 ============ -->
-<h2 id="s10">10 · Risk Management Rules</h2>
+</section>
+<section class="panel" id="panel-s10" role="tabpanel" aria-labelledby="t10">
+<h2>10 · Risk Management Rules</h2>
 <div class="tw"><table>
 <tr><th>Rule</th><th>Spec</th></tr>
 <tr><td><b>Max allocation</b></td><td class="w"><b>≤ 2% NAV at risk per play</b>; <b>≤ 0.5%</b> on binary events (AMD); total directional premium <b>&lt; 6%</b> through election + NFP</td></tr>
@@ -338,6 +369,8 @@ a{color:var(--acc)}
 <tr><td><b>Theta watch</b> (Nov 6, 3 DTE)</td><td class="w">NVDA 210C −19%/day · AAPL 330P −18% · META 625C −17% · OKLO 23P −17% · TSLA 397.5P −16% · IONQ 30C −16% · AMD 490C −15% · PLTR 175P −15% · MSFT 515C −14% — <b>no holding without a same-week catalyst</b></td></tr>
 </table></div>
 
+</section>
+<div class="pager"><button id="prev">← Previous</button><span class="note" id="pos"></span><button id="next">Next →</button></div>
 <div class="warn"><b>⚠️ Not verified:</b> ES/NQ/RTY futures levels (ETF proxies shown), intraday 2Y, equity put/call, NYSE/Nasdaq A/D, short interest, insider activity, average volume for the bull/bear lists, the JOLTS actual, the OKLO initiating firm, Uber timing. Technicals as of Nov 2 close; option marks ≈ 12:15 ET.</div>
 
 <p class="note"><b>Sources:</b>
@@ -356,5 +389,37 @@ a{color:var(--acc)}
 
 <div class="disc"><b>Disclaimer:</b> Educational analysis only — not investment advice. Options involve substantial risk, including total loss of premium. Verify every price, Greek and level against your own broker feed before trading.</div>
 </div>
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tabs button'));
+  var ids=tabs.map(function(b){return b.dataset.tab}).filter(function(i){return i!=='all'});
+  var cur='s1';
+  function show(id,push){
+    if(ids.indexOf(id)<0&&id!=='all')id='s1';
+    cur=id;
+    document.body.classList.toggle('all',id==='all');
+    ids.forEach(function(i){document.getElementById('panel-'+i).classList.toggle('on',i===id)});
+    tabs.forEach(function(b){var on=b.dataset.tab===id;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;if(on){var c=b.parentNode;if(b.offsetLeft<c.scrollLeft||b.offsetLeft+b.offsetWidth>c.scrollLeft+c.clientWidth)c.scrollLeft=b.offsetLeft-16}});
+    var k=ids.indexOf(id);
+    document.getElementById('prev').disabled=k<=0;
+    document.getElementById('next').disabled=k<0||k>=ids.length-1;
+    document.getElementById('pos').textContent=k<0?'':(k+1)+' / '+ids.length;
+    try{localStorage.setItem('odash-tab',id)}catch(e){}
+    if(push){try{history.replaceState(null,'','#'+id)}catch(e){}}
+  }
+  tabs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab,true);window.scrollTo({top:0})})});
+  document.querySelector('.tabs').addEventListener('keydown',function(e){
+    var all=ids.concat(['all']),k=all.indexOf(cur);
+    if(e.key==='ArrowRight'){k=(k+1)%all.length}else if(e.key==='ArrowLeft'){k=(k-1+all.length)%all.length}else return;
+    e.preventDefault();show(all[k],true);document.getElementById(all[k]==='all'?'tall':'t'+all[k].slice(1)).focus();
+  });
+  document.getElementById('prev').onclick=function(){var k=ids.indexOf(cur);if(k>0){show(ids[k-1],true);window.scrollTo({top:0})}};
+  document.getElementById('next').onclick=function(){var k=ids.indexOf(cur);if(k<ids.length-1){show(ids[k+1],true);window.scrollTo({top:0})}};
+  window.addEventListener('hashchange',function(){show(location.hash.slice(1),false);window.scrollTo(0,0)});
+  var start=location.hash.slice(1);
+  if(!start){try{start=localStorage.getItem('odash-tab')}catch(e){}}
+  show(start||'s1',false);
+})();
+</script>
 </body>
 </html>
