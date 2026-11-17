@@ -1,0 +1,1497 @@
+{
+ "date": "2026-11-17",
+ "asof": "Mon Nov 16 close (≈ 8 PM ET); pre-market not yet open",
+ "market": {
+  "vix": 22.91,
+  "bias": "RISK-OFF"
+ },
+ "tickers": [
+  {
+   "t": "NVDA",
+   "group": "core",
+   "spot": 156.14,
+   "prev_close": 156.14,
+   "chg_pct": -4.12,
+   "vol_m": 333.7,
+   "high": 163.2,
+   "low": 155.01,
+   "ema9": 175.63,
+   "ema21": 191.32,
+   "ema50": 205.13,
+   "ema200": 203.17,
+   "rsi": 24.9,
+   "macd": -14.84,
+   "macd_signal": -11.06,
+   "macd_hist": -3.79,
+   "iv": 1.1579,
+   "event": true,
+   "liquid": true,
+   "catalyst": "FQ3 earnings Tue AMC (cons. EPS ~$2.47, rev ~$108.8B, guide $108B ±2%); interim CEO Colette Kress — board not bringing back Huang (CNBC); UBS & Mizuho trimmed PTs",
+   "rating": "56B/15H/1S · $280.78",
+   "opt": {
+    "strike": 155.0,
+    "type": "C",
+    "exp": "2026-11-20",
+    "delta": 0.556,
+    "gamma": 0.0213,
+    "theta": -0.965,
+    "vega": 0.0633,
+    "iv": 1.1579,
+    "mark": 8.15,
+    "oi": 4967
+   },
+   "pattern": "−25% since Nov 3; earnings Tue AMC"
+  },
+  {
+   "t": "AAPL",
+   "group": "core",
+   "spot": 352.78,
+   "prev_close": 352.78,
+   "chg_pct": -0.98,
+   "vol_m": 50.3,
+   "high": 357.125,
+   "low": 351.31,
+   "ema9": 351.56,
+   "ema21": 347.18,
+   "ema50": 339.43,
+   "ema200": 308.1,
+   "rsi": 60.6,
+   "macd": 4.44,
+   "macd_signal": 3.51,
+   "macd_hist": 0.93,
+   "iv": 0.3073,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Relative strength — held 9 EMA on a −1.9% S&P day",
+   "rating": "28B/16H/6S · $348.52",
+   "opt": {
+    "strike": 352.5,
+    "type": "C",
+    "exp": "2026-11-20",
+    "delta": 0.513,
+    "gamma": 0.0359,
+    "theta": -0.597,
+    "vega": 0.1441,
+    "iv": 0.3073,
+    "mark": 4.525,
+    "oi": 2995
+   }
+  },
+  {
+   "t": "MSFT",
+   "group": "core",
+   "spot": 517.99,
+   "prev_close": 517.99,
+   "chg_pct": -1.13,
+   "vol_m": 30.2,
+   "high": 527.95,
+   "low": 516.82,
+   "ema9": 527.53,
+   "ema21": 527.72,
+   "ema50": 516.38,
+   "ema200": 471.12,
+   "rsi": 48.8,
+   "macd": 1.47,
+   "macd_signal": 3.37,
+   "macd_hist": -1.9,
+   "iv": 0.449,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Mega-cap de-risking; sitting on 50 EMA",
+   "rating": "55B/4H/0S · $639.16",
+   "opt": {
+    "strike": 520.0,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.521,
+    "gamma": 0.0168,
+    "theta": -1.208,
+    "vega": 0.2115,
+    "iv": 0.449,
+    "mark": 10.45,
+    "oi": 6584
+   }
+  },
+  {
+   "t": "GOOGL",
+   "group": "core",
+   "spot": 283.72,
+   "prev_close": 283.72,
+   "chg_pct": -4.08,
+   "vol_m": 34.7,
+   "high": 294.14,
+   "low": 282.96,
+   "ema9": 293.95,
+   "ema21": 302.99,
+   "ema50": 319.83,
+   "ema200": 325.58,
+   "rsi": 40.6,
+   "macd": -11.33,
+   "macd_signal": -13.12,
+   "macd_hist": 1.79,
+   "iv": 0.476,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Tech selloff; below 200 EMA",
+   "rating": "64B/8H/0S · $392.08",
+   "opt": {
+    "strike": 282.5,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.45,
+    "gamma": 0.0286,
+    "theta": -0.7,
+    "vega": 0.1151,
+    "iv": 0.476,
+    "mark": 4.825,
+    "oi": 4135
+   },
+   "iv_target": 0.3659,
+   "stars": 4
+  },
+  {
+   "t": "AMZN",
+   "group": "core",
+   "spot": 257.75,
+   "prev_close": 257.75,
+   "chg_pct": -3.35,
+   "vol_m": 48.1,
+   "high": 262.92,
+   "low": 256.68,
+   "ema9": 264.05,
+   "ema21": 259.86,
+   "ema50": 256.92,
+   "ema200": 247.52,
+   "rsi": 57.4,
+   "macd": 3.62,
+   "macd_signal": 2.16,
+   "macd_hist": 1.46,
+   "iv": 0.5003,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Tech selloff; holding 50 EMA",
+   "rating": "65B/4H/0S · $327.73",
+   "opt": {
+    "strike": 257.5,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.466,
+    "gamma": 0.0301,
+    "theta": -0.672,
+    "vega": 0.1052,
+    "iv": 0.5003,
+    "mark": 4.875,
+    "oi": 2921
+   }
+  },
+  {
+   "t": "META",
+   "group": "core",
+   "spot": 626.41,
+   "prev_close": 626.41,
+   "chg_pct": -2.39,
+   "vol_m": 11.6,
+   "high": 640.7,
+   "low": 620.14,
+   "ema9": 633.2,
+   "ema21": 643.7,
+   "ema50": 653.63,
+   "ema200": 641.51,
+   "rsi": 47.8,
+   "macd": -13.44,
+   "macd_signal": -16.77,
+   "macd_hist": 3.33,
+   "iv": 0.5183,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Tech selloff; just under 200 EMA",
+   "rating": "64B/6H/1S · $850.52",
+   "opt": {
+    "strike": 625.0,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.481,
+    "gamma": 0.012,
+    "theta": -1.692,
+    "vega": 0.2555,
+    "iv": 0.5183,
+    "mark": 12.9,
+    "oi": 3936
+   },
+   "iv_target": 0.4251,
+   "stars": 4
+  },
+  {
+   "t": "TSLA",
+   "group": "core",
+   "spot": 379.74,
+   "prev_close": 379.74,
+   "chg_pct": -2.69,
+   "vol_m": 30.2,
+   "high": 389.8,
+   "low": 375.63,
+   "ema9": 386.44,
+   "ema21": 383.48,
+   "ema50": 376.97,
+   "ema200": 379.07,
+   "rsi": 53.5,
+   "macd": 3.53,
+   "macd_signal": 3.49,
+   "macd_hist": 0.04,
+   "iv": 0.6253,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Tech selloff; pinned at 200 EMA",
+   "rating": "23B/23H/3S · $423.70",
+   "opt": {
+    "strike": 380.0,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.493,
+    "gamma": 0.0164,
+    "theta": -1.244,
+    "vega": 0.1552,
+    "iv": 0.6253,
+    "mark": 9.875,
+    "oi": 10750
+   }
+  },
+  {
+   "t": "PLTR",
+   "group": "core",
+   "spot": 160.39,
+   "prev_close": 160.39,
+   "chg_pct": -4.53,
+   "vol_m": 17.8,
+   "high": 166.09,
+   "low": 158.68,
+   "ema9": 170.93,
+   "ema21": 177.66,
+   "ema50": 179.43,
+   "ema200": 162.24,
+   "rsi": 39.5,
+   "macd": -6.26,
+   "macd_signal": -4.9,
+   "macd_hist": -1.36,
+   "iv": 0.8086,
+   "event": false,
+   "liquid": true,
+   "catalyst": "AI software de-rating; testing 200 EMA",
+   "rating": "26B/9H/2S · $223.76",
+   "opt": {
+    "strike": 160.0,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.461,
+    "gamma": 0.0298,
+    "theta": -0.681,
+    "vega": 0.0654,
+    "iv": 0.8086,
+    "mark": 4.925,
+    "oi": 7734
+   },
+   "iv_target": 0.5599
+  },
+  {
+   "t": "AMD",
+   "group": "core",
+   "spot": 504.28,
+   "prev_close": 504.28,
+   "chg_pct": -5.58,
+   "vol_m": 37.1,
+   "high": 526.2,
+   "low": 501.3,
+   "ema9": 526.09,
+   "ema21": 528.17,
+   "ema50": 534.35,
+   "ema200": 444.51,
+   "rsi": 50.4,
+   "macd": -6.8,
+   "macd_signal": -14.08,
+   "macd_hist": 7.27,
+   "iv": 1.0877,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Chip selloff (SMH −5.1%) into NVDA print",
+   "rating": "51B/7H/0S · $660.94",
+   "opt": {
+    "strike": 505.0,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.483,
+    "gamma": 0.0071,
+    "theta": -2.891,
+    "vega": 0.2059,
+    "iv": 1.0877,
+    "mark": 22.8,
+    "oi": 1142
+   }
+  },
+  {
+   "t": "AVGO",
+   "group": "core",
+   "spot": 333.4,
+   "prev_close": 333.4,
+   "chg_pct": -3.93,
+   "vol_m": 27.0,
+   "high": 337.74,
+   "low": 327.8,
+   "ema9": 338.41,
+   "ema21": 336.51,
+   "ema50": 345.67,
+   "ema200": 357.09,
+   "rsi": 53.2,
+   "macd": -1.09,
+   "macd_signal": -5.49,
+   "macd_hist": 4.4,
+   "iv": 0.8189,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Chip selloff (SMH −5.1%) into NVDA print",
+   "rating": "53B/3H/0S · $525.15",
+   "opt": {
+    "strike": 332.5,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.452,
+    "gamma": 0.0141,
+    "theta": -1.432,
+    "vega": 0.1358,
+    "iv": 0.8189,
+    "mark": 10.075,
+    "oi": 924
+   }
+  },
+  {
+   "t": "IONQ",
+   "group": "core",
+   "spot": 26.45,
+   "prev_close": 26.45,
+   "chg_pct": -8.42,
+   "vol_m": 22.1,
+   "high": 27.86,
+   "low": 26.2,
+   "ema9": 30.98,
+   "ema21": 32.11,
+   "ema50": 35.11,
+   "ema200": 40.87,
+   "rsi": 40.9,
+   "macd": -1.48,
+   "macd_signal": -1.67,
+   "macd_hist": 0.19,
+   "iv": 1.0749,
+   "event": false,
+   "liquid": false,
+   "catalyst": "Speculative-tech liquidation (−8.4%)",
+   "rating": "14B/3H/0S · $53.99",
+   "opt": {
+    "strike": 26.5,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.483,
+    "gamma": 0.1367,
+    "theta": -0.15,
+    "vega": 0.0108,
+    "iv": 1.0749,
+    "mark": 1.18,
+    "oi": 200
+   }
+  },
+  {
+   "t": "OKLO",
+   "group": "core",
+   "spot": 23.03,
+   "prev_close": 23.03,
+   "chg_pct": -3.73,
+   "vol_m": 6.6,
+   "high": 24.14,
+   "low": 22.54,
+   "ema9": 24.45,
+   "ema21": 26.03,
+   "ema50": 30.86,
+   "ema200": 48.15,
+   "rsi": 40.8,
+   "macd": -2.17,
+   "macd_signal": -2.62,
+   "macd_hist": 0.44,
+   "iv": 1.0892,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Speculative-tech liquidation",
+   "rating": "12B/8H/1S · $49.00",
+   "opt": {
+    "strike": 23.0,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.47,
+    "gamma": 0.1546,
+    "theta": -0.132,
+    "vega": 0.0094,
+    "iv": 1.0892,
+    "mark": 1.0,
+    "oi": 875
+   }
+  },
+  {
+   "t": "TSN",
+   "group": "bull",
+   "spot": 63.95,
+   "prev_close": 63.95,
+   "chg_pct": 8.73,
+   "vol_m": 8.4,
+   "high": 65.34,
+   "low": 60.46,
+   "ema9": 58.98,
+   "ema21": 57.72,
+   "ema50": 56.3,
+   "ema200": 57.57,
+   "rsi": 61.5,
+   "macd": 1.4,
+   "macd_signal": 1.43,
+   "macd_hist": -0.03,
+   "iv": 0.3815,
+   "event": false,
+   "liquid": true,
+   "catalyst": "FQ4 beat: EPS $0.61 vs $0.53, rev $14.59B vs $14.1B; FY27 op-income guide in line",
+   "rating": "7B/7H/1S · $63.91",
+   "opt": {
+    "strike": 65.0,
+    "type": "C",
+    "exp": "2026-11-20",
+    "delta": 0.351,
+    "gamma": 0.1483,
+    "theta": -0.123,
+    "vega": 0.0243,
+    "iv": 0.3815,
+    "mark": 0.575,
+    "oi": 2162
+   }
+  },
+  {
+   "t": "CGON",
+   "group": "bull",
+   "spot": 84.78,
+   "prev_close": 84.78,
+   "chg_pct": 13.96,
+   "vol_m": 9.9,
+   "high": 93.95,
+   "low": 78.27,
+   "ema9": 73.57,
+   "ema21": 69.73,
+   "ema50": 68.82,
+   "ema200": 64.29,
+   "rsi": 71.6,
+   "macd": 2.93,
+   "macd_signal": 1.09,
+   "macd_hist": 1.84,
+   "iv": 0.7885,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Phase 3: 68% reduction in bladder-cancer recurrence (gap +32% pre-mkt, faded to +14%)",
+   "rating": "14B/1H/0S · $99.85",
+   "opt": {
+    "strike": 85.0,
+    "type": "C",
+    "exp": "2026-11-20",
+    "delta": 0.5,
+    "gamma": 0.0583,
+    "theta": -0.36,
+    "vega": 0.0346,
+    "iv": 0.7885,
+    "mark": 2.6,
+    "oi": 6766
+   },
+   "pattern": "Gap-and-fade: open 92 → close 84.78"
+  },
+  {
+   "t": "PG",
+   "group": "bull",
+   "spot": 173.02,
+   "prev_close": 173.02,
+   "chg_pct": 1.9,
+   "vol_m": 15.0,
+   "high": 173.57,
+   "low": 171.925,
+   "ema9": 167.52,
+   "ema21": 163.72,
+   "ema50": 157.58,
+   "ema200": 151.49,
+   "rsi": 68.2,
+   "macd": 4.22,
+   "macd_signal": 4.07,
+   "macd_hist": 0.15,
+   "iv": 0.3176,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Defensive rotation; 52-wk high; investor day Thu 11/19",
+   "rating": "13B/11H/2S · $174.57",
+   "opt": {
+    "strike": 172.5,
+    "type": "C",
+    "exp": "2026-11-20",
+    "delta": 0.557,
+    "gamma": 0.0701,
+    "theta": -0.301,
+    "vega": 0.0701,
+    "iv": 0.3176,
+    "mark": 2.62,
+    "oi": 1747
+   },
+   "iv_target": 0.2334,
+   "stars": 4
+  },
+  {
+   "t": "HUM",
+   "group": "bull",
+   "spot": 461.25,
+   "prev_close": 461.25,
+   "chg_pct": 2.5,
+   "vol_m": 1.3,
+   "high": 462.869,
+   "low": 449.08,
+   "ema9": 437.97,
+   "ema21": 427.5,
+   "ema50": 412.95,
+   "ema200": 350.1,
+   "rsi": 64.5,
+   "macd": 10.11,
+   "macd_signal": 7.43,
+   "macd_hist": 2.68,
+   "iv": 0.4839,
+   "event": false,
+   "liquid": true,
+   "catalyst": "RBC upgrade → Outperform",
+   "rating": "17B/12H/0S · $510.57",
+   "opt": {
+    "strike": 460.0,
+    "type": "C",
+    "exp": "2026-11-20",
+    "delta": 0.537,
+    "gamma": 0.0174,
+    "theta": -1.212,
+    "vega": 0.1879,
+    "iv": 0.4839,
+    "mark": 9.9,
+    "oi": 1154
+   },
+   "iv_target": 0.4224
+  },
+  {
+   "t": "NUE",
+   "group": "bull",
+   "spot": 252.67,
+   "prev_close": 252.67,
+   "chg_pct": 0.38,
+   "vol_m": 1.1,
+   "high": 259.7,
+   "low": 251.25,
+   "ema9": 256.47,
+   "ema21": 258.08,
+   "ema50": 256.15,
+   "ema200": 230.06,
+   "rsi": 44.8,
+   "macd": -0.54,
+   "macd_signal": 1.18,
+   "macd_hist": -1.72,
+   "iv": 0.4775,
+   "event": false,
+   "liquid": false,
+   "catalyst": "UBS upgrade → Buy",
+   "rating": "16B/2H/2S · $306.60",
+   "opt": {
+    "strike": 250.0,
+    "type": "C",
+    "exp": "2026-11-20",
+    "delta": 0.6,
+    "gamma": 0.0312,
+    "theta": -0.639,
+    "vega": 0.1001,
+    "iv": 0.4775,
+    "mark": 6.45,
+    "oi": 246
+   }
+  },
+  {
+   "t": "CL",
+   "group": "bull",
+   "spot": 100.99,
+   "prev_close": 100.99,
+   "chg_pct": 1.33,
+   "vol_m": 8.8,
+   "high": 101.81,
+   "low": 100.0,
+   "ema9": 98.1,
+   "ema21": 96.03,
+   "ema50": 93.27,
+   "ema200": 90.04,
+   "rsi": 65.2,
+   "macd": 2.23,
+   "macd_signal": 2.08,
+   "macd_hist": 0.14,
+   "iv": 0.3558,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Defensive rotation; 52-wk high",
+   "rating": "13B/9H/1S · $102.42",
+   "opt": {
+    "strike": 100.0,
+    "type": "C",
+    "exp": "2026-11-20",
+    "delta": 0.617,
+    "gamma": 0.1036,
+    "theta": -0.19,
+    "vega": 0.0395,
+    "iv": 0.3558,
+    "mark": 2.025,
+    "oi": 855
+   }
+  },
+  {
+   "t": "CHD",
+   "group": "bull",
+   "spot": 114.74,
+   "prev_close": 114.74,
+   "chg_pct": 1.54,
+   "vol_m": 3.9,
+   "high": 115.46,
+   "low": 113.13,
+   "ema9": 111.42,
+   "ema21": 108.63,
+   "ema50": 104.44,
+   "ema200": 98.98,
+   "rsi": 69.0,
+   "macd": 3.09,
+   "macd_signal": 2.99,
+   "macd_hist": 0.09,
+   "iv": 0.2263,
+   "event": false,
+   "liquid": false,
+   "catalyst": "Defensive rotation; 52-wk high",
+   "rating": "10B/9H/3S · $112.18",
+   "opt": {
+    "strike": 115.0,
+    "type": "C",
+    "exp": "2026-11-20",
+    "delta": 0.479,
+    "gamma": 0.1496,
+    "theta": -0.144,
+    "vega": 0.0469,
+    "iv": 0.2263,
+    "mark": 0.975,
+    "oi": 214
+   }
+  },
+  {
+   "t": "COST",
+   "group": "bull",
+   "spot": 1113.74,
+   "prev_close": 1113.74,
+   "chg_pct": 0.69,
+   "vol_m": 3.1,
+   "high": 1117.0,
+   "low": 1104.886,
+   "ema9": 1076.92,
+   "ema21": 1041.48,
+   "ema50": 998.54,
+   "ema200": 968.48,
+   "rsi": 76.0,
+   "macd": 36.1,
+   "macd_signal": 30.52,
+   "macd_hist": 5.59,
+   "iv": 0.2866,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Defensive rotation; 52-wk high (RSI 76)",
+   "rating": "25B/14H/2S · $1,098.16",
+   "opt": {
+    "strike": 1110.0,
+    "type": "C",
+    "exp": "2026-11-20",
+    "delta": 0.565,
+    "gamma": 0.012,
+    "theta": -1.749,
+    "vega": 0.4496,
+    "iv": 0.2866,
+    "mark": 15.625,
+    "oi": 420
+   }
+  },
+  {
+   "t": "INTC",
+   "group": "bear",
+   "spot": 55.47,
+   "prev_close": 55.47,
+   "chg_pct": -7.03,
+   "vol_m": 105.9,
+   "high": 57.2,
+   "low": 54.89,
+   "ema9": 61.9,
+   "ema21": 71.61,
+   "ema50": 85.21,
+   "ema200": 84.26,
+   "rsi": 32.4,
+   "macd": -10.86,
+   "macd_signal": -10.91,
+   "macd_hist": 0.05,
+   "iv": 1.0424,
+   "event": false,
+   "liquid": true,
+   "catalyst": "NVDA cut its INTC stake 25% (~$5.5B sold); −7.0%, a further −3.9% after hours ($53.31)",
+   "rating": "19B/31H/1S · $91.04",
+   "opt": {
+    "strike": 55.0,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.442,
+    "gamma": 0.0665,
+    "theta": -0.302,
+    "vega": 0.0225,
+    "iv": 1.0424,
+    "mark": 2.085,
+    "oi": 8706
+   },
+   "pattern": "After hours −3.9% ($53.31)"
+  },
+  {
+   "t": "SNDK",
+   "group": "bear",
+   "spot": 809.11,
+   "prev_close": 809.11,
+   "chg_pct": -8.58,
+   "vol_m": 12.6,
+   "high": 838.48,
+   "low": 799.0,
+   "ema9": 945.21,
+   "ema21": 1091.82,
+   "ema50": 1294.83,
+   "ema200": 1218.93,
+   "rsi": 33.9,
+   "macd": -160.45,
+   "macd_signal": -154.55,
+   "macd_hist": -5.89,
+   "iv": 1.4313,
+   "event": false,
+   "liquid": false,
+   "catalyst": "AI 'picks & shovels' unwind (−8.6%)",
+   "rating": "28B/6H/0S · $2,168.80",
+   "opt": {
+    "strike": 810.0,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.468,
+    "gamma": 0.0033,
+    "theta": -6.117,
+    "vega": 0.3303,
+    "iv": 1.4313,
+    "mark": 47.0,
+    "oi": 249
+   }
+  },
+  {
+   "t": "LITE",
+   "group": "bear",
+   "spot": 546.0,
+   "prev_close": 546.0,
+   "chg_pct": -8.49,
+   "vol_m": 4.6,
+   "high": 562.25,
+   "low": 539.1,
+   "ema9": 626.0,
+   "ema21": 705.55,
+   "ema50": 797.15,
+   "ema200": 749.07,
+   "rsi": 37.4,
+   "macd": -84.59,
+   "macd_signal": -79.35,
+   "macd_hist": -5.24,
+   "iv": 1.268,
+   "event": false,
+   "liquid": false,
+   "catalyst": "AI optical unwind (−8.5%)",
+   "rating": "25B/6H/0S · $1,056.07",
+   "opt": {
+    "strike": 545.0,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.469,
+    "gamma": 0.0056,
+    "theta": -3.646,
+    "vega": 0.2224,
+    "iv": 1.268,
+    "mark": 27.8,
+    "oi": 73
+   }
+  },
+  {
+   "t": "BE",
+   "group": "bear",
+   "spot": 177.28,
+   "prev_close": 177.28,
+   "chg_pct": -7.67,
+   "vol_m": 12.9,
+   "high": 183.2,
+   "low": 173.9,
+   "ema9": 195.94,
+   "ema21": 207.57,
+   "ema50": 225.17,
+   "ema200": 211.47,
+   "rsi": 43.5,
+   "macd": -13.82,
+   "macd_signal": -15.03,
+   "macd_hist": 1.21,
+   "iv": 1.3221,
+   "event": false,
+   "liquid": true,
+   "catalyst": "AI data-center power unwind (−7.7%)",
+   "rating": "22B/12H/2S · $294.59",
+   "opt": {
+    "strike": 177.5,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.475,
+    "gamma": 0.0166,
+    "theta": -1.237,
+    "vega": 0.0723,
+    "iv": 1.3221,
+    "mark": 9.65,
+    "oi": 323
+   }
+  },
+  {
+   "t": "MSTR",
+   "group": "bear",
+   "spot": 103.03,
+   "prev_close": 103.03,
+   "chg_pct": -7.7,
+   "vol_m": 21.3,
+   "high": 105.79,
+   "low": 101.7,
+   "ema9": 121.06,
+   "ema21": 130.12,
+   "ema50": 134.44,
+   "ema200": 148.9,
+   "rsi": 32.6,
+   "macd": -8.12,
+   "macd_signal": -5.48,
+   "macd_hist": -2.63,
+   "iv": 1.0633,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Bitcoin hit $62K over weekend (6th straight weekly loss); −7.7%",
+   "rating": "20B/2H/0S · $238.50",
+   "opt": {
+    "strike": 103.0,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.475,
+    "gamma": 0.0355,
+    "theta": -0.577,
+    "vega": 0.0421,
+    "iv": 1.0633,
+    "mark": 4.425,
+    "oi": 512
+   }
+  },
+  {
+   "t": "COIN",
+   "group": "bear",
+   "spot": 119.84,
+   "prev_close": 119.84,
+   "chg_pct": -6.12,
+   "vol_m": 11.2,
+   "high": 122.99,
+   "low": 117.32,
+   "ema9": 134.99,
+   "ema21": 146.7,
+   "ema50": 159.96,
+   "ema200": 184.2,
+   "rsi": 32.4,
+   "macd": -12.13,
+   "macd_signal": -10.76,
+   "macd_hist": -1.37,
+   "iv": 0.8916,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Bitcoin liquidation cascade; −6.1%",
+   "rating": "25B/12H/4S · $193.29",
+   "opt": {
+    "strike": 120.0,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.486,
+    "gamma": 0.0364,
+    "theta": -0.562,
+    "vega": 0.049,
+    "iv": 0.8916,
+    "mark": 4.425,
+    "oi": 6556
+   },
+   "iv_target": 0.7208
+  },
+  {
+   "t": "NBIS",
+   "group": "bear",
+   "spot": 107.13,
+   "prev_close": 107.13,
+   "chg_pct": -7.56,
+   "vol_m": 30.2,
+   "high": 111.55,
+   "low": 104.75,
+   "ema9": 132.53,
+   "ema21": 150.48,
+   "ema50": 176.96,
+   "ema200": 175.33,
+   "rsi": 35.8,
+   "macd": -19.65,
+   "macd_signal": -18.62,
+   "macd_hist": -1.03,
+   "iv": 1.5042,
+   "event": false,
+   "liquid": false,
+   "catalyst": "Neocloud selloff, 3rd straight loss (−7.6%)",
+   "rating": "17B/9H/1S · $242.43",
+   "opt": {
+    "strike": 107.0,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.465,
+    "gamma": 0.024,
+    "theta": -0.849,
+    "vega": 0.0436,
+    "iv": 1.5042,
+    "mark": 6.5,
+    "oi": 0
+   }
+  },
+  {
+   "t": "CRWV",
+   "group": "bear",
+   "spot": 49.88,
+   "prev_close": 49.88,
+   "chg_pct": -6.12,
+   "vol_m": 53.5,
+   "high": 52.06,
+   "low": 48.59,
+   "ema9": 53.38,
+   "ema21": 57.22,
+   "ema50": 67.34,
+   "ema200": 84.09,
+   "rsi": 43.1,
+   "macd": -5.35,
+   "macd_signal": -6.67,
+   "macd_hist": 1.32,
+   "iv": 1.4512,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Neocloud selloff, 3rd straight loss (−6.1%)",
+   "rating": "33B/11H/3S · $114.00",
+   "opt": {
+    "strike": 50.0,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.476,
+    "gamma": 0.0536,
+    "theta": -0.382,
+    "vega": 0.0204,
+    "iv": 1.4512,
+    "mark": 3.01,
+    "oi": 20959
+   }
+  },
+  {
+   "t": "SMMT",
+   "group": "bear",
+   "spot": 11.82,
+   "prev_close": 11.82,
+   "chg_pct": -16.47,
+   "vol_m": 24.4,
+   "high": 13.28,
+   "low": 11.525,
+   "ema9": 15.45,
+   "ema21": 15.73,
+   "ema50": 15.8,
+   "ema200": 16.4,
+   "rsi": 42.2,
+   "macd": -0.21,
+   "macd_signal": -0.06,
+   "macd_hist": -0.15,
+   "iv": 1.2559,
+   "event": false,
+   "liquid": true,
+   "catalyst": "FDA Complete Response Letter on lung-cancer drug (−16.5%)",
+   "rating": "12B/6H/0S · $29.71",
+   "opt": {
+    "strike": 12.0,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.518,
+    "gamma": 0.2615,
+    "theta": -0.078,
+    "vega": 0.0048,
+    "iv": 1.2559,
+    "mark": 0.7,
+    "oi": 4359
+   }
+  },
+  {
+   "t": "LHX",
+   "group": "bear",
+   "spot": 261.75,
+   "prev_close": 261.75,
+   "chg_pct": -3.89,
+   "vol_m": 2.2,
+   "high": 268.99,
+   "low": 260.25,
+   "ema9": 270.7,
+   "ema21": 264.85,
+   "ema50": 260.89,
+   "ema200": 280.93,
+   "rsi": 59.9,
+   "macd": 6.23,
+   "macd_signal": 6.01,
+   "macd_hist": 0.22,
+   "iv": 0.365,
+   "event": false,
+   "liquid": false,
+   "catalyst": "US blamed L3Harris maintenance for Friday's nationwide FAA ground stop (−3.9%)",
+   "rating": "15B/8H/0S · $336.67",
+   "opt": {
+    "strike": 260.0,
+    "type": "P",
+    "exp": "2026-11-20",
+    "delta": -0.419,
+    "gamma": 0.04,
+    "theta": -0.486,
+    "vega": 0.1048,
+    "iv": 0.365,
+    "mark": 3.05,
+    "oi": 177
+   }
+  }
+ ],
+ "subtitle": "Pre-market build for Tue Nov 17 · data = Mon Nov 16 close (≈ 8 PM ET) · EMAs/RSI/MACD as of Nov 16 · pivots from Nov 16 H/L/C · Greeks = Nov 16 closing marks · ⚠️ = unverified",
+ "macro": {
+  "rows": [
+   [
+    "S&P 500 (SPY)",
+    "$739.95",
+    "−1.92%",
+    "3rd straight loss",
+    "bear"
+   ],
+   [
+    "Nasdaq 100 (QQQ)",
+    "$661.75",
+    "−2.67%",
+    "Nasdaq Comp −2.49%; tech led the decline",
+    "bear"
+   ],
+   [
+    "Russell 2000 (IWM)",
+    "$272.94",
+    "−1.66%",
+    "",
+    "bear"
+   ],
+   [
+    "Dow (DIA)",
+    "$515.68",
+    "−1.43% (−739 pts)",
+    "",
+    "bear"
+   ],
+   [
+    "VIX",
+    "**22.91**",
+    "+18.7%",
+    "5-day: 19.92 → 19.46 → 17.49 → 18.70 → 19.30 → 22.91 (**rising into NVDA**)",
+    "bear"
+   ],
+   [
+    "Dollar (UUP proxy)",
+    "$29.56",
+    "+0.21%",
+    "Firmer ⚠️ DXY level not pulled",
+    "caution"
+   ],
+   [
+    "Treasuries (TLT / IEF)",
+    "$79.38 / $90.24",
+    "0.00% / +0.23%",
+    "Small bid at the belly ⚠️ yield levels not pulled",
+    "caution"
+   ],
+   [
+    "Crude (USO / BNO)",
+    "$140.03 / $58.66",
+    "−3.82% / −3.94%",
+    "Sharp drop ⚠️ WTI/Brent levels not pulled",
+    "caution"
+   ],
+   [
+    "Gold (GLD)",
+    "$352.93",
+    "−0.71%",
+    "",
+    "caution"
+   ],
+   [
+    "Bitcoin",
+    "**$64,578**",
+    "−0.3%",
+    "Touched ~$62K over the weekend; 6th straight weekly loss (liquidation cascade)",
+    "bear"
+   ]
+  ],
+  "events": [
+   [
+    "Tue 11/17 AMC",
+    "**NVIDIA FQ3** — consensus EPS ~$2.47, revenue ~$108.8B vs guide $108B ±2%; call hosted by **interim CEO Colette Kress**; CNBC source: board not considering bringing Jensen Huang back"
+   ],
+   [
+    "Mon after hours",
+    "NVDA disclosed it **cut its Intel stake 25%** (~$5.5B, 215M → 161M shares); INTC −3.9% after hours"
+   ],
+   [
+    "Overnight",
+    "Asia lower on AI wariness: ASX 200 ≈ −1.5%; **RBA hiked to 4.85%**"
+   ],
+   [
+    "This week",
+    "Walmart, Home Depot, TJX, Target, PDD, XPeng; October retail sales; FOMC minutes; Thu jobless claims + Philly Fed ⚠️ exact days not verified"
+   ],
+   [
+    "Thu 11/19",
+    "GTA VI release (TTWO); P&G investor day"
+   ],
+   [
+    "Next week",
+    "Thu 11/26 market closed (Thanksgiving); Fri 11/27 closes 1:00 PM"
+   ]
+  ],
+  "bias": "**Bias: 🔴 RISK-OFF** — third straight down day, SMH −5.1%, VIX +19% to 22.9, Bitcoin near $62–65K, money hiding in staples (XLP record high). NVDA's print after Tuesday's close is the binary for the whole AI complex."
+ },
+ "em_notes": [
+  [
+   "⚠️ Short-dated IV",
+   "Greeks use the **Nov 20** expiry (3 sessions) — its IV includes Tuesday's NVDA event and election-style gap risk, so 1w EM bands are wide. Nov 27 IV is much lower (PLTR 81% → 56%, GOOGL 48% → 37%)."
+  ],
+  [
+   "NVDA event",
+   "Nov 20 155 straddle = $8.15 + $6.93 = **$15.08 → ±9.7%** by Friday (≈ $141 – $171)"
+  ],
+  [
+   "🔴 Elevated",
+   "AI-infrastructure names: NBIS 150%, CRWV 145%, SNDK 143%, BE 132%, LITE 127% — liquidation vol, not events"
+  ],
+  [
+   "🟢 Cheap",
+   "Staples: CHD 23%, PG 32%, COST 29% — long premium is cheap where the trend is"
+  ]
+ ],
+ "deep_dive": [
+  {
+   "title": "GOOGL short — engine BEAR (−3), IV normal",
+   "sent": "bear",
+   "rows": [
+    [
+     "TA",
+     "Below 9/21/50/**200 EMA ($325.58)**; RSI 40.6; MACD histogram +1.79 (bear momentum slowing). −4.1% Monday."
+    ],
+    [
+     "Levels",
+     "PP **$286.94** · S1 **$279.74** · S2 **$275.76** · R1 $290.92"
+    ],
+    [
+     "Fundamentals",
+     "64 Buy / 8 Hold; mean PT $392.08 — Street still bullish; this is a tape trade, not a thesis change"
+    ],
+    [
+     "Options",
+     "Nov 27 285P OI 1,548 · 275P OI 2,742; Nov 27 IV 36.6% (Nov 20 47.6%)"
+    ],
+    [
+     "Structure",
+     "**Nov 27 285/275 put spread @ $3.88** (7.55 − 3.675) · max $10 · BE **$281.13** · 1.58 : 1"
+    ],
+    [
+     "Entry / target / stop",
+     "Below PP $286.94 → S1 $279.74 → S2 $275.76 · stop: close **> $286.94**"
+    ]
+   ]
+  },
+  {
+   "title": "META short — engine BEAR (−3), IV normal",
+   "sent": "bear",
+   "rows": [
+    [
+     "TA",
+     "Lost its **200 EMA ($641.51)**; below 9/21/50; RSI 47.8; MACD hist +3.33"
+    ],
+    [
+     "Levels",
+     "PP **$629.08** · S1 **$617.47** · S2 **$608.52** · R1 $638.03"
+    ],
+    [
+     "Fundamentals",
+     "64 Buy / 6 Hold / 1 Sell; mean PT $850.52"
+    ],
+    [
+     "Options",
+     "Nov 27 630P OI 371 · 610P OI 449; Nov 27 IV 42.5%"
+    ],
+    [
+     "Structure",
+     "**Nov 27 630/610 put spread @ $8.35** (20.20 − 11.85) · max $20 · BE **$621.65** · 1.40 : 1"
+    ],
+    [
+     "Entry / target / stop",
+     "Below PP $629.08 → S1 $617.47 → S2 $608.52 · stop: close **> $638.03**"
+    ]
+   ]
+  },
+  {
+   "title": "PG long — engine BULL (+5), IV low",
+   "sent": "bull",
+   "rows": [
+    [
+     "TA",
+     "**Full bull stack**; 52-week high; RSI 68.2; MACD bull"
+    ],
+    [
+     "Levels",
+     "PP **$172.84** · R1 **$173.75** · R2 **$174.48** · S2 $171.19"
+    ],
+    [
+     "Catalyst",
+     "Defensive rotation (only green sector); **investor day Thu 11/19**"
+    ],
+    [
+     "Fundamentals",
+     "13 Buy / 11 Hold / 2 Sell; mean PT $174.57 — price near target, so keep it short-dated"
+    ],
+    [
+     "Structure",
+     "**Nov 27 172.5/175 call spread @ $1.19** (3.20 − 2.01) · max $2.50 · BE **$173.69** · 1.10 : 1"
+    ],
+    [
+     "Entry / target / stop",
+     "Hold above PP $172.84; add over R1 $173.75 → R2 $174.48 · stop: close **< $171.19**"
+    ]
+   ]
+  }
+ ],
+ "deep_dive_note": "**NVDA (event, engine: no trade).** RSI 24.9 blocks new shorts and the trend blocks longs. The 155 straddle prices **±$15.08 (±9.7%)** through Friday. If you need exposure: **Nov 20 155/170 call spread @ $5.48** (8.15 − 2.675), max $15, BE $160.48, **0.5% NAV max**. Otherwise wait for the print.",
+ "top_plays": [
+  {
+   "sent": "bear",
+   "title": "SHORT GOOGL · Nov 27 $285/$275 put spread · $3.88 debit",
+   "paras": [
+    "Broke back below its **200 EMA** and every short-term average on a −4.1% day; the engine scores it −3 with normal IV, so debit spreads are the right tool.",
+    "**Math:** max $10 vs $3.88 → **1.58 : 1**; breakeven **$281.13**; short strike sits at S2 **$275.76**.",
+    "**Risk:** NVDA beat could squeeze all of mega-cap tech. **Stop:** close > PP **$286.94** or −50% of debit."
+   ]
+  },
+  {
+   "sent": "bear",
+   "title": "SHORT META · Nov 27 $630/$610 put spread · $8.35 debit",
+   "paras": [
+    "Lost its **200 EMA ($641.51)**; below PP with targets at S1 **$617.47** and S2 **$608.52**.",
+    "**Math:** max $20 vs $8.35 → **1.40 : 1**; breakeven **$621.65**.",
+    "**Risk:** same NVDA squeeze risk — size these two together as one tech-short bet. **Stop:** close > R1 **$638.03**."
+   ]
+  },
+  {
+   "sent": "bull",
+   "title": "LONG PG · Nov 27 $172.50/$175 call spread · $1.19 debit",
+   "paras": [
+    "The rotation trade: full bull stack, 52-week high, staples were the only green sector, and investor day Thursday is a catalyst. IV is only 23% on the Nov 27 chain.",
+    "**Math:** max $2.50 vs $1.19 → **1.10 : 1**; breakeven **$173.69**; short strike just past R2 $174.48.",
+    "**Risk:** price is already at the $174.57 mean target; a risk-on NVDA reaction could pull money back out of staples. **Stop:** close < S2 **$171.19**."
+   ]
+  }
+ ],
+ "avoid": [
+  [
+   "🔴 NVDA naked options",
+   "IV trap / binary",
+   "Nov 20 IV 116%; 155C theta −$0.97/day on $8.15 (12%/day). Straddle already prices ±9.7%."
+  ],
+  [
+   "🟠 PLTR / COIN credit spreads",
+   "Check the credit first",
+   "At Nov 20-IV strikes they paid almost nothing (PLTR 180/182.5 = $0.25 on $2.50; COIN 135/140 = $0.61 on $5). The engine now uses Nov 27 IV (PLTR 175/177.5, COIN 132.5/135) — unpriced: sell only if mid ≥ ¼ of width"
+  ],
+  [
+   "🔴 SNDK, LITE, NBIS options",
+   "Liquidity + IV",
+   "IV 127–150%; ATM OI 249 / 73 / 0 — wide markets, liquidation vol"
+  ],
+  [
+   "🔴 SMMT",
+   "Falling knife",
+   "FDA Complete Response Letter; −16.5%; binary follow-through risk"
+  ],
+  [
+   "🟠 COST",
+   "Stretched",
+   "RSI 76 at a 52-week high — wait for a pullback to PP $1,111.88"
+  ]
+ ],
+ "risk": [
+  [
+   "VIX",
+   "**22.91** (+18.7%)",
+   "🔴 rising into NVDA"
+  ],
+  [
+   "Equity put/call",
+   "⚠️ not verified",
+   "—"
+  ],
+  [
+   "Breadth",
+   "⚠️ A/D not verified · proxy RSP −1.01% vs SPY −1.92% (broad selling, cap-weighted tech worst)",
+   "🔴"
+  ],
+  [
+   "Leading sectors",
+   "Staples XLP +0.28% (record high) · Utilities XLU +0.19%",
+   "🟢 defensive"
+  ],
+  [
+   "Lagging sectors",
+   "**Semis SMH −5.11%** · Tech XLK −3.25% · Energy XLE −1.96%",
+   "🔴"
+  ],
+  [
+   "Crude 1d",
+   "USO −3.82% · BNO −3.94%",
+   "🟠"
+  ],
+  [
+   "10Y − 2Y",
+   "⚠️ not pulled",
+   "—"
+  ],
+  [
+   "Dollar",
+   "UUP +0.21% (firmer)",
+   "🟠"
+  ],
+  [
+   "**Overall bias**",
+   "**RISK-OFF**",
+   "🔴"
+  ]
+ ],
+ "calendar": [
+  [
+   "Tue 11/17",
+   "AMC",
+   "**NVIDIA FQ3**",
+   "Data-center revenue vs ~$108.8B; guide from interim CEO; ±9.7% implied"
+  ],
+  [
+   "This week",
+   "—",
+   "Walmart, Home Depot, TJX, Target",
+   "US consumer read ⚠️ exact days not verified"
+  ],
+  [
+   "This week",
+   "—",
+   "October retail sales · FOMC minutes",
+   "Fed December path ⚠️ exact days not verified"
+  ],
+  [
+   "Thu 11/19",
+   "8:30",
+   "Jobless claims · Philly Fed",
+   "Labor + manufacturing"
+  ],
+  [
+   "Thu 11/19",
+   "—",
+   "GTA VI release (TTWO) · P&G investor day",
+   "Single-stock catalysts"
+  ],
+  [
+   "Fri 11/20",
+   "—",
+   "Monthly options expiration",
+   "Pin risk around NVDA strikes"
+  ],
+  [
+   "Thu 11/26",
+   "—",
+   "**Market closed** (Thanksgiving)",
+   "Nov 27 options: half-day session, 1 PM close"
+  ]
+ ],
+ "rules": [
+  [
+   "Max allocation",
+   "**≤ 2% NAV at risk per play**; **≤ 0.5%** on NVDA or any binary; GOOGL + META shorts count as **one** tech bet"
+  ],
+  [
+   "Profit taking",
+   "Half off at **+50%**; close at **75–80% of max value**"
+  ],
+  [
+   "Stop loss",
+   "**−50% of debit** or the underlying stop on a **daily close**"
+  ],
+  [
+   "Credit floor",
+   "Skip credit spreads collecting **< ¼ of width** at mid (PLTR / COIN failed at the wider strikes)"
+  ],
+  [
+   "IV crush list",
+   "**NVDA** after Tuesday's close; AI-infra names (NBIS, CRWV, SNDK, BE, LITE) mean-revert when the liquidation stops"
+  ],
+  [
+   "Theta watch",
+   "Nov 20 contracts are **3 DTE** — NVDA 155C −12%/day, AMD 505P −13%/day; no holding without a catalyst"
+  ],
+  [
+   "Holiday week",
+   "Nov 27 expiry has a **1 PM close** and a closed Thursday before it — fewer sessions of decay but thinner liquidity"
+  ]
+ ],
+ "unverified": "Index futures levels (ETF proxies shown), Treasury yields and 2s10s, DXY / WTI / Brent levels, equity put/call, NYSE/Nasdaq A/D, short interest, insider activity, exact days for Walmart / Home Depot / TJX / retail sales / FOMC minutes. Built from Monday's close at ≈ 8 PM ET — no pre-market data yet; check gaps at the open (INTC already −3.9% after hours).",
+ "sources": [
+  [
+   "CNBC — biggest movers Nov 16",
+   "https://www.cnbc.com/2026/11/16/stocks-moving-the-most-today-live-updates.html"
+  ],
+  [
+   "Bloomberg — live Nov 17",
+   "https://www.bloomberg.com/news/articles/2026-11-16/stock-market-today-dow-s-p-live-updates"
+  ],
+  [
+   "Equity Clock outlook",
+   "https://equityclock.com/2026/11/16/stock-market-outlook-for-november-17-2026/"
+  ],
+  [
+   "Eurasia Business News",
+   "https://eurasiabusinessnews.com/2026/11/17/stock-market-today-nasdaq-slides-2-5-as-nvidia-turmoil-and-chip-restrictions-hit-tech/"
+  ],
+  [
+   "Investing.com premarket",
+   "https://www.investing.com/news/stock-market-news/premarket-movers-nvidia-intel-fall-jj-gains-5029397"
+  ],
+  [
+   "Daily Trade Alert ratings 11/16",
+   "https://dailytradealert.com/2026/11/16/analyst-upgrades-and-downgrades-for-monday-11-16/"
+  ],
+  [
+   "Weekly economic calendar",
+   "https://letterstoayounginvestor.substack.com/p/weekly-economic-calendar-november-cf0"
+  ],
+  [
+   "Kiplinger earnings calendar",
+   "https://www.kiplinger.com/investing/stocks/17494/next-week-earnings-calendar-stocks"
+  ]
+ ]
+}

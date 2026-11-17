@@ -147,19 +147,21 @@ OUTPUT FORMATTING REQUIREMENTS
 
 ## Daily automation runbook (used by the scheduled 8:38 ET routine)
 
-1. **Market-day check:** `get_market_calendar` (Tradier). If today is not a trading day, stop and report "market closed".
-2. **Data date:** today in America/New_York. Premarket quotes are "spot"; EMAs, RSI, MACD and pivots come from the **prior completed session**.
-3. **Universe:** Mag 7 + PLTR, AMD, AVGO, IONQ, OKLO + today's top 10 bullish / top 10 bearish premarket movers with a real catalyst (prefer names with listed options and >500K avg volume).
-4. **Fetch (batch ≤10 symbols per call):**
-   - Quotes: `get_equity_quotes` (use `last_non_reg_trade_price` premarket when newer).
-   - `get_equity_technical_indicators` with `output: "latest"`, `interval: "day"`: ema 9/21/50/200, rsi, macd, pivot_points.
-   - ATM option for the target expiry (first Friday ≥ 7 DTE; fall back to the nearest monthly): `get_option_instruments` → `get_option_quotes` for IV/Greeks/OI.
-   - Macro: VIX, sector ETFs, yields/DXY/oil/gold/BTC; news, analyst actions and calendar via web search.
-5. **Write** `options-dashboard/data/YYYY-MM-DD.json` in the schema documented at the top of `trade_ideas.py` (set `event: true` for earnings before the target expiry and `liquid: false` when ATM OI < 100 or bid/ask spread > 15% of mid).
-6. **Build HTML:** copy the previous day's `daily_option_dashboard.html` as the template (keep the CSS, tab bar and script), replace Sections 1–10 content with today's data, then run
-   `python3 options-dashboard/trade_ideas.py options-dashboard/data/YYYY-MM-DD.json --inject options-dashboard/daily_option_dashboard.html`
-   which adds/replaces the **Key Levels** and **Trade Ideas** tabs.
-7. **Price the top 5 ideas** (highest |trend score|, liquid, not "No trade") from the live chain and put debit/credit, max gain/loss and breakeven into Section 6 (Top 3) / Section 5.
-8. **Verify:** open the page in headless Chromium; no JS errors; every tab shows.
-9. **Save** a copy to `options-dashboard/reports/YYYY-MM-DD.html`, commit `data/`, `reports/` and `daily_option_dashboard.html`, and push to branch `daily-options-dashboard`.
-10. Flag every unverified number with ⚠️. End with the educational-only disclaimer.
+The page is **rendered by code** — never hand-edit HTML. A run only gathers data into one JSON file.
+
+1. **Market-day check:** `get_market_calendar` (Tradier). Not a trading day → stop, report "market closed".
+2. **Tools:** load Tradier (`mcp__Tradier__*`) and Robinhood MCP Link (`mcp__MCP_Link__*`) with ToolSearch. If both are missing, stop without writing files and say which connectors are missing.
+3. **Universe:** Mag 7 + PLTR, AMD, AVGO, IONQ, OKLO, plus up to 10 bullish / 10 bearish movers from the prior session or pre-market that have a **named catalyst** and listed options. Fewer is fine — never pad the list.
+4. **Fetch (≤10 symbols per call):**
+   - Prior-session **high / low / close**: `mcp__Tradier__get_historical_data` (daily, start = end = prior session). Pivots are computed from these by the script — **do not use MCP Link `pivot_points`** (its rows are labeled by the session they apply to, which is easy to read one day stale).
+   - EMA 9/21/50/200, RSI 14, MACD: `get_equity_technical_indicators`, `interval: "day"`, `output: "latest"`.
+   - Quotes / % change / volume: Tradier `get_market_quotes` (+ MCP Link pre-market quotes when the session is open).
+   - ATM option on the nearest Friday for Greeks (`opt` block, `iv`), and the ATM IV of the **target expiry** (first Friday ≥ 7 DTE) as `iv_target` for names you will price.
+   - Consensus ratings/PT: `get_equity_analyst_ratings` (one call).
+   - Macro, news, catalysts, calendar: web search; ETF proxies (SPY/QQQ/IWM/DIA/RSP, sector SPDRs, SMH, GLD, USO, BNO, UUP, TLT, IEF), VIX history, BTC quote.
+5. **Write** `options-dashboard/data/YYYY-MM-DD.json` — schema in the docstrings of `trade_ideas.py` and `build_dashboard.py` (see `data/2026-11-17.json` for a complete example). Set `event: true` for earnings before the target expiry and `liquid: false` when ATM OI < 300.
+6. **Preview ideas:** `python3 options-dashboard/trade_ideas.py options-dashboard/data/YYYY-MM-DD.json`.
+7. **Price the best 3–5 ideas** from the live chain at the target expiry (mid debit/credit, max gain/loss, breakeven). Drop credit spreads that collect < ¼ of width. Write them into `deep_dive`, `top_plays`, `avoid`, `risk`, `calendar`, `rules`, `macro`, `em_notes`, `unverified`, `sources`.
+8. **Render:** `python3 options-dashboard/build_dashboard.py options-dashboard/data/YYYY-MM-DD.json` (writes `daily_option_dashboard.html`), then copy to `options-dashboard/reports/YYYY-MM-DD.html`.
+9. **Verify** in headless Chromium: no JS errors, all 12 tabs show.
+10. **Commit** `data/`, `reports/`, `daily_option_dashboard.html` and push to branch `daily-options-dashboard`. Flag every unverified number with ⚠️; end the summary with the educational-only disclaimer.

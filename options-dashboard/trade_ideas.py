@@ -13,7 +13,8 @@ Input JSON:
     {"t": "NVDA", "spot": 208.78, "prev_close": 202.06,
      "ema9": 211.68, "ema21": 216.91, "ema50": 218.83, "ema200": 205.77,
      "rsi": 33.3, "macd_hist": -1.83,
-     "pp": 204.87, "r1": 208.83, "r2": 213.01, "s1": 200.69, "s2": 196.73,
+     "high": 209.98, "low": 201.66,     # prior session H/L (with prev_close) -> pivots
+                                       # (or pass pp/r1/r2/s1/s2 directly)
      "iv": 0.535,                       # ATM IV of the target expiry (decimal)
      "event": false,                    # earnings/binary event before target expiry
      "liquid": true}                    # options tight enough to trade (OI, spread)
@@ -51,6 +52,9 @@ Event       : earnings/binary event before expiry -> debit spreads only, size 0.
 Market      : VIX > 25 halves size; RISK-OFF skips bull ideas below the 200 EMA;
               RISK-ON skips bear ideas above the 200 EMA.
 Expiry      : first Friday >= 7 calendar days out (no <7 DTE without a catalyst).
+Credit floor: a credit spread must collect >= 1/4 of its width at mid; otherwise skip it
+              (or move the short strike closer if that still clears the level).
+IV input    : strikes use "iv_target" (ATM IV of the target expiry) when supplied, else "iv".
 Size        : 2% NAV max risk (1% if VIX > 25, 0.5% on events).
 Stops       : bull -> daily close below the nearest support at least 1/3 of a 1-day EM away;
               bear -> daily close above the equivalent resistance.
@@ -102,10 +106,25 @@ def lv(c):
     return f"{c[0]} {fmt(c[1])}" if c else "—"
 
 
+def pivots(high, low, close):
+    """Classic floor pivots from one session's high/low/close."""
+    pp = (high + low + close) / 3
+    return {"pp": pp, "r1": 2 * pp - low, "s1": 2 * pp - high,
+            "r2": pp + (high - low), "s2": pp - (high - low)}
+
+
+def fill_pivots(x):
+    """Compute PP/R1/R2/S1/S2 from the prior session's OHLC when given (preferred)."""
+    if all(k in x for k in ("high", "low", "prev_close")):
+        x.update(pivots(x["high"], x["low"], x["prev_close"]))
+    return x
+
+
 def analyse(x, market, today):
     s = x["spot"]
     em1 = s * x["iv"] * math.sqrt(1 / 252)
-    emw = s * x["iv"] * math.sqrt(5 / 252)
+    # strike placement uses the target expiry's IV when known (short-dated IV overstates the weekly move)
+    emw = s * x.get("iv_target", x["iv"]) * math.sqrt(5 / 252)
     score = sum([
         1 if s > x["ema21"] else -1,
         1 if s > x["ema50"] else -1,
@@ -158,7 +177,7 @@ def analyse(x, market, today):
             idea.update(struct="Bull put credit spread", legs=f"Sell {fmt(short)}P / Buy {fmt(short - step)}P")
         else:
             long_k = snap(s, step)
-            lvl = next((c[1] for c in res if c[1] >= long_k + step and c[1] <= s + emw), s + emw)
+            lvl = next((c[1] for c in res if c[1] > long_k and c[1] <= s + emw), s + emw)
             short_k = max(snap(lvl, step, "up"), long_k + step)
             idea.update(struct="Call debit spread", legs=f"Buy {fmt(long_k)}C / Sell {fmt(short_k)}C")
     elif direction == "BEAR":
@@ -171,7 +190,7 @@ def analyse(x, market, today):
             idea.update(struct="Bear call credit spread", legs=f"Sell {fmt(short)}C / Buy {fmt(short + step)}C")
         else:
             long_k = snap(s, step)
-            lvl = next((c[1] for c in sup if c[1] <= long_k - step and c[1] >= s - emw), s - emw)
+            lvl = next((c[1] for c in sup if c[1] < long_k and c[1] >= s - emw), s - emw)
             short_k = min(snap(lvl, step, "down"), long_k - step)
             idea.update(struct="Put debit spread", legs=f"Buy {fmt(long_k)}P / Sell {fmt(short_k)}P")
     else:
@@ -265,7 +284,7 @@ def main():
         sys.exit(__doc__)
     data = json.load(open(sys.argv[1]))
     today = dt.date.fromisoformat(data["date"])
-    rows = data["tickers"]
+    rows = [fill_pivots(x) for x in data["tickers"]]
     ideas = [analyse(x, data["market"], today) for x in rows]
     lv, ti = key_levels_panel(rows, data["date"]), ideas_panel(ideas, data["market"])
     if "--inject" in sys.argv:

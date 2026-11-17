@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Options Dashboard</title>
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--ink:#14171c;--mute:#5b6370;--line:#e3e6eb;--head:#eef1f5;--g:#0f7b3f;--gbg:#e6f4ec;--o:#a85d00;--obg:#fdf1e1;--r:#b42318;--rbg:#fdecea;--acc:#2b59c3}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1115;--card:#171a20;--ink:#e7e9ee;--mute:#9aa3b2;--line:#2a2f38;--head:#1f232b;--g:#4ccb7f;--gbg:#14281c;--o:#f0a640;--obg:#2e2311;--r:#ff6b5f;--rbg:#331614;--acc:#7aa2ff}}
+:root[data-theme="dark"]{--bg:#0f1115;--card:#171a20;--ink:#e7e9ee;--mute:#9aa3b2;--line:#2a2f38;--head:#1f232b;--g:#4ccb7f;--gbg:#14281c;--o:#f0a640;--obg:#2e2311;--r:#ff6b5f;--rbg:#331614;--acc:#7aa2ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1280px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:24px;margin:0 0 4px}
+h2{font-size:17px;margin:32px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--line)}
+h3{font-size:14px;margin:18px 0 8px;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.sub{color:var(--mute);margin:0 0 16px}
+nav{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+nav a{font-size:12px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;background:var(--card)}
+nav a:hover{border-color:var(--acc)}
+.tw{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;white-space:nowrap}
+td.w{white-space:normal;min-width:220px}
+th{background:var(--head);font-weight:600;position:sticky;top:0}
+tr:last-child td{border-bottom:0}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.g{color:var(--g)}.o{color:var(--o)}.r{color:var(--r)}
+.pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:600}
+.pg{background:var(--gbg);color:var(--g)}.po{background:var(--obg);color:var(--o)}.pr{background:var(--rbg);color:var(--r)}
+.bias{margin:12px 0 0;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--obg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.card h4{margin:0 0 6px;font-size:15px}
+.card p{margin:6px 0}
+.note{color:var(--mute);font-size:12px;margin-top:8px}
+.warn{background:var(--obg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:16px;font-size:13px}
+.disc{margin-top:24px;padding:14px;border-radius:10px;background:var(--head);font-size:13px}
+a{color:var(--acc)}
+.tabs{position:sticky;top:0;z-index:5;display:flex;gap:4px;overflow-x:auto;margin:14px -16px 0;padding:8px 16px;background:var(--bg);border-bottom:1px solid var(--line);scrollbar-width:thin}
+.tabs button{flex:0 0 auto;font:inherit;font-size:13px;padding:7px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer}
+.tabs button:hover{border-color:var(--acc)}
+.tabs button[aria-selected="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
+.tn{display:inline-block;font-size:11px;opacity:.7;margin-right:6px}
+.panel{display:none}.panel.on{display:block}
+body.all .panel{display:block}
+.pager{display:flex;justify-content:space-between;gap:8px;margin-top:18px}
+.pager button{font:inherit;font-size:13px;padding:7px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer}
+.pager button[disabled]{opacity:.35;cursor:default}
+body.all .pager{display:none}
+th{top:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>{{TITLE}}</h1>
+<p class="sub">{{SUBTITLE}}</p>
+{{TABS}}
+{{PANELS}}
+<div class="pager"><button id="prev">← Previous</button><span class="note" id="pos"></span><button id="next">Next →</button></div>
+{{FOOTER}}
+</div>
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tabs button'));
+  var ids=tabs.map(function(b){return b.dataset.tab}).filter(function(i){return i!=='all'});
+  var cur='s1';
+  function show(id,push){
+    if(ids.indexOf(id)<0&&id!=='all')id=ids[0];
+    cur=id;
+    document.body.classList.toggle('all',id==='all');
+    ids.forEach(function(i){document.getElementById('panel-'+i).classList.toggle('on',i===id)});
+    tabs.forEach(function(b){var on=b.dataset.tab===id;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;if(on){var c=b.parentNode;if(b.offsetLeft<c.scrollLeft||b.offsetLeft+b.offsetWidth>c.scrollLeft+c.clientWidth)c.scrollLeft=b.offsetLeft-16}});
+    var k=ids.indexOf(id);
+    document.getElementById('prev').disabled=k<=0;
+    document.getElementById('next').disabled=k<0||k>=ids.length-1;
+    document.getElementById('pos').textContent=k<0?'':(k+1)+' / '+ids.length;
+    
+    if(push){try{history.replaceState(null,'','#'+id)}catch(e){}}
+  }
+  tabs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab,true);window.scrollTo({top:0})})});
+  document.querySelector('.tabs').addEventListener('keydown',function(e){
+    var all=ids.concat(['all']),k=all.indexOf(cur);
+    if(e.key==='ArrowRight'){k=(k+1)%all.length}else if(e.key==='ArrowLeft'){k=(k-1+all.length)%all.length}else return;
+    e.preventDefault();show(all[k],true);document.getElementById(all[k]==='all'?'tall':'t'+all[k].slice(1)).focus();
+  });
+  document.getElementById('prev').onclick=function(){var k=ids.indexOf(cur);if(k>0){show(ids[k-1],true);window.scrollTo({top:0})}};
+  document.getElementById('next').onclick=function(){var k=ids.indexOf(cur);if(k<ids.length-1){show(ids[k+1],true);window.scrollTo({top:0})}};
+  window.addEventListener('hashchange',function(){show(location.hash.slice(1),false);window.scrollTo(0,0)});
+  var start=location.hash.slice(1);
+  
+  show(start||ids[0],false);
+})();
+</script>
+</body>
+</html>
