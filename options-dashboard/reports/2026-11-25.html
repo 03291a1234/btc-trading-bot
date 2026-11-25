@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Options Dashboard</title>
+<style>
+:root{--bg:#f7f8fa;--card:#fff;--ink:#14171c;--mute:#5b6370;--line:#e3e6eb;--head:#eef1f5;--g:#0f7b3f;--gbg:#e6f4ec;--o:#a85d00;--obg:#fdf1e1;--r:#b42318;--rbg:#fdecea;--acc:#2b59c3}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1115;--card:#171a20;--ink:#e7e9ee;--mute:#9aa3b2;--line:#2a2f38;--head:#1f232b;--g:#4ccb7f;--gbg:#14281c;--o:#f0a640;--obg:#2e2311;--r:#ff6b5f;--rbg:#331614;--acc:#7aa2ff}}
+:root[data-theme="dark"]{--bg:#0f1115;--card:#171a20;--ink:#e7e9ee;--mute:#9aa3b2;--line:#2a2f38;--head:#1f232b;--g:#4ccb7f;--gbg:#14281c;--o:#f0a640;--obg:#2e2311;--r:#ff6b5f;--rbg:#331614;--acc:#7aa2ff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:1280px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:24px;margin:0 0 4px}
+h2{font-size:17px;margin:32px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--line)}
+h3{font-size:14px;margin:18px 0 8px;color:var(--mute);text-transform:uppercase;letter-spacing:.04em}
+.sub{color:var(--mute);margin:0 0 16px}
+nav{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 4px}
+nav a{font-size:12px;padding:4px 10px;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;background:var(--card)}
+nav a:hover{border-color:var(--acc)}
+.tw{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;white-space:nowrap}
+td.w{white-space:normal;min-width:220px}
+th{background:var(--head);font-weight:600;position:sticky;top:0}
+tr:last-child td{border-bottom:0}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.g{color:var(--g)}.o{color:var(--o)}.r{color:var(--r)}
+.pill{display:inline-block;padding:1px 8px;border-radius:999px;font-size:12px;font-weight:600}
+.pg{background:var(--gbg);color:var(--g)}.po{background:var(--obg);color:var(--o)}.pr{background:var(--rbg);color:var(--r)}
+.bias{margin:12px 0 0;padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--obg)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.card h4{margin:0 0 6px;font-size:15px}
+.card p{margin:6px 0}
+.note{color:var(--mute);font-size:12px;margin-top:8px}
+.warn{background:var(--obg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin-top:16px;font-size:13px}
+.disc{margin-top:24px;padding:14px;border-radius:10px;background:var(--head);font-size:13px}
+a{color:var(--acc)}
+.tabs{position:sticky;top:0;z-index:5;display:flex;gap:4px;overflow-x:auto;margin:14px -16px 0;padding:8px 16px;background:var(--bg);border-bottom:1px solid var(--line);scrollbar-width:thin}
+.tabs button{flex:0 0 auto;font:inherit;font-size:13px;padding:7px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer}
+.tabs button:hover{border-color:var(--acc)}
+.tabs button[aria-selected="true"]{background:var(--acc);border-color:var(--acc);color:#fff}
+.tn{display:inline-block;font-size:11px;opacity:.7;margin-right:6px}
+.panel{display:none}.panel.on{display:block}
+body.all .panel{display:block}
+.pager{display:flex;justify-content:space-between;gap:8px;margin-top:18px}
+.pager button{font:inherit;font-size:13px;padding:7px 12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);cursor:pointer}
+.pager button[disabled]{opacity:.35;cursor:default}
+body.all .pager{display:none}
+th{top:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Daily Options Dashboard — Wed Nov 25, 2026</h1>
+<p class="sub">Intraday build · Wed Nov 25, 10:40 AM ET (market open; Thanksgiving tomorrow, Friday closes 1 PM) · prices live · EMAs/RSI/MACD as of Nov 24 close · pivots from Nov 24 H/L/C · Greeks/IV = Dec 4 expiry · ⚠️ = unverified</p>
+<div class="tabs" role="tablist">
+<button role="tab" id="tlevels" data-tab="levels" aria-controls="panel-levels"><span class="tn">★</span>Key Levels</button>
+<button role="tab" id="tideas" data-tab="ideas" aria-controls="panel-ideas"><span class="tn">★</span>Trade Ideas</button>
+<button role="tab" id="ts1" data-tab="s1" aria-controls="panel-s1"><span class="tn">1</span>Macro</button>
+<button role="tab" id="ts2" data-tab="s2" aria-controls="panel-s2"><span class="tn">2</span>Universe</button>
+<button role="tab" id="ts3" data-tab="s3" aria-controls="panel-s3"><span class="tn">3</span>Technicals</button>
+<button role="tab" id="ts4" data-tab="s4" aria-controls="panel-s4"><span class="tn">4</span>Greeks &amp; EM</button>
+<button role="tab" id="ts5" data-tab="s5" aria-controls="panel-s5"><span class="tn">5</span>Deep Dive</button>
+<button role="tab" id="ts6" data-tab="s6" aria-controls="panel-s6"><span class="tn">6</span>Top 3</button>
+<button role="tab" id="ts7" data-tab="s7" aria-controls="panel-s7"><span class="tn">7</span>Avoid</button>
+<button role="tab" id="ts8" data-tab="s8" aria-controls="panel-s8"><span class="tn">8</span>Risk</button>
+<button role="tab" id="ts9" data-tab="s9" aria-controls="panel-s9"><span class="tn">9</span>Calendar</button>
+<button role="tab" id="ts10" data-tab="s10" aria-controls="panel-s10"><span class="tn">10</span>Rules</button>
+<button role="tab" id="tall" data-tab="all">All</button>
+</div>
+<section class="panel" id="panel-levels" role="tabpanel" aria-labelledby="tlevels">
+<h2>Key Levels <span class="note">(classic pivots from prior session · EMAs as of prior close)</span></h2>
+<div class="tw"><table>
+<tr><th>Ticker</th><th class="num">Spot</th><th class="num">Prev close</th><th class="num">S2</th><th class="num">S1</th><th class="num">PP</th><th class="num">R1</th><th class="num">R2</th><th class="num">9 EMA</th><th class="num">21 EMA</th><th class="num">50 EMA</th><th class="num">200 EMA</th><th class="num">1d EM ±</th><th class="num">1w 1σ range</th><th>vs PP</th></tr>
+<tr><td><b>NVDA</b></td><td class="num"><b>144.03</b></td><td class="num">155.38</td><td class="num">145.85</td><td class="num"><b>150.61</b></td><td class="num"><b>155.27</b></td><td class="num"><b>160.03</b></td><td class="num">164.69</td><td class="num">156.74</td><td class="num">172.97</td><td class="num">193.12</td><td class="num">199.99</td><td class="num">8.43</td><td class="num">125.18 – 162.88</td><td><span class="r">below</span></td></tr>
+<tr><td><b>AAPL</b></td><td class="num"><b>346.54</b></td><td class="num">354.07</td><td class="num">342.93</td><td class="num"><b>348.50</b></td><td class="num"><b>351.45</b></td><td class="num"><b>357.02</b></td><td class="num">359.97</td><td class="num">350.19</td><td class="num">348.17</td><td class="num">341.55</td><td class="num">310.50</td><td class="num">6.56</td><td class="num">331.86 – 361.21</td><td><span class="r">below</span></td></tr>
+<tr><td><b>MSFT</b></td><td class="num"><b>482.19</b></td><td class="num">496.13</td><td class="num">482.07</td><td class="num"><b>489.10</b></td><td class="num"><b>495.46</b></td><td class="num"><b>502.49</b></td><td class="num">508.85</td><td class="num">503.87</td><td class="num">513.96</td><td class="num">512.13</td><td class="num">472.61</td><td class="num">12.97</td><td class="num">453.18 – 511.19</td><td><span class="r">below</span></td></tr>
+<tr><td><b>GOOGL</b></td><td class="num"><b>267.30</b></td><td class="num">279.05</td><td class="num">273.20</td><td class="num"><b>276.13</b></td><td class="num"><b>278.95</b></td><td class="num"><b>281.88</b></td><td class="num">284.70</td><td class="num">280.75</td><td class="num">291.00</td><td class="num">310.30</td><td class="num">322.63</td><td class="num">7.86</td><td class="num">249.72 – 284.88</td><td><span class="r">below</span></td></tr>
+<tr><td><b>AMZN</b></td><td class="num"><b>238.56</b></td><td class="num">252.29</td><td class="num">247.76</td><td class="num"><b>250.03</b></td><td class="num"><b>252.79</b></td><td class="num"><b>255.06</b></td><td class="num">257.82</td><td class="num">256.85</td><td class="num">257.57</td><td class="num">256.45</td><td class="num">247.94</td><td class="num">7.53</td><td class="num">221.73 – 255.39</td><td><span class="r">below</span></td></tr>
+<tr><td><b>META</b></td><td class="num"><b>579.61</b></td><td class="num">589.82</td><td class="num">575.41</td><td class="num"><b>582.62</b></td><td class="num"><b>591.47</b></td><td class="num"><b>598.67</b></td><td class="num">607.52</td><td class="num">602.66</td><td class="num">621.64</td><td class="num">640.83</td><td class="num">638.74</td><td class="num">19.81</td><td class="num">535.31 – 623.91</td><td><span class="r">below</span></td></tr>
+<tr><td><b>TSLA</b></td><td class="num"><b>366.07</b></td><td class="num">384.68</td><td class="num">368.83</td><td class="num"><b>376.76</b></td><td class="num"><b>383.42</b></td><td class="num"><b>391.35</b></td><td class="num">398.01</td><td class="num">378.31</td><td class="num">379.59</td><td class="num">376.38</td><td class="num">378.78</td><td class="num">15.17</td><td class="num">332.14 – 400.00</td><td><span class="r">below</span></td></tr>
+<tr><td><b>PLTR</b></td><td class="num"><b>155.20</b></td><td class="num">161.18</td><td class="num">155.21</td><td class="num"><b>158.19</b></td><td class="num"><b>160.61</b></td><td class="num"><b>163.59</b></td><td class="num">166.01</td><td class="num">159.34</td><td class="num">167.56</td><td class="num">174.03</td><td class="num">161.76</td><td class="num">6.68</td><td class="num">140.26 – 170.14</td><td><span class="r">below</span></td></tr>
+<tr><td><b>AMD</b></td><td class="num"><b>379.78</b></td><td class="num">413.27</td><td class="num">379.86</td><td class="num"><b>396.56</b></td><td class="num"><b>412.72</b></td><td class="num"><b>429.42</b></td><td class="num">445.58</td><td class="num">472.39</td><td class="num">498.29</td><td class="num">518.95</td><td class="num">445.62</td><td class="num">26.66</td><td class="num">320.16 – 439.40</td><td><span class="r">below</span></td></tr>
+<tr><td><b>AVGO</b></td><td class="num"><b>285.05</b></td><td class="num">301.08</td><td class="num">291.31</td><td class="num"><b>296.19</b></td><td class="num"><b>302.69</b></td><td class="num"><b>307.57</b></td><td class="num">314.07</td><td class="num">324.23</td><td class="num">330.35</td><td class="num">340.98</td><td class="num">355.19</td><td class="num">14.91</td><td class="num">251.72 – 318.38</td><td><span class="r">below</span></td></tr>
+<tr><td><b>IONQ</b></td><td class="num"><b>21.00</b></td><td class="num">22.40</td><td class="num">21.18</td><td class="num"><b>21.79</b></td><td class="num"><b>22.57</b></td><td class="num"><b>23.18</b></td><td class="num">23.97</td><td class="num">24.74</td><td class="num">27.93</td><td class="num">32.43</td><td class="num">39.80</td><td class="num">1.51</td><td class="num">17.62 – 24.39</td><td><span class="r">below</span></td></tr>
+<tr><td><b>OKLO</b></td><td class="num"><b>17.79</b></td><td class="num">19.20</td><td class="num">17.97</td><td class="num"><b>18.58</b></td><td class="num"><b>19.49</b></td><td class="num"><b>20.10</b></td><td class="num">21.01</td><td class="num">21.45</td><td class="num">23.64</td><td class="num">28.67</td><td class="num">46.55</td><td class="num">1.31</td><td class="num">14.87 – 20.71</td><td><span class="r">below</span></td></tr>
+<tr><td><b>HPQ</b></td><td class="num"><b>30.93</b></td><td class="num">27.94</td><td class="num">27.00</td><td class="num"><b>27.47</b></td><td class="num"><b>28.17</b></td><td class="num"><b>28.64</b></td><td class="num">29.34</td><td class="num">28.49</td><td class="num">29.17</td><td class="num">29.84</td><td class="num">27.40</td><td class="num">1.18</td><td class="num">28.30 – 33.56</td><td><span class="g">above</span></td></tr>
+<tr><td><b>AMBA</b></td><td class="num"><b>36.42</b></td><td class="num">44.47</td><td class="num">38.00</td><td class="num"><b>41.24</b></td><td class="num"><b>47.51</b></td><td class="num"><b>50.75</b></td><td class="num">57.02</td><td class="num">54.28</td><td class="num">57.89</td><td class="num">62.15</td><td class="num">67.29</td><td class="num">3.02</td><td class="num">29.66 – 43.18</td><td><span class="r">below</span></td></tr>
+<tr><td><b>URBN</b></td><td class="num"><b>75.69</b></td><td class="num">85.58</td><td class="num">81.43</td><td class="num"><b>83.51</b></td><td class="num"><b>86.67</b></td><td class="num"><b>88.75</b></td><td class="num">91.91</td><td class="num">85.42</td><td class="num">85.79</td><td class="num">83.99</td><td class="num">76.67</td><td class="num">2.49</td><td class="num">70.13 – 81.25</td><td><span class="r">below</span></td></tr>
+<tr><td><b>DELL</b></td><td class="num"><b>275.24</b></td><td class="num">295.28</td><td class="num">273.61</td><td class="num"><b>284.45</b></td><td class="num"><b>301.33</b></td><td class="num"><b>312.17</b></td><td class="num">329.05</td><td class="num">320.89</td><td class="num">360.89</td><td class="num">416.44</td><td class="num">366.46</td><td class="num">18.47</td><td class="num">233.93 – 316.54</td><td><span class="r">below</span></td></tr>
+</table></div>
+<p class="note">PP = (H+L+C)/3 of prior session; R1 = 2·PP−L; S1 = 2·PP−H; R2 = PP+(H−L); S2 = PP−(H−L). On a large gap, price can open beyond R2/S2 — then the EMAs and 1σ band are the next reference levels.</p>
+</section>
+<section class="panel" id="panel-ideas" role="tabpanel" aria-labelledby="tideas">
+<h2>Trade Ideas <span class="note">(rule-based from key levels + market regime)</span></h2>
+<div class="bias"><b>Regime:</b> VIX 32.47 · bias RISK-OFF · target expiry <b>2026-12-04</b> (first Friday ≥ 7 DTE). Strikes are rounded to standard increments — confirm they are listed and price at the mid before entering.</div>
+<div class="tw" style="margin-top:12px"><table>
+<tr><th>Ticker</th><th>Setup</th><th class="num">Trend</th><th>IV</th><th>Structure</th><th>Legs</th><th>Entry trigger</th><th>Target</th><th>Stop</th><th class="num">Max risk</th></tr>
+<tr><td><b>HPQ</b></td><td><span class="pill pg">🟢 BULL</span></td><td class="num">+1</td><td>NORMAL 60%</td><td>Call debit spread</td><td class="w">Buy 31.00C / Sell 34.00C · thin chain: limit at mid or trade stock</td><td class="w">Hold above 50EMA 29.84; no overhead level — trail</td><td>+1w EM 33.56</td><td>Close &lt; 50EMA 29.84</td><td class="num">1.0% NAV</td></tr>
+<tr><td><b>NVDA</b></td><td><span class="pill pr">🔴 BEAR</span></td><td class="num">-5</td><td>HIGH 93%</td><td>Bear call credit spread</td><td class="w">Sell 165.00C / Buy 167.50C</td><td class="w">Stay below S2 145.85; no support below — trail</td><td>−1w EM 125.18</td><td>Close &gt; S1 150.61</td><td class="num">1.0% NAV</td></tr>
+<tr><td><b>AMZN</b></td><td><span class="pill pr">🔴 BEAR</span></td><td class="num">-5</td><td>NORMAL 50%</td><td>Put debit spread</td><td class="w">Buy 240.00P / Sell 220.00P</td><td class="w">Stay below S2 247.76; no support below — trail</td><td>−1w EM 221.73</td><td>Close &gt; S2 247.76</td><td class="num">1.0% NAV</td></tr>
+<tr><td><b>META</b></td><td><span class="pill pr">🔴 BEAR</span></td><td class="num">-5</td><td>NORMAL 54%</td><td>Put debit spread</td><td class="w">Buy 580.00P / Sell 570.00P</td><td class="w">Stay below S1 582.62; add on break of S2 575.41</td><td>S2 575.41</td><td>Close &gt; PDC 589.82</td><td class="num">1.0% NAV</td></tr>
+<tr><td><b>TSLA</b></td><td><span class="pill pr">🔴 BEAR</span></td><td class="num">-5</td><td>NORMAL 66%</td><td>Put debit spread</td><td class="w">Buy 365.00P / Sell 330.00P</td><td class="w">Stay below S2 368.83; no support below — trail</td><td>−1w EM 332.14</td><td>Close &gt; 50EMA 376.38</td><td class="num">1.0% NAV</td></tr>
+<tr><td><b>PLTR</b></td><td><span class="pill pr">🔴 BEAR</span></td><td class="num">-5</td><td>NORMAL 68%</td><td>Put debit spread</td><td class="w">Buy 155.00P / Sell 140.00P</td><td class="w">Stay below S1 158.19; no support below — trail</td><td>−1w EM 140.26</td><td>Close &gt; S1 158.19</td><td class="num">1.0% NAV</td></tr>
+<tr><td><b>AMD</b></td><td><span class="pill pr">🔴 BEAR</span></td><td class="num">-5</td><td>HIGH 111%</td><td>Bear call credit spread</td><td class="w">Sell 440.00C / Buy 445.00C</td><td class="w">Stay below S1 396.56; no support below — trail</td><td>−1w EM 320.16</td><td>Close &gt; S1 396.56</td><td class="num">1.0% NAV</td></tr>
+<tr><td><b>AVGO</b></td><td><span class="pill pr">🔴 BEAR</span></td><td class="num">-5</td><td>HIGH 83%</td><td>Bear call credit spread</td><td class="w">Sell 320.00C / Buy 325.00C</td><td class="w">Stay below S2 291.31; no support below — trail</td><td>−1w EM 251.72</td><td>Close &gt; S2 291.31</td><td class="num">1.0% NAV</td></tr>
+<tr><td><b>IONQ</b></td><td><span class="pill pr">🔴 BEAR</span></td><td class="num">-5</td><td>HIGH 114%</td><td>Bear call credit spread</td><td class="w">Sell 24.50C / Buy 25.00C · thin chain: limit at mid or trade stock</td><td class="w">Stay below S2 21.18; no support below — trail</td><td>−1w EM 17.62</td><td>Close &gt; S1 21.79</td><td class="num">1.0% NAV</td></tr>
+<tr><td><b>OKLO</b></td><td><span class="pill pr">🔴 BEAR</span></td><td class="num">-5</td><td>HIGH 117%</td><td>Bear call credit spread</td><td class="w">Sell 21.00C / Buy 21.50C · thin chain: limit at mid or trade stock</td><td class="w">Stay below S2 17.97; no support below — trail</td><td>−1w EM 14.87</td><td>Close &gt; S1 18.58</td><td class="num">1.0% NAV</td></tr>
+<tr><td><b>AMBA</b></td><td><span class="pill pr">🔴 BEAR</span></td><td class="num">-5</td><td>HIGH 132%</td><td>Bear call credit spread</td><td class="w">Sell 44.00C / Buy 45.00C · thin chain: limit at mid or trade stock</td><td class="w">Stay below S2 38.00; no support below — trail</td><td>−1w EM 29.66</td><td>Close &gt; S2 38.00</td><td class="num">1.0% NAV</td></tr>
+<tr><td><b>URBN</b></td><td><span class="pill pr">🔴 BEAR</span></td><td class="num">-5</td><td>NORMAL 52%</td><td>Put debit spread</td><td class="w">Buy 75.00P / Sell 70.00P · thin chain: limit at mid or trade stock</td><td class="w">Stay below 200EMA 76.67; no support below — trail</td><td>−1w EM 70.13</td><td>Close &gt; 200EMA 76.67</td><td class="num">1.0% NAV</td></tr>
+<tr><td><b>DELL</b></td><td><span class="pill pr">🔴 BEAR</span></td><td class="num">-5</td><td>HIGH 107%</td><td>Bear call credit spread</td><td class="w">Sell 320.00C / Buy 325.00C · thin chain: limit at mid or trade stock</td><td class="w">Stay below S1 284.45; add on break of S2 273.61</td><td>S2 273.61</td><td>Close &gt; S1 284.45</td><td class="num">1.0% NAV</td></tr>
+<tr><td><b>MSFT</b></td><td><span class="pill pr">🔴 BEAR</span></td><td class="num">-3</td><td>NORMAL 43%</td><td>Put debit spread</td><td class="w">Buy 480.00P / Sell 470.00P</td><td class="w">Stay below S1 489.10; add on break of 200EMA 472.61</td><td>200EMA 472.61</td><td>Close &gt; S1 489.10</td><td class="num">1.0% NAV</td></tr>
+<tr><td><b>GOOGL</b></td><td><span class="pill pr">🔴 BEAR</span></td><td class="num">-3</td><td>NORMAL 47%</td><td>Put debit spread</td><td class="w">Buy 265.00P / Sell 245.00P · thin chain: limit at mid or trade stock</td><td class="w">Stay below S2 273.20; no support below — trail</td><td>−1w EM 249.72</td><td>Close &gt; S2 273.20</td><td class="num">1.0% NAV</td></tr>
+<tr><td><b>AAPL</b></td><td><span class="pill po">🟠 NEUTRAL</span></td><td class="num">+1</td><td>LOW 30%</td><td>No trade</td><td class="w">—</td><td class="w">Alert: long &gt; 21EMA 348.17 · short &lt; S2 342.93</td><td>—</td><td>—</td><td class="num">—</td></tr>
+</table></div>
+<details class="note" style="margin-top:10px"><summary>Rules used</summary><pre style="white-space:pre-wrap">Key levels  : classic floor pivots from the prior session (PP, R1/R2, S1/S2),
+              9/21/50/200 EMA, prior close, 1-day and 1-week 1σ expected move.
+Trend score : +1/-1 each for spot vs 21 EMA, spot vs 50 EMA, spot vs 200 EMA,
+              9 EMA vs 21 EMA, MACD histogram sign  -&gt; range -5..+5.
+Direction   : BULL if score &gt;= +1 and spot &gt;= PP; BEAR if score &lt;= -1 and spot &lt; PP;
+              otherwise NEUTRAL.
+Levels used : all of S2/S1/PP/R1/R2, prior close, 9/21/50/200 EMA, sorted around the
+              live price -&gt; nearest support / resistance (handles gaps past R2/S2). RSI &gt; 75 blocks new bull entries, RSI &lt; 25 blocks
+              new bear entries (stretched).
+IV regime   : LOW &lt; 35%, NORMAL 35-70%, HIGH &gt; 70% (absolute; no IV-rank feed).
+Structure   : BULL + LOW/NORMAL IV  -&gt; call debit spread  (long ~ATM, short at first resistance within +1w EM)
+              BULL + HIGH IV        -&gt; bull put credit spr (short below support and -1w EM, 1 strike wide)
+              BEAR + LOW/NORMAL IV  -&gt; put debit spread   (long ~ATM, short at first support within -1w EM)
+              BEAR + HIGH IV        -&gt; bear call credit spr (short above resistance and +1w EM, 1 strike wide)
+              NEUTRAL + HIGH IV     -&gt; iron condor, shorts at ±1w EM
+              NEUTRAL otherwise     -&gt; no trade; alert on break of nearest resistance / support
+Event       : earnings/binary event before expiry -&gt; debit spreads only, size 0.5%.
+Market      : VIX &gt; 25 halves size; RISK-OFF skips bull ideas below the 200 EMA;
+              RISK-ON skips bear ideas above the 200 EMA.
+Expiry      : first Friday &gt;= 7 calendar days out (no &lt;7 DTE without a catalyst).
+Credit floor: a credit spread must collect &gt;= 1/4 of its width at mid; otherwise skip it
+              (or move the short strike closer if that still clears the level).
+IV input    : strikes use &quot;iv_target&quot; (ATM IV of the target expiry) when supplied, else &quot;iv&quot;.
+Size        : 2% NAV max risk (1% if VIX &gt; 25, 0.5% on events).
+Stops       : bull -&gt; daily close below the nearest support at least 1/3 of a 1-day EM away;
+              bear -&gt; daily close above the equivalent resistance.
+              Spread: exit at -50% of debit / 2x credit received.
+Targets     : take half at +50%, close at 75-80% of max value.</pre></details>
+</section>
+<section class="panel" id="panel-s1" role="tabpanel" aria-labelledby="ts1">
+<h2>1 · Macro Pulse</h2>
+<div class="tw"><table>
+<tr><th>Asset</th><th>Level</th><th>Chg</th><th>Read</th></tr>
+<tr><td>S&amp;P 500 (SPY)</td><td><b>$702.20</b></td><td>−2.31%</td><td class="w"><span class="pill pr">🔴</span> Heavy, broad-based selling</td></tr>
+<tr><td>Nasdaq 100 (QQQ)</td><td><b>$614.17</b></td><td>−3.75%</td><td class="w"><span class="pill pr">🔴</span> Reports put the Nasdaq 100 <b>near bear-market territory</b> (−20% from peak) ⚠️</td></tr>
+<tr><td>Russell 2000 (IWM)</td><td><b>$263.73</b></td><td>−1.28%</td><td class="w"><span class="pill pr">🔴</span> </td></tr>
+<tr><td>Dow (DIA)</td><td><b>$493.68</b></td><td>−1.22%</td><td class="w"><span class="pill pr">🔴</span> </td></tr>
+<tr><td>VIX</td><td><b><b>32.47</b></b></td><td>+23.2%</td><td class="w"><span class="pill pr">🔴</span> Last 7 closes: 25.46 → 24.56 → 28.44 → <b>35.89</b> → 26.62 → 26.36 → 32.47 (stress regime)</td></tr>
+<tr><td>Treasuries (TLT / IEF)</td><td><b>$82.46 / $92.33</b></td><td>+1.19% / +0.75%</td><td class="w"><span class="pill po">🟠</span> Flight to safety despite hot PCE ⚠️ yield levels not pulled</td></tr>
+<tr><td>Dollar (UUP)</td><td><b>$29.69</b></td><td>+0.19%</td><td class="w"><span class="pill po">🟠</span> Slightly firmer</td></tr>
+<tr><td>Crude (USO / BNO)</td><td><b>$138.31 / $58.76</b></td><td>+2.13% / +1.75%</td><td class="w"><span class="pill po">🟠</span> Energy is one of the few green sectors</td></tr>
+<tr><td>Gold (GLD)</td><td><b>$316.08</b></td><td>−2.88%</td><td class="w"><span class="pill pr">🔴</span> Sold with everything (margin/liquidity)</td></tr>
+<tr><td>Bitcoin</td><td><b><b>$58,538</b></b></td><td>−1.0%</td><td class="w"><span class="pill pr">🔴</span> Below $60K (it was ~$64.6K on Nov 16)</td></tr>
+</table></div>
+<h3>Data &amp; overnight</h3>
+<div class="tw"><table>
+<tr><th>When</th><th>Event</th></tr>
+<tr><td>Today 8:30</td><td class="w"><b>October PCE inflation came in hot</b> (core picked up) — markets lean toward Fed <b>rate hikes</b> ⚠️ exact figures not pulled</td></tr>
+<tr><td>Today</td><td class="w"><b>New tariff headlines</b> — reports differ (one cites new 20% tariffs) ⚠️ details unverified</td></tr>
+<tr><td>Today</td><td class="w">AI-capex repricing continues: NVDA −7%, AMD −8%, SMH −6%; <b>Dell fell ~7% despite beating</b> (EPS $9.45, rev $54.94B)</td></tr>
+<tr><td>Today</td><td class="w">Sanofi&#x27;s <b>$41B cash bid for Insmed</b> lifted biotech; HP +11% on results; Ambarella −18% on its guide; Urban Outfitters −12% on same-store sales</td></tr>
+<tr><td>Thu 11/26</td><td class="w"><b>Market closed</b> (Thanksgiving)</td></tr>
+<tr><td>Fri 11/27</td><td class="w">Half-day — stocks close <b>1:00 PM ET</b>; Nov 27 weeklies expire then</td></tr>
+</table></div>
+<div class="bias"><b>Bias: 🔴 RISK-OFF (stress).</b> VIX 32.5, cap-weighted tech down 3.75% while equal-weight is only −0.6%, chips −6%, Bitcoin &lt; $60K, gold sold too. This is liquidation into a holiday — the trend is down, but chasing new shorts here carries <b>squeeze risk</b> on any calm Friday.</div>
+</section>
+<section class="panel" id="panel-s2" role="tabpanel" aria-labelledby="ts2">
+<h2>2 · Universe Main Grid</h2>
+<h3>A + B · Mag 7 + watchlist</h3>
+<div class="tw"><table>
+<tr><th>Ticker</th><th>Sent.</th><th>Price</th><th>%Chg</th><th>Vol</th><th>Catalyst</th><th>Rating / mean PT</th><th>Support</th><th>Resistance</th><th>EM ±$ (1d)</th><th>IV %</th><th>Conv.</th></tr>
+<tr><td><b>AMD</b></td><td><span class="pill pr">🔴</span></td><td><b>379.78</b></td><td><span class="r">-8.11%</span></td><td>14.3M</td><td class="w">Chip rout (−8.1%); SMH −6%</td><td class="w">53B/6H/0S · $651.52</td><td class="w">—</td><td class="w">S1 <b>396.56</b> / PP <b>412.72</b></td><td>26.66</td><td>111.5</td><td>★★★★☆</td></tr>
+<tr><td><b>NVDA</b></td><td><span class="pill pr">🔴</span></td><td><b>144.03</b></td><td><span class="r">-7.31%</span></td><td>116.6M</td><td class="w">AI-capex unwind: extended Tuesday&#x27;s ~6% slide (−7.3%); RSI 39 into the holiday</td><td class="w">57B/14H/2S · $239.79</td><td class="w">—</td><td class="w">S2 <b>145.85</b> / S1 <b>150.61</b></td><td>8.43</td><td>92.9</td><td>★★★★☆</td></tr>
+<tr><td><b>AMZN</b></td><td><span class="pill pr">🔴</span></td><td><b>238.56</b></td><td><span class="r">-5.45%</span></td><td>17.8M</td><td class="w">AI-capex worries (−5.5%); lost 50 EMA</td><td class="w">68B/4H/0S · $327.94</td><td class="w">—</td><td class="w">S2 <b>247.76</b> / 200EMA <b>247.94</b></td><td>7.53</td><td>50.1</td><td>★★★★☆</td></tr>
+<tr><td><b>AVGO</b></td><td><span class="pill pr">🔴</span></td><td><b>285.05</b></td><td><span class="r">-5.33%</span></td><td>9.1M</td><td class="w">Chip rout (−5.3%)</td><td class="w">53B/3H/0S · $521.40</td><td class="w">—</td><td class="w">S2 <b>291.31</b> / S1 <b>296.19</b></td><td>14.91</td><td>83.0</td><td>★★★★☆</td></tr>
+<tr><td><b>TSLA</b></td><td><span class="pill pr">🔴</span></td><td><b>366.07</b></td><td><span class="r">-4.84%</span></td><td>10.8M</td><td class="w">Lost 200 EMA ($378.78)</td><td class="w">25B/23H/2S · $430.50</td><td class="w">—</td><td class="w">S2 <b>368.83</b> / 50EMA <b>376.38</b></td><td>15.17</td><td>65.8</td><td>★★★★☆</td></tr>
+<tr><td><b>PLTR</b></td><td><span class="pill pr">🔴</span></td><td><b>155.20</b></td><td><span class="r">-3.71%</span></td><td>5.6M</td><td class="w">AI software de-rating; below 200 EMA</td><td class="w">30B/8H/2S · $223.47</td><td class="w">—</td><td class="w">S1 <b>158.19</b> / 9EMA <b>159.34</b></td><td>6.68</td><td>68.3</td><td>★★★★☆</td></tr>
+<tr><td><b>MSFT</b></td><td><span class="pill pr">🔴</span></td><td><b>482.19</b></td><td><span class="r">-2.82%</span></td><td>6.4M</td><td class="w">Tech selloff; below 50 EMA, testing 200 EMA ($472.61)</td><td class="w">56B/3H/0S · $637.94</td><td class="w">200EMA <b>472.61</b></td><td class="w">S1 <b>489.10</b> / PP <b>495.46</b></td><td>12.97</td><td>42.7</td><td>★★★★☆</td></tr>
+<tr><td><b>META</b></td><td><span class="pill pr">🔴</span></td><td><b>579.61</b></td><td><span class="r">-1.74%</span></td><td>4.0M</td><td class="w">Below 200 EMA; smaller drop (−1.7%)</td><td class="w">64B/6H/1S · $842.47</td><td class="w">S2 <b>575.41</b></td><td class="w">S1 <b>582.62</b> / PDC <b>589.82</b></td><td>19.81</td><td>54.3</td><td>★★★★☆</td></tr>
+<tr><td><b>OKLO</b></td><td><span class="pill pr">🔴</span></td><td><b>17.79</b></td><td><span class="r">-7.35%</span></td><td>3.3M</td><td class="w">Speculative-tech liquidation</td><td class="w">13B/7H/1S · $48.00</td><td class="w">—</td><td class="w">S2 <b>17.97</b> / S1 <b>18.58</b></td><td>1.31</td><td>116.5</td><td>★★☆☆☆</td></tr>
+<tr><td><b>IONQ</b></td><td><span class="pill pr">🔴</span></td><td><b>21.00</b></td><td><span class="r">-6.23%</span></td><td>6.4M</td><td class="w">Speculative-tech liquidation</td><td class="w">14B/3H/0S · $53.99</td><td class="w">—</td><td class="w">S2 <b>21.18</b> / S1 <b>21.79</b></td><td>1.51</td><td>114.5</td><td>★★☆☆☆</td></tr>
+<tr><td><b>GOOGL</b></td><td><span class="pill pr">🔴</span></td><td><b>267.30</b></td><td><span class="r">-4.22%</span></td><td>12.1M</td><td class="w">Tech selloff; −17% below 200 EMA</td><td class="w">63B/9H/0S · $388.93</td><td class="w">—</td><td class="w">S2 <b>273.20</b> / S1 <b>276.13</b></td><td>7.86</td><td>46.7</td><td>★★☆☆☆</td></tr>
+<tr><td><b>AAPL</b></td><td><span class="pill po">🟠</span></td><td><b>346.54</b></td><td><span class="r">-2.13%</span></td><td>11.3M</td><td class="w">Broad selloff; holding 50 EMA $341.55</td><td class="w">29B/13H/7S · $348.52</td><td class="w">S2 <b>342.93</b> / 50EMA <b>341.55</b></td><td class="w">21EMA <b>348.17</b> / S1 <b>348.50</b></td><td>6.56</td><td>30.1</td><td>★★☆☆☆</td></tr>
+</table></div>
+<h3>C · Top bullish (1)</h3>
+<div class="tw"><table>
+<tr><th>Ticker</th><th>Sent.</th><th>Price</th><th>%Chg</th><th>Vol</th><th>Catalyst</th><th>Rating / mean PT</th><th>Support</th><th>Resistance</th><th>EM ±$ (1d)</th><th>IV %</th><th>Conv.</th></tr>
+<tr><td><b>HPQ</b></td><td><span class="pill pg">🟢</span></td><td><b>30.93</b></td><td><span class="g">+10.71%</span></td><td>11.2M</td><td class="w">FQ4 results: +10.7% (CNBC/StockTitan)</td><td class="w">2B/11H/8S · $27.76</td><td class="w">50EMA <b>29.84</b> / R2 <b>29.34</b></td><td class="w">—</td><td>1.18</td><td>60.3</td><td>★★☆☆☆</td></tr>
+</table></div>
+<h3>D · Top bearish (3)</h3>
+<div class="tw"><table>
+<tr><th>Ticker</th><th>Sent.</th><th>Price</th><th>%Chg</th><th>Vol</th><th>Catalyst</th><th>Rating / mean PT</th><th>Support</th><th>Resistance</th><th>EM ±$ (1d)</th><th>IV %</th><th>Conv.</th></tr>
+<tr><td><b>AMBA</b></td><td><span class="pill pr">🔴</span></td><td><b>36.42</b></td><td><span class="r">-18.11%</span></td><td>6.7M</td><td class="w">Q4 revenue guide $70–75M, well below Street (−18% now, −34% pre-market)</td><td class="w">6B/5H/1S · $64.67</td><td class="w">—</td><td class="w">S2 <b>38.00</b> / S1 <b>41.24</b></td><td>3.02</td><td>131.8</td><td>★★☆☆☆</td></tr>
+<tr><td><b>URBN</b></td><td><span class="pill pr">🔴</span></td><td><b>75.69</b></td><td><span class="r">-11.56%</span></td><td>1.7M</td><td class="w">Q3 same-store sales +4.4% vs +5.3% expected (−11.6%)</td><td class="w">8B/11H/0S · $87.92</td><td class="w">—</td><td class="w">200EMA <b>76.67</b> / S2 <b>81.43</b></td><td>2.49</td><td>52.1</td><td>★★☆☆☆</td></tr>
+<tr><td><b>DELL</b></td><td><span class="pill pr">🔴</span></td><td><b>275.24</b></td><td><span class="r">-6.79%</span></td><td>11.0M</td><td class="w">Beat (EPS $9.45, rev $54.94B) but sold off — AI-server margin/capex repricing (−6.8%)</td><td class="w">24B/9H/1S · $513.23</td><td class="w">S2 <b>273.61</b></td><td class="w">S1 <b>284.45</b> / PDC <b>295.28</b></td><td>18.47</td><td>106.5</td><td>★★☆☆☆</td></tr>
+</table></div>
+<p class="note">Support/resistance = nearest levels around spot from pivots, prior close and 9/21/50/200 EMA. Sentiment and stars default to the Trade Ideas engine (trend score, setup, liquidity).</p>
+</section>
+<section class="panel" id="panel-s3" role="tabpanel" aria-labelledby="ts3">
+<h2>3 · EMA / Technical Stack</h2>
+<div class="tw"><table>
+<tr><th>Ticker</th><th>Price</th><th>9 EMA</th><th>21 EMA</th><th>50 EMA</th><th>200 EMA</th><th>Stack</th><th>RSI</th><th>MACD (hist)</th><th>Pattern / flags</th></tr>
+<tr><td><b>AAPL</b></td><td>346.54</td><td>350.19</td><td>348.17</td><td>341.55</td><td>310.50</td><td><span class="pill po">🟠 MIXED</span> &lt;21</td><td>56.7</td><td><span class="r">Bear -0.44</span></td><td></td></tr>
+<tr><td><b>HPQ</b></td><td>30.93</td><td>28.49</td><td>29.17</td><td>29.84</td><td>27.40</td><td><span class="pill po">🟠 MIXED</span> px above all</td><td>40.9</td><td><span class="r">Bear -0.02</span></td><td></td></tr>
+<tr><td><b>MSFT</b></td><td>482.19</td><td>503.87</td><td>513.96</td><td>512.13</td><td>472.61</td><td><span class="pill po">🟠 MIXED</span> &lt;50 &lt;21</td><td>41.0</td><td><span class="r">Bear -4.56</span></td><td></td></tr>
+<tr><td><b>GOOGL</b></td><td>267.30</td><td>280.75</td><td>291.00</td><td>310.30</td><td>322.63</td><td><span class="pill pr">🔴 BEAR</span></td><td>39.6</td><td><span class="g">Bull +0.66</span></td><td></td></tr>
+<tr><td><b>NVDA</b></td><td>144.03</td><td>156.74</td><td>172.97</td><td>193.12</td><td>199.99</td><td><span class="pill pr">🔴 BEAR</span></td><td>39.5</td><td><span class="r">Bear -1.19</span></td><td>−7% today, −31% since Nov 3; below every EMA</td></tr>
+<tr><td><b>AMZN</b></td><td>238.56</td><td>256.85</td><td>257.57</td><td>256.45</td><td>247.94</td><td><span class="pill po">🟠 MIXED</span> &lt;200 &lt;50 &lt;21</td><td>46.5</td><td><span class="r">Bear -1.32</span></td><td></td></tr>
+<tr><td><b>META</b></td><td>579.61</td><td>602.66</td><td>621.64</td><td>640.83</td><td>638.74</td><td><span class="pill po">🟠 MIXED</span> &lt;200 &lt;50 &lt;21</td><td>40.2</td><td><span class="r">Bear -1.97</span></td><td></td></tr>
+<tr><td><b>TSLA</b></td><td>366.07</td><td>378.31</td><td>379.59</td><td>376.38</td><td>378.78</td><td><span class="pill po">🟠 MIXED</span> &lt;200 &lt;50 &lt;21</td><td>51.8</td><td><span class="r">Bear -1.20</span></td><td></td></tr>
+<tr><td><b>PLTR</b></td><td>155.20</td><td>159.34</td><td>167.56</td><td>174.03</td><td>161.76</td><td><span class="pill po">🟠 MIXED</span> &lt;200 &lt;50 &lt;21</td><td>43.2</td><td><span class="r">Bear -0.75</span></td><td></td></tr>
+<tr><td><b>AMD</b></td><td>379.78</td><td>472.39</td><td>498.29</td><td>518.95</td><td>445.62</td><td><span class="pill po">🟠 MIXED</span> &lt;200 &lt;50 &lt;21</td><td>38.7</td><td><span class="r">Bear -7.86</span></td><td></td></tr>
+<tr><td><b>AVGO</b></td><td>285.05</td><td>324.23</td><td>330.35</td><td>340.98</td><td>355.19</td><td><span class="pill pr">🔴 BEAR</span></td><td>40.8</td><td><span class="r">Bear -2.24</span></td><td></td></tr>
+<tr><td><b>IONQ</b></td><td>21.00</td><td>24.74</td><td>27.93</td><td>32.43</td><td>39.80</td><td><span class="pill pr">🔴 BEAR</span></td><td>35.1</td><td><span class="r">Bear -0.62</span></td><td></td></tr>
+<tr><td><b>OKLO</b></td><td>17.79</td><td>21.45</td><td>23.64</td><td>28.67</td><td>46.55</td><td><span class="pill pr">🔴 BEAR</span></td><td>32.7</td><td><span class="r">Bear -0.05</span></td><td></td></tr>
+<tr><td><b>AMBA</b></td><td>36.42</td><td>54.28</td><td>57.89</td><td>62.15</td><td>67.29</td><td><span class="pill pr">🔴 BEAR</span></td><td>31.6</td><td><span class="r">Bear -0.97</span></td><td>Guide-down gap; options OI 0</td></tr>
+<tr><td><b>URBN</b></td><td>75.69</td><td>85.42</td><td>85.79</td><td>83.99</td><td>76.67</td><td><span class="pill po">🟠 MIXED</span> &lt;200 &lt;50 &lt;21</td><td>50.0</td><td><span class="r">Bear -0.43</span></td><td></td></tr>
+<tr><td><b>DELL</b></td><td>275.24</td><td>320.89</td><td>360.89</td><td>416.44</td><td>366.46</td><td><span class="pill po">🟠 MIXED</span> &lt;200 &lt;50 &lt;21</td><td>36.5</td><td><span class="r">Bear -0.38</span></td><td>Sell-the-beat; 25% below 200 EMA</td></tr>
+</table></div>
+</section>
+<section class="panel" id="panel-s4" role="tabpanel" aria-labelledby="ts4">
+<h2>4 · Greeks &amp; Expected Move</h2>
+<p class="note">ATM option marks. Θ and ν per share (ν per 1 IV pt). EM = spot × IV × √(days/252); 1w = 5 sessions.</p>
+<div class="tw"><table>
+<tr><th>Ticker</th><th>Spot</th><th>ATM strike / exp</th><th>Type</th><th>Δ</th><th>Γ</th><th>Θ/day</th><th>ν</th><th>IV %</th><th>1d EM ±%</th><th>1w EM ±$</th></tr>
+<tr><td><b>NVDA</b></td><td>144.03</td><td>145.00 / 12-04</td><td>P</td><td>-0.487</td><td>0.0188</td><td>-0.45</td><td>0.091</td><td>92.9</td><td>5.9%</td><td>18.85</td></tr>
+<tr><td><b>AAPL</b></td><td>346.54</td><td>345.00 / 12-04</td><td>P</td><td>-0.438</td><td>0.0239</td><td>-0.34</td><td>0.217</td><td>30.1</td><td>1.9%</td><td>14.67</td></tr>
+<tr><td><b>MSFT</b></td><td>482.19</td><td>480.00 / 12-04</td><td>P</td><td>-0.461</td><td>0.0122</td><td>-0.68</td><td>0.304</td><td>42.7</td><td>2.7%</td><td>29.00</td></tr>
+<tr><td><b>GOOGL</b></td><td>267.30</td><td>267.50 / 12-04</td><td>P</td><td>-0.486</td><td>0.0202</td><td>-0.41</td><td>0.169</td><td>46.7</td><td>2.9%</td><td>17.58</td></tr>
+<tr><td><b>AMZN</b></td><td>238.56</td><td>237.50 / 12-04</td><td>P</td><td>-0.456</td><td>0.0209</td><td>-0.40</td><td>0.150</td><td>50.1</td><td>3.2%</td><td>16.83</td></tr>
+<tr><td><b>META</b></td><td>579.61</td><td>580.00 / 12-04</td><td>P</td><td>-0.484</td><td>0.0080</td><td>-1.05</td><td>0.367</td><td>54.3</td><td>3.4%</td><td>44.30</td></tr>
+<tr><td><b>TSLA</b></td><td>366.07</td><td>365.00 / 12-04</td><td>P</td><td>-0.466</td><td>0.0104</td><td>-0.80</td><td>0.231</td><td>65.8</td><td>4.1%</td><td>33.93</td></tr>
+<tr><td><b>PLTR</b></td><td>155.20</td><td>155.00 / 12-04</td><td>P</td><td>-0.476</td><td>0.0237</td><td>-0.35</td><td>0.098</td><td>68.3</td><td>4.3%</td><td>14.94</td></tr>
+<tr><td><b>AMD</b></td><td>379.78</td><td>380.00 / 12-04</td><td>P</td><td>-0.469</td><td>0.0059</td><td>-1.43</td><td>0.239</td><td>111.5</td><td>7.0%</td><td>59.62</td></tr>
+<tr><td><b>AVGO</b></td><td>285.05</td><td>285.00 / 12-04</td><td>P</td><td>-0.474</td><td>0.0106</td><td>-0.79</td><td>0.180</td><td>83.0</td><td>5.2%</td><td>33.33</td></tr>
+<tr><td><b>IONQ</b></td><td>21.00</td><td>21.00 / 12-04</td><td>P</td><td>-0.464</td><td>0.1040</td><td>-0.08</td><td>0.013</td><td>114.5</td><td>7.2%</td><td>3.39</td></tr>
+<tr><td><b>OKLO</b></td><td>17.79</td><td>18.00 / 12-04</td><td>P</td><td>-0.489</td><td>0.1211</td><td>-0.07</td><td>0.011</td><td>116.5</td><td>7.3%</td><td>2.92</td></tr>
+<tr><td><b>HPQ</b></td><td>30.93</td><td>31.00 / 12-04</td><td>C</td><td>0.507</td><td>0.1347</td><td>-0.07</td><td>0.020</td><td>60.3</td><td>3.8%</td><td>2.63</td></tr>
+<tr><td><b>AMBA</b></td><td>36.42</td><td>36.00 / 12-04</td><td>P</td><td>-0.450</td><td>0.0523</td><td>-0.16</td><td>0.023</td><td>131.8</td><td>8.3%</td><td>6.76</td></tr>
+<tr><td><b>URBN</b></td><td>75.69</td><td>75.00 / 12-04</td><td>P</td><td>-0.443</td><td>0.0632</td><td>-0.13</td><td>0.047</td><td>52.1</td><td>3.3%</td><td>5.56</td></tr>
+<tr><td><b>DELL</b></td><td>275.24</td><td>275.00 / 12-04</td><td>P</td><td>-0.467</td><td>0.0085</td><td>-0.99</td><td>0.173</td><td>106.5</td><td>6.7%</td><td>41.30</td></tr>
+</table></div>
+<h3>Expected-move bands (1 week)</h3>
+<div class="tw"><table>
+<tr><th>Ticker</th><th>Lower 2σ</th><th>Lower 1σ</th><th>Spot</th><th>Upper 1σ</th><th>Upper 2σ</th></tr>
+<tr><td><b>NVDA</b></td><td>106.33</td><td><b>125.18</b></td><td>144.03</td><td><b>162.88</b></td><td>181.73</td></tr>
+<tr><td><b>AAPL</b></td><td>317.19</td><td><b>331.86</b></td><td>346.54</td><td><b>361.21</b></td><td>375.88</td></tr>
+<tr><td><b>MSFT</b></td><td>424.18</td><td><b>453.18</b></td><td>482.19</td><td><b>511.19</b></td><td>540.19</td></tr>
+<tr><td><b>GOOGL</b></td><td>232.14</td><td><b>249.72</b></td><td>267.30</td><td><b>284.88</b></td><td>302.46</td></tr>
+<tr><td><b>AMZN</b></td><td>204.90</td><td><b>221.73</b></td><td>238.56</td><td><b>255.39</b></td><td>272.22</td></tr>
+<tr><td><b>META</b></td><td>491.01</td><td><b>535.31</b></td><td>579.61</td><td><b>623.91</b></td><td>668.21</td></tr>
+<tr><td><b>TSLA</b></td><td>298.21</td><td><b>332.14</b></td><td>366.07</td><td><b>400.00</b></td><td>433.93</td></tr>
+<tr><td><b>PLTR</b></td><td>125.32</td><td><b>140.26</b></td><td>155.20</td><td><b>170.14</b></td><td>185.08</td></tr>
+<tr><td><b>AMD</b></td><td>260.54</td><td><b>320.16</b></td><td>379.78</td><td><b>439.40</b></td><td>499.02</td></tr>
+<tr><td><b>AVGO</b></td><td>218.39</td><td><b>251.72</b></td><td>285.05</td><td><b>318.38</b></td><td>351.71</td></tr>
+<tr><td><b>IONQ</b></td><td>14.23</td><td><b>17.62</b></td><td>21.00</td><td><b>24.39</b></td><td>27.78</td></tr>
+<tr><td><b>OKLO</b></td><td>11.95</td><td><b>14.87</b></td><td>17.79</td><td><b>20.71</b></td><td>23.63</td></tr>
+<tr><td><b>HPQ</b></td><td>25.67</td><td><b>28.30</b></td><td>30.93</td><td><b>33.56</b></td><td>36.19</td></tr>
+<tr><td><b>AMBA</b></td><td>22.90</td><td><b>29.66</b></td><td>36.42</td><td><b>43.18</b></td><td>49.94</td></tr>
+<tr><td><b>URBN</b></td><td>64.57</td><td><b>70.13</b></td><td>75.69</td><td><b>81.25</b></td><td>86.81</td></tr>
+<tr><td><b>DELL</b></td><td>192.63</td><td><b>233.93</b></td><td>275.24</td><td><b>316.54</b></td><td>357.84</td></tr>
+</table></div>
+<h3>What the moves mean</h3>
+<div class="tw"><table>
+<tr><th>Topic</th><th>Read</th></tr>
+<tr><td>Expiry used</td><td class="w">Greeks and strikes both use <b>Dec 4</b> (7 sessions incl. half-day) — avoids the short-dated IV distortion found on Nov 17.</td></tr>
+<tr><td>🔴 Elevated</td><td class="w">AMBA 132%, OKLO 117%, IONQ 114%, AMD 111%, DELL 107%, NVDA 93%, AVGO 83% — panic premium; selling it is tempting but credit spreads must still clear the ¼-width floor (NVDA did not)</td></tr>
+<tr><td>🟢 Lowest</td><td class="w">AAPL 30% · MSFT 43% · GOOGL 47% — the cheapest places to buy defined-risk direction</td></tr>
+<tr><td>Holiday</td><td class="w">Thursday closed and Friday half-day: the 1-week bands span ~3.5 real sessions of trading — they likely overstate the realised move unless the selloff accelerates</td></tr>
+</table></div>
+</section>
+<section class="panel" id="panel-s5" role="tabpanel" aria-labelledby="ts5">
+<h2>5 · Deep Dive</h2>
+<h3><span class="pill pr">🔴</span> MSFT short — engine BEAR (−3), IV 43%</h3>
+<div class="tw"><table>
+<tr><th></th><th></th></tr>
+<tr><td>TA</td><td class="w">Lost 9/21/50 EMA; heading for its <b>200 EMA $472.61</b>; RSI 41; MACD bear (hist −4.56)</td></tr>
+<tr><td>Levels</td><td class="w">S2 <b>$482.07</b> (being tested) · S1 $489.10 · PP $495.46</td></tr>
+<tr><td>Fundamentals</td><td class="w">56 Buy / 3 Hold; mean PT $637.94 — a tape trade, not a thesis change</td></tr>
+<tr><td>Options</td><td class="w">Dec 4 480P OI 956 · 470P OI 491</td></tr>
+<tr><td>Structure</td><td class="w"><b>Dec 4 480/470 put spread @ $3.63</b> (12.10 − 8.475) · max $10 · BE <b>$476.38</b> · 1.76 : 1</td></tr>
+<tr><td>Entry / target / stop</td><td class="w">Below S1 $489.10 → 200 EMA $472.61 · stop: close <b>&gt; $489.10</b></td></tr>
+</table></div>
+<h3><span class="pill pr">🔴</span> PLTR short — engine BEAR (−5), IV 68%</h3>
+<div class="tw"><table>
+<tr><th></th><th></th></tr>
+<tr><td>TA</td><td class="w">Full bear structure: below 9/21/50 and the <b>200 EMA $161.76</b>; RSI 43; MACD bear</td></tr>
+<tr><td>Levels</td><td class="w">S2 <b>$155.21</b> (at spot) · S1 $158.19 · PP $160.61</td></tr>
+<tr><td>Fundamentals</td><td class="w">30 Buy / 8 Hold / 2 Sell; mean PT $223.47</td></tr>
+<tr><td>Options</td><td class="w">Dec 4 155P OI 3,143 · 140P OI 1,448 — the most liquid setup today</td></tr>
+<tr><td>Structure</td><td class="w"><b>Dec 4 155/140 put spread @ $4.74</b> (6.85 − 2.115) · max $15 · BE <b>$150.27</b> · 2.17 : 1</td></tr>
+<tr><td>Entry / target / stop</td><td class="w">Stay below S1 $158.19; target −1w EM ≈ $140 · stop: close <b>&gt; $158.19</b></td></tr>
+</table></div>
+<h3><span class="pill pr">🔴</span> META short — engine BEAR (−5), IV 54%</h3>
+<div class="tw"><table>
+<tr><th></th><th></th></tr>
+<tr><td>TA</td><td class="w">Below 9/21/50/<b>200 EMA ($638.74)</b>; RSI 40; MACD bear — but only −1.7% today (relative strength)</td></tr>
+<tr><td>Levels</td><td class="w">S1 <b>$582.62</b> · S2 <b>$575.41</b> · PP $591.47</td></tr>
+<tr><td>Options</td><td class="w">Dec 4 580P OI 729 · 570P OI 438</td></tr>
+<tr><td>Structure</td><td class="w"><b>Dec 4 580/570 put spread @ $4.40</b> (20.275 − 15.875) · max $10 · BE <b>$575.60</b> · 1.27 : 1</td></tr>
+<tr><td>Entry / target / stop</td><td class="w">Below S1 $582.62 → S2 $575.41 · stop: close <b>&gt; $589.82</b> (prior close)</td></tr>
+</table></div>
+<div class="warn"><b>NVDA (engine: bear −5, HIGH IV 93%).</b> The engine&#x27;s bear-call credit spread 165/167.5 collects only <b>$0.34 on $2.50</b> (14% of width) — it <b>fails the ¼-width credit floor</b>, so no trade. <b>HPQ</b> is the only long setup (engine +1): Dec 4 31/34 call spread ≈ $0.94 for $3 max, but OI is 273/71 and analysts are 2 Buy / 11 Hold / 8 Sell with a $27.76 mean target — skip or trade the stock.</div>
+</section>
+<section class="panel" id="panel-s6" role="tabpanel" aria-labelledby="ts6">
+<h2>6 · Top 3 Plays</h2>
+<div class="cards"><div class="card"><h4><span class="pill pr">🔴</span> SHORT PLTR · Dec 4 $155/$140 put spread · $4.74 debit</h4><p>Cleanest structure on the board: full bear stack under the 200 EMA, engine score −5, and the deepest option liquidity of today&#x27;s setups (OI 3,143 / 1,448).</p><p><b>Math:</b> max $15 vs $4.74 → <b>2.17 : 1</b>; breakeven <b>$150.27</b>; short strike ≈ the 1-week −1σ move.</p><p><b>Risk:</b> a holiday short-covering bounce. <b>Stop:</b> close &gt; S1 <b>$158.19</b> or −50% of debit.</p></div><div class="card"><h4><span class="pill pr">🔴</span> SHORT MSFT · Dec 4 $480/$470 put spread · $3.63 debit</h4><p>Lost its 50 EMA and is testing S2; the obvious magnet is the <b>200 EMA at $472.61</b>, which sits inside the spread. IV is only 43%, so the debit is cheap.</p><p><b>Math:</b> max $10 vs $3.63 → <b>1.76 : 1</b>; breakeven <b>$476.38</b>.</p><p><b>Risk:</b> the 200 EMA can act as support and bounce it. <b>Stop:</b> close &gt; S1 <b>$489.10</b>.</p></div><div class="card"><h4><span class="pill pr">🔴</span> SHORT META · Dec 4 $580/$570 put spread · $4.40 debit</h4><p>Below its 200 EMA and every short-term average; the tight 10-wide spread targets S2 <b>$575.41</b>.</p><p><b>Math:</b> max $10 vs $4.40 → <b>1.27 : 1</b>; breakeven <b>$575.60</b>.</p><p><b>Risk:</b> META is showing relative strength today (−1.7% vs QQQ −3.75%). <b>These three are one tech-short bet — 1% NAV total, not each.</b> <b>Stop:</b> close &gt; <b>$589.82</b>.</p></div></div>
+</section>
+<section class="panel" id="panel-s7" role="tabpanel" aria-labelledby="ts7">
+<h2>7 · Avoid List</h2>
+<div class="tw"><table>
+<tr><th>Ticker / sector</th><th>Reason</th><th>Detail</th></tr>
+<tr><td>🔴 NVDA credit spreads</td><td>Credit too thin</td><td class="w">165/167.5 call spread = $0.34 on $2.50 (14%) — fails the ¼-width floor</td></tr>
+<tr><td>🔴 AMBA, URBN, DELL options</td><td>No liquidity</td><td class="w">ATM open interest 0 / 3 / 97; AMBA 36P quotes 2.05 × 3.80 — trade stock or skip</td></tr>
+<tr><td>🟠 Chasing shorts into the holiday</td><td>Squeeze risk</td><td class="w">4 straight down days, VIX 32, Thursday closed, Friday 1 PM close — keep size small and use defined risk</td></tr>
+<tr><td>🔴 Nov 27 weeklies</td><td>Theta + half-day</td><td class="w">Expire at 1 PM Friday after a closed Thursday — almost pure gamma/theta, no edge</td></tr>
+<tr><td>🔴 IONQ / OKLO</td><td>Falling knives</td><td class="w">Bear stacks, IV 114–117%, chains under 300 OI</td></tr>
+</table></div>
+</section>
+<section class="panel" id="panel-s8" role="tabpanel" aria-labelledby="ts8">
+<h2>8 · Risk Dashboard</h2>
+<div class="tw"><table>
+<tr><th>Metric</th><th>Reading</th><th>Signal</th></tr>
+<tr><td>VIX</td><td class="w"><b>32.47</b> (+23.2%)</td><td>🔴 stress</td></tr>
+<tr><td>Equity put/call</td><td class="w">⚠️ not verified</td><td>—</td></tr>
+<tr><td>Breadth</td><td class="w">⚠️ A/D not verified · proxy <b>RSP −0.64% vs SPY −2.31%</b> — cap-weighted tech is doing the damage</td><td>🟠</td></tr>
+<tr><td>Leading sectors</td><td class="w">Staples XLP +0.43% · Utilities XLU +0.43% · Materials XLB +0.34% · Energy XLE +0.32% · Real estate +0.24%</td><td>🟢 defensive</td></tr>
+<tr><td>Lagging sectors</td><td class="w"><b>Semis SMH −5.98%</b> · Tech XLK −4.40% · Discretionary XLY −2.27%</td><td>🔴</td></tr>
+<tr><td>Crude 1d</td><td class="w">USO +2.13% · BNO +1.75%</td><td>🟠</td></tr>
+<tr><td>Rates</td><td class="w">TLT +1.19% (yields down) ⚠️ 10Y−2Y not pulled</td><td>🟠</td></tr>
+<tr><td>Dollar</td><td class="w">UUP +0.19%</td><td>🟠</td></tr>
+<tr><td><b>Overall bias</b></td><td class="w"><b>RISK-OFF (stress)</b></td><td>🔴</td></tr>
+</table></div>
+</section>
+<section class="panel" id="panel-s9" role="tabpanel" aria-labelledby="ts9">
+<h2>9 · Week-Ahead Calendar</h2>
+<div class="tw"><table>
+<tr><th>Day</th><th>Time</th><th>Ticker / event</th><th>What to watch</th></tr>
+<tr><td>Wed 11/25</td><td>—</td><td>Oct PCE (hot) · tariff headlines</td><td class="w">Already out — drove today</td></tr>
+<tr><td>Thu 11/26</td><td>—</td><td><b>Market closed</b></td><td class="w">Thanksgiving</td></tr>
+<tr><td>Fri 11/27</td><td>1:00 PM close</td><td>Half-day · Nov 27 weeklies expire</td><td class="w">Thin liquidity; Black Friday retail read</td></tr>
+<tr><td>Mon 12/1</td><td>10:00</td><td>ISM manufacturing ⚠️</td><td class="w">Date not verified</td></tr>
+<tr><td>Fri 12/4</td><td>8:30</td><td>November jobs report ⚠️ · Dec 4 expiry (today&#x27;s ideas)</td><td class="w">Date not verified</td></tr>
+</table></div>
+</section>
+<section class="panel" id="panel-s10" role="tabpanel" aria-labelledby="ts10">
+<h2>10 · Risk Management Rules</h2>
+<div class="tw"><table>
+<tr><th>Rule</th><th>Spec</th></tr>
+<tr><td>Max allocation</td><td class="w">VIX &gt; 25 → <b>1% NAV max per play</b>, and today&#x27;s three tech shorts share <b>one 1% bucket</b></td></tr>
+<tr><td>Profit taking</td><td class="w">Half off at <b>+50%</b>; close at <b>75–80% of max value</b> — take gains into Friday&#x27;s half-day rather than hold over the weekend</td></tr>
+<tr><td>Stop loss</td><td class="w"><b>−50% of debit</b> or the underlying stop on a <b>daily close</b></td></tr>
+<tr><td>Credit floor</td><td class="w">Skip credit spreads collecting <b>&lt; ¼ of width</b> at mid — today NVDA failed ($0.34 / $2.50)</td></tr>
+<tr><td>IV crush list</td><td class="w">Panic IV (AMBA, OKLO, IONQ, AMD, DELL, NVDA) collapses fast if the tape stabilises — avoid buying premium there</td></tr>
+<tr><td>Theta watch</td><td class="w">No Nov 27 contracts — closed Thursday + 1 PM expiry</td></tr>
+<tr><td>Holiday</td><td class="w">Expect gaps on Friday&#x27;s open after a closed Thursday; don&#x27;t hold max-size risk through the break</td></tr>
+</table></div>
+</section>
+<div class="pager"><button id="prev">← Previous</button><span class="note" id="pos"></span><button id="next">Next →</button></div>
+<div class="warn"><b>⚠️ Not verified:</b> Exact PCE figures, tariff details (sources conflict), Nasdaq 100 bear-market status, Treasury yields and 2s10s, DXY / WTI / Brent levels, equity put/call, NYSE/Nasdaq A/D, short interest, insider activity, next week&#x27;s data dates. Intraday snapshot at ≈ 10:40 AM ET — prices and option marks will move.</div>
+<p class="note"><b>Sources:</b> <a href="https://finance.yahoo.com/markets/live/stock-market-today-wednesday-november-25-dow-sp-500-nasdaq-pce-inflation-data-091428237.html">Yahoo Finance — live Nov 25</a> · <a href="https://www.cnbc.com/2026/11/25/stocks-moving-the-most-today-live-updates.html">CNBC — biggest movers Nov 25</a> · <a href="https://www.forex.com/en/news-and-analysis/nasdaq-100-forecast-nasdaq-plunges-as-nvidia-selloff-continues/">FOREX.com — Nasdaq 100</a> · <a href="https://piqmarkets.com/story/nasdaq-falls-3-3-at-the-open-as-ai-linked-stock-selloff-continues">Piq Markets — Nasdaq open</a> · <a href="https://www.iux24.com/news/nasdaq-drops-three-percent-at-the-open-amid-ai-stock-selloff-and-tariff-concerns-20261125/">IUX — Nasdaq drops 3%</a> · <a href="https://leafyecfa.substack.com/p/morning-brief-11252026">Leaf Ye, CFA — morning brief</a></p>
+<div class="disc"><b>Disclaimer:</b> Educational analysis only — not investment advice. Options involve substantial risk, including total loss of premium. Verify every price, Greek and level against your own broker feed before trading.</div>
+</div>
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tabs button'));
+  var ids=tabs.map(function(b){return b.dataset.tab}).filter(function(i){return i!=='all'});
+  var cur='s1';
+  function show(id,push){
+    if(ids.indexOf(id)<0&&id!=='all')id=ids[0];
+    cur=id;
+    document.body.classList.toggle('all',id==='all');
+    ids.forEach(function(i){document.getElementById('panel-'+i).classList.toggle('on',i===id)});
+    tabs.forEach(function(b){var on=b.dataset.tab===id;b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;if(on){var c=b.parentNode;if(b.offsetLeft<c.scrollLeft||b.offsetLeft+b.offsetWidth>c.scrollLeft+c.clientWidth)c.scrollLeft=b.offsetLeft-16}});
+    var k=ids.indexOf(id);
+    document.getElementById('prev').disabled=k<=0;
+    document.getElementById('next').disabled=k<0||k>=ids.length-1;
+    document.getElementById('pos').textContent=k<0?'':(k+1)+' / '+ids.length;
+    
+    if(push){try{history.replaceState(null,'','#'+id)}catch(e){}}
+  }
+  tabs.forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab,true);window.scrollTo({top:0})})});
+  document.querySelector('.tabs').addEventListener('keydown',function(e){
+    var all=ids.concat(['all']),k=all.indexOf(cur);
+    if(e.key==='ArrowRight'){k=(k+1)%all.length}else if(e.key==='ArrowLeft'){k=(k-1+all.length)%all.length}else return;
+    e.preventDefault();show(all[k],true);document.getElementById(all[k]==='all'?'tall':'t'+all[k].slice(1)).focus();
+  });
+  document.getElementById('prev').onclick=function(){var k=ids.indexOf(cur);if(k>0){show(ids[k-1],true);window.scrollTo({top:0})}};
+  document.getElementById('next').onclick=function(){var k=ids.indexOf(cur);if(k<ids.length-1){show(ids[k+1],true);window.scrollTo({top:0})}};
+  window.addEventListener('hashchange',function(){show(location.hash.slice(1),false);window.scrollTo(0,0)});
+  var start=location.hash.slice(1);
+  
+  show(start||ids[0],false);
+})();
+</script>
+</body>
+</html>

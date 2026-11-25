@@ -1,0 +1,992 @@
+{
+ "date": "2026-11-25",
+ "market": {
+  "vix": 32.47,
+  "bias": "RISK-OFF"
+ },
+ "tickers": [
+  {
+   "t": "NVDA",
+   "group": "core",
+   "spot": 144.03,
+   "chg_pct": -7.31,
+   "vol_m": 116.6,
+   "high": 159.92,
+   "low": 150.5,
+   "prev_close": 155.38,
+   "ema9": 156.74,
+   "ema21": 172.97,
+   "ema50": 193.12,
+   "ema200": 199.99,
+   "rsi": 39.5,
+   "macd": -17.27,
+   "macd_signal": -16.08,
+   "macd_hist": -1.19,
+   "iv": 0.9292,
+   "iv_target": 0.9292,
+   "event": false,
+   "liquid": true,
+   "catalyst": "AI-capex unwind: extended Tuesday's ~6% slide (−7.3%); RSI 39 into the holiday",
+   "rating": "57B/14H/2S · $239.79",
+   "opt": {
+    "strike": 145.0,
+    "type": "P",
+    "exp": "2026-12-04",
+    "delta": -0.487,
+    "gamma": 0.0188,
+    "theta": -0.451,
+    "vega": 0.0912,
+    "iv": 0.9292,
+    "mark": 8.95,
+    "oi": 8095
+   },
+   "pattern": "−7% today, −31% since Nov 3; below every EMA"
+  },
+  {
+   "t": "AAPL",
+   "group": "core",
+   "spot": 346.535,
+   "chg_pct": -2.13,
+   "vol_m": 11.3,
+   "high": 354.4,
+   "low": 345.88,
+   "prev_close": 354.07,
+   "ema9": 350.19,
+   "ema21": 348.17,
+   "ema50": 341.55,
+   "ema200": 310.5,
+   "rsi": 56.7,
+   "macd": 2.7,
+   "macd_signal": 3.13,
+   "macd_hist": -0.44,
+   "iv": 0.3006,
+   "iv_target": 0.3006,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Broad selloff; holding 50 EMA $341.55",
+   "rating": "29B/13H/7S · $348.52",
+   "opt": {
+    "strike": 345.0,
+    "type": "P",
+    "exp": "2026-12-04",
+    "delta": -0.438,
+    "gamma": 0.0239,
+    "theta": -0.337,
+    "vega": 0.2173,
+    "iv": 0.3006,
+    "mark": 5.55,
+    "oi": 1924
+   }
+  },
+  {
+   "t": "MSFT",
+   "group": "core",
+   "spot": 482.185,
+   "chg_pct": -2.82,
+   "vol_m": 6.4,
+   "high": 501.82,
+   "low": 488.43,
+   "prev_close": 496.13,
+   "ema9": 503.87,
+   "ema21": 513.96,
+   "ema50": 512.13,
+   "ema200": 472.61,
+   "rsi": 41.0,
+   "macd": -7.77,
+   "macd_signal": -3.2,
+   "macd_hist": -4.56,
+   "iv": 0.427,
+   "iv_target": 0.427,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Tech selloff; below 50 EMA, testing 200 EMA ($472.61)",
+   "rating": "56B/3H/0S · $637.94",
+   "opt": {
+    "strike": 480.0,
+    "type": "P",
+    "exp": "2026-12-04",
+    "delta": -0.461,
+    "gamma": 0.0122,
+    "theta": -0.678,
+    "vega": 0.304,
+    "iv": 0.427,
+    "mark": 11.975,
+    "oi": 956
+   },
+   "stars": 4
+  },
+  {
+   "t": "GOOGL",
+   "group": "core",
+   "spot": 267.3,
+   "chg_pct": -4.22,
+   "vol_m": 12.1,
+   "high": 281.78,
+   "low": 276.03,
+   "prev_close": 279.05,
+   "ema9": 280.75,
+   "ema21": 291.0,
+   "ema50": 310.3,
+   "ema200": 322.63,
+   "rsi": 39.6,
+   "macd": -12.18,
+   "macd_signal": -12.83,
+   "macd_hist": 0.66,
+   "iv": 0.4669,
+   "iv_target": 0.4669,
+   "event": false,
+   "liquid": false,
+   "catalyst": "Tech selloff; −17% below 200 EMA",
+   "rating": "63B/9H/0S · $388.93",
+   "opt": {
+    "strike": 267.5,
+    "type": "P",
+    "exp": "2026-12-04",
+    "delta": -0.486,
+    "gamma": 0.0202,
+    "theta": -0.414,
+    "vega": 0.1693,
+    "iv": 0.4669,
+    "mark": 7.925,
+    "oi": 253
+   }
+  },
+  {
+   "t": "AMZN",
+   "group": "core",
+   "spot": 238.56,
+   "chg_pct": -5.45,
+   "vol_m": 17.8,
+   "high": 255.56,
+   "low": 250.53,
+   "prev_close": 252.29,
+   "ema9": 256.85,
+   "ema21": 257.57,
+   "ema50": 256.45,
+   "ema200": 247.94,
+   "rsi": 46.5,
+   "macd": 0.06,
+   "macd_signal": 1.38,
+   "macd_hist": -1.32,
+   "iv": 0.5008,
+   "iv_target": 0.5008,
+   "event": false,
+   "liquid": true,
+   "catalyst": "AI-capex worries (−5.5%); lost 50 EMA",
+   "rating": "68B/4H/0S · $327.94",
+   "opt": {
+    "strike": 237.5,
+    "type": "P",
+    "exp": "2026-12-04",
+    "delta": -0.456,
+    "gamma": 0.0209,
+    "theta": -0.396,
+    "vega": 0.1504,
+    "iv": 0.5008,
+    "mark": 6.9,
+    "oi": 465
+   }
+  },
+  {
+   "t": "META",
+   "group": "core",
+   "spot": 579.61,
+   "chg_pct": -1.74,
+   "vol_m": 4.0,
+   "high": 600.315,
+   "low": 584.26,
+   "prev_close": 589.82,
+   "ema9": 602.66,
+   "ema21": 621.64,
+   "ema50": 640.83,
+   "ema200": 638.74,
+   "rsi": 40.2,
+   "macd": -19.92,
+   "macd_signal": -17.95,
+   "macd_hist": -1.97,
+   "iv": 0.5426,
+   "iv_target": 0.5426,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Below 200 EMA; smaller drop (−1.7%)",
+   "rating": "64B/6H/1S · $842.47",
+   "opt": {
+    "strike": 580.0,
+    "type": "P",
+    "exp": "2026-12-04",
+    "delta": -0.484,
+    "gamma": 0.008,
+    "theta": -1.047,
+    "vega": 0.3671,
+    "iv": 0.5426,
+    "mark": 19.95,
+    "oi": 729
+   },
+   "stars": 4
+  },
+  {
+   "t": "TSLA",
+   "group": "core",
+   "spot": 366.07,
+   "chg_pct": -4.84,
+   "vol_m": 10.8,
+   "high": 390.09,
+   "low": 375.5,
+   "prev_close": 384.68,
+   "ema9": 378.31,
+   "ema21": 379.59,
+   "ema50": 376.38,
+   "ema200": 378.78,
+   "rsi": 51.8,
+   "macd": -0.35,
+   "macd_signal": 0.84,
+   "macd_hist": -1.2,
+   "iv": 0.658,
+   "iv_target": 0.658,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Lost 200 EMA ($378.78)",
+   "rating": "25B/23H/2S · $430.50",
+   "opt": {
+    "strike": 365.0,
+    "type": "P",
+    "exp": "2026-12-04",
+    "delta": -0.466,
+    "gamma": 0.0104,
+    "theta": -0.804,
+    "vega": 0.2312,
+    "iv": 0.658,
+    "mark": 14.575,
+    "oi": 1204
+   }
+  },
+  {
+   "t": "PLTR",
+   "group": "core",
+   "spot": 155.2,
+   "chg_pct": -3.71,
+   "vol_m": 5.6,
+   "high": 163.02,
+   "low": 157.62,
+   "prev_close": 161.18,
+   "ema9": 159.34,
+   "ema21": 167.56,
+   "ema50": 174.03,
+   "ema200": 161.76,
+   "rsi": 43.2,
+   "macd": -8.49,
+   "macd_signal": -7.74,
+   "macd_hist": -0.75,
+   "iv": 0.6833,
+   "iv_target": 0.6833,
+   "event": false,
+   "liquid": true,
+   "catalyst": "AI software de-rating; below 200 EMA",
+   "rating": "30B/8H/2S · $223.47",
+   "opt": {
+    "strike": 155.0,
+    "type": "P",
+    "exp": "2026-12-04",
+    "delta": -0.476,
+    "gamma": 0.0237,
+    "theta": -0.355,
+    "vega": 0.0981,
+    "iv": 0.6833,
+    "mark": 6.65,
+    "oi": 3143
+   },
+   "stars": 4
+  },
+  {
+   "t": "AMD",
+   "group": "core",
+   "spot": 379.78,
+   "chg_pct": -8.11,
+   "vol_m": 14.3,
+   "high": 428.87,
+   "low": 396.01,
+   "prev_close": 413.27,
+   "ema9": 472.39,
+   "ema21": 498.29,
+   "ema50": 518.95,
+   "ema200": 445.62,
+   "rsi": 38.7,
+   "macd": -23.85,
+   "macd_signal": -15.99,
+   "macd_hist": -7.86,
+   "iv": 1.1145,
+   "iv_target": 1.1145,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Chip rout (−8.1%); SMH −6%",
+   "rating": "53B/6H/0S · $651.52",
+   "opt": {
+    "strike": 380.0,
+    "type": "P",
+    "exp": "2026-12-04",
+    "delta": -0.469,
+    "gamma": 0.0059,
+    "theta": -1.425,
+    "vega": 0.2395,
+    "iv": 1.1145,
+    "mark": 27.15,
+    "oi": 371
+   }
+  },
+  {
+   "t": "AVGO",
+   "group": "core",
+   "spot": 285.05,
+   "chg_pct": -5.33,
+   "vol_m": 9.1,
+   "high": 309.18,
+   "low": 297.8,
+   "prev_close": 301.08,
+   "ema9": 324.23,
+   "ema21": 330.35,
+   "ema50": 340.98,
+   "ema200": 355.19,
+   "rsi": 40.8,
+   "macd": -5.73,
+   "macd_signal": -3.49,
+   "macd_hist": -2.24,
+   "iv": 0.8301,
+   "iv_target": 0.8301,
+   "event": false,
+   "liquid": true,
+   "catalyst": "Chip rout (−5.3%)",
+   "rating": "53B/3H/0S · $521.40",
+   "opt": {
+    "strike": 285.0,
+    "type": "P",
+    "exp": "2026-12-04",
+    "delta": -0.474,
+    "gamma": 0.0106,
+    "theta": -0.794,
+    "vega": 0.1801,
+    "iv": 0.8301,
+    "mark": 14.975,
+    "oi": 898
+   }
+  },
+  {
+   "t": "IONQ",
+   "group": "core",
+   "spot": 21.005,
+   "chg_pct": -6.23,
+   "vol_m": 6.4,
+   "high": 23.355,
+   "low": 21.96,
+   "prev_close": 22.4,
+   "ema9": 24.74,
+   "ema21": 27.93,
+   "ema50": 32.43,
+   "ema200": 39.8,
+   "rsi": 35.1,
+   "macd": -3.22,
+   "macd_signal": -2.59,
+   "macd_hist": -0.62,
+   "iv": 1.1446,
+   "iv_target": 1.1446,
+   "event": false,
+   "liquid": false,
+   "catalyst": "Speculative-tech liquidation",
+   "rating": "14B/3H/0S · $53.99",
+   "opt": {
+    "strike": 21.0,
+    "type": "P",
+    "exp": "2026-12-04",
+    "delta": -0.464,
+    "gamma": 0.104,
+    "theta": -0.081,
+    "vega": 0.0132,
+    "iv": 1.1446,
+    "mark": 1.52,
+    "oi": 104
+   }
+  },
+  {
+   "t": "OKLO",
+   "group": "core",
+   "spot": 17.79,
+   "chg_pct": -7.35,
+   "vol_m": 3.3,
+   "high": 20.39,
+   "low": 18.87,
+   "prev_close": 19.2,
+   "ema9": 21.45,
+   "ema21": 23.64,
+   "ema50": 28.67,
+   "ema200": 46.55,
+   "rsi": 32.7,
+   "macd": -2.53,
+   "macd_signal": -2.48,
+   "macd_hist": -0.05,
+   "iv": 1.1653,
+   "iv_target": 1.1653,
+   "event": false,
+   "liquid": false,
+   "catalyst": "Speculative-tech liquidation",
+   "rating": "13B/7H/1S · $48.00",
+   "opt": {
+    "strike": 18.0,
+    "type": "P",
+    "exp": "2026-12-04",
+    "delta": -0.489,
+    "gamma": 0.1211,
+    "theta": -0.07,
+    "vega": 0.0113,
+    "iv": 1.1653,
+    "mark": 1.425,
+    "oi": 278
+   }
+  },
+  {
+   "t": "HPQ",
+   "group": "bull",
+   "spot": 30.93,
+   "chg_pct": 10.71,
+   "vol_m": 11.2,
+   "high": 28.875,
+   "low": 27.705,
+   "prev_close": 27.94,
+   "ema9": 28.49,
+   "ema21": 29.17,
+   "ema50": 29.84,
+   "ema200": 27.4,
+   "rsi": 40.9,
+   "macd": -0.74,
+   "macd_signal": -0.72,
+   "macd_hist": -0.02,
+   "iv": 0.6034,
+   "iv_target": 0.6034,
+   "event": false,
+   "liquid": false,
+   "catalyst": "FQ4 results: +10.7% (CNBC/StockTitan)",
+   "rating": "2B/11H/8S · $27.76",
+   "opt": {
+    "strike": 31.0,
+    "type": "C",
+    "exp": "2026-12-04",
+    "delta": 0.507,
+    "gamma": 0.1347,
+    "theta": -0.066,
+    "vega": 0.0196,
+    "iv": 0.6034,
+    "mark": 1.14,
+    "oi": 273
+   }
+  },
+  {
+   "t": "AMBA",
+   "group": "bear",
+   "spot": 36.42,
+   "chg_pct": -18.11,
+   "vol_m": 6.7,
+   "high": 53.79,
+   "low": 44.28,
+   "prev_close": 44.47,
+   "ema9": 54.28,
+   "ema21": 57.89,
+   "ema50": 62.15,
+   "ema200": 67.29,
+   "rsi": 31.6,
+   "macd": -3.42,
+   "macd_signal": -2.45,
+   "macd_hist": -0.97,
+   "iv": 1.3175,
+   "iv_target": 1.3175,
+   "event": false,
+   "liquid": false,
+   "catalyst": "Q4 revenue guide $70–75M, well below Street (−18% now, −34% pre-market)",
+   "rating": "6B/5H/1S · $64.67",
+   "opt": {
+    "strike": 36.0,
+    "type": "P",
+    "exp": "2026-12-04",
+    "delta": -0.45,
+    "gamma": 0.0523,
+    "theta": -0.16,
+    "vega": 0.0227,
+    "iv": 1.3175,
+    "mark": 2.925,
+    "oi": 0
+   },
+   "pattern": "Guide-down gap; options OI 0"
+  },
+  {
+   "t": "URBN",
+   "group": "bear",
+   "spot": 75.69,
+   "chg_pct": -11.56,
+   "vol_m": 1.7,
+   "high": 89.84,
+   "low": 84.6,
+   "prev_close": 85.58,
+   "ema9": 85.42,
+   "ema21": 85.79,
+   "ema50": 83.99,
+   "ema200": 76.67,
+   "rsi": 50.0,
+   "macd": 0.0,
+   "macd_signal": 0.43,
+   "macd_hist": -0.43,
+   "iv": 0.5215,
+   "iv_target": 0.5215,
+   "event": false,
+   "liquid": false,
+   "catalyst": "Q3 same-store sales +4.4% vs +5.3% expected (−11.6%)",
+   "rating": "8B/11H/0S · $87.92",
+   "opt": {
+    "strike": 75.0,
+    "type": "P",
+    "exp": "2026-12-04",
+    "delta": -0.443,
+    "gamma": 0.0632,
+    "theta": -0.13,
+    "vega": 0.0474,
+    "iv": 0.5215,
+    "mark": 2.175,
+    "oi": 3
+   }
+  },
+  {
+   "t": "DELL",
+   "group": "bear",
+   "spot": 275.235,
+   "chg_pct": -6.79,
+   "vol_m": 11.0,
+   "high": 318.22,
+   "low": 290.5,
+   "prev_close": 295.28,
+   "ema9": 320.89,
+   "ema21": 360.89,
+   "ema50": 416.44,
+   "ema200": 366.46,
+   "rsi": 36.5,
+   "macd": -44.81,
+   "macd_signal": -44.43,
+   "macd_hist": -0.38,
+   "iv": 1.0654,
+   "iv_target": 1.0654,
+   "event": false,
+   "liquid": false,
+   "catalyst": "Beat (EPS $9.45, rev $54.94B) but sold off — AI-server margin/capex repricing (−6.8%)",
+   "rating": "24B/9H/1S · $513.23",
+   "opt": {
+    "strike": 275.0,
+    "type": "P",
+    "exp": "2026-12-04",
+    "delta": -0.467,
+    "gamma": 0.0085,
+    "theta": -0.986,
+    "vega": 0.1735,
+    "iv": 1.0654,
+    "mark": 18.55,
+    "oi": 97
+   },
+   "pattern": "Sell-the-beat; 25% below 200 EMA"
+  }
+ ],
+ "subtitle": "Intraday build · Wed Nov 25, 10:40 AM ET (market open; Thanksgiving tomorrow, Friday closes 1 PM) · prices live · EMAs/RSI/MACD as of Nov 24 close · pivots from Nov 24 H/L/C · Greeks/IV = Dec 4 expiry · ⚠️ = unverified",
+ "macro": {
+  "rows": [
+   [
+    "S&P 500 (SPY)",
+    "$702.20",
+    "−2.31%",
+    "Heavy, broad-based selling",
+    "bear"
+   ],
+   [
+    "Nasdaq 100 (QQQ)",
+    "$614.17",
+    "−3.75%",
+    "Reports put the Nasdaq 100 **near bear-market territory** (−20% from peak) ⚠️",
+    "bear"
+   ],
+   [
+    "Russell 2000 (IWM)",
+    "$263.73",
+    "−1.28%",
+    "",
+    "bear"
+   ],
+   [
+    "Dow (DIA)",
+    "$493.68",
+    "−1.22%",
+    "",
+    "bear"
+   ],
+   [
+    "VIX",
+    "**32.47**",
+    "+23.2%",
+    "Last 7 closes: 25.46 → 24.56 → 28.44 → **35.89** → 26.62 → 26.36 → 32.47 (stress regime)",
+    "bear"
+   ],
+   [
+    "Treasuries (TLT / IEF)",
+    "$82.46 / $92.33",
+    "+1.19% / +0.75%",
+    "Flight to safety despite hot PCE ⚠️ yield levels not pulled",
+    "caution"
+   ],
+   [
+    "Dollar (UUP)",
+    "$29.69",
+    "+0.19%",
+    "Slightly firmer",
+    "caution"
+   ],
+   [
+    "Crude (USO / BNO)",
+    "$138.31 / $58.76",
+    "+2.13% / +1.75%",
+    "Energy is one of the few green sectors",
+    "caution"
+   ],
+   [
+    "Gold (GLD)",
+    "$316.08",
+    "−2.88%",
+    "Sold with everything (margin/liquidity)",
+    "bear"
+   ],
+   [
+    "Bitcoin",
+    "**$58,538**",
+    "−1.0%",
+    "Below $60K (it was ~$64.6K on Nov 16)",
+    "bear"
+   ]
+  ],
+  "events": [
+   [
+    "Today 8:30",
+    "**October PCE inflation came in hot** (core picked up) — markets lean toward Fed **rate hikes** ⚠️ exact figures not pulled"
+   ],
+   [
+    "Today",
+    "**New tariff headlines** — reports differ (one cites new 20% tariffs) ⚠️ details unverified"
+   ],
+   [
+    "Today",
+    "AI-capex repricing continues: NVDA −7%, AMD −8%, SMH −6%; **Dell fell ~7% despite beating** (EPS $9.45, rev $54.94B)"
+   ],
+   [
+    "Today",
+    "Sanofi's **$41B cash bid for Insmed** lifted biotech; HP +11% on results; Ambarella −18% on its guide; Urban Outfitters −12% on same-store sales"
+   ],
+   [
+    "Thu 11/26",
+    "**Market closed** (Thanksgiving)"
+   ],
+   [
+    "Fri 11/27",
+    "Half-day — stocks close **1:00 PM ET**; Nov 27 weeklies expire then"
+   ]
+  ],
+  "bias": "**Bias: 🔴 RISK-OFF (stress).** VIX 32.5, cap-weighted tech down 3.75% while equal-weight is only −0.6%, chips −6%, Bitcoin < $60K, gold sold too. This is liquidation into a holiday — the trend is down, but chasing new shorts here carries **squeeze risk** on any calm Friday."
+ },
+ "em_notes": [
+  [
+   "Expiry used",
+   "Greeks and strikes both use **Dec 4** (7 sessions incl. half-day) — avoids the short-dated IV distortion found on Nov 17."
+  ],
+  [
+   "🔴 Elevated",
+   "AMBA 132%, OKLO 117%, IONQ 114%, AMD 111%, DELL 107%, NVDA 93%, AVGO 83% — panic premium; selling it is tempting but credit spreads must still clear the ¼-width floor (NVDA did not)"
+  ],
+  [
+   "🟢 Lowest",
+   "AAPL 30% · MSFT 43% · GOOGL 47% — the cheapest places to buy defined-risk direction"
+  ],
+  [
+   "Holiday",
+   "Thursday closed and Friday half-day: the 1-week bands span ~3.5 real sessions of trading — they likely overstate the realised move unless the selloff accelerates"
+  ]
+ ],
+ "deep_dive": [
+  {
+   "title": "MSFT short — engine BEAR (−3), IV 43%",
+   "sent": "bear",
+   "rows": [
+    [
+     "TA",
+     "Lost 9/21/50 EMA; heading for its **200 EMA $472.61**; RSI 41; MACD bear (hist −4.56)"
+    ],
+    [
+     "Levels",
+     "S2 **$482.07** (being tested) · S1 $489.10 · PP $495.46"
+    ],
+    [
+     "Fundamentals",
+     "56 Buy / 3 Hold; mean PT $637.94 — a tape trade, not a thesis change"
+    ],
+    [
+     "Options",
+     "Dec 4 480P OI 956 · 470P OI 491"
+    ],
+    [
+     "Structure",
+     "**Dec 4 480/470 put spread @ $3.63** (12.10 − 8.475) · max $10 · BE **$476.38** · 1.76 : 1"
+    ],
+    [
+     "Entry / target / stop",
+     "Below S1 $489.10 → 200 EMA $472.61 · stop: close **> $489.10**"
+    ]
+   ]
+  },
+  {
+   "title": "PLTR short — engine BEAR (−5), IV 68%",
+   "sent": "bear",
+   "rows": [
+    [
+     "TA",
+     "Full bear structure: below 9/21/50 and the **200 EMA $161.76**; RSI 43; MACD bear"
+    ],
+    [
+     "Levels",
+     "S2 **$155.21** (at spot) · S1 $158.19 · PP $160.61"
+    ],
+    [
+     "Fundamentals",
+     "30 Buy / 8 Hold / 2 Sell; mean PT $223.47"
+    ],
+    [
+     "Options",
+     "Dec 4 155P OI 3,143 · 140P OI 1,448 — the most liquid setup today"
+    ],
+    [
+     "Structure",
+     "**Dec 4 155/140 put spread @ $4.74** (6.85 − 2.115) · max $15 · BE **$150.27** · 2.17 : 1"
+    ],
+    [
+     "Entry / target / stop",
+     "Stay below S1 $158.19; target −1w EM ≈ $140 · stop: close **> $158.19**"
+    ]
+   ]
+  },
+  {
+   "title": "META short — engine BEAR (−5), IV 54%",
+   "sent": "bear",
+   "rows": [
+    [
+     "TA",
+     "Below 9/21/50/**200 EMA ($638.74)**; RSI 40; MACD bear — but only −1.7% today (relative strength)"
+    ],
+    [
+     "Levels",
+     "S1 **$582.62** · S2 **$575.41** · PP $591.47"
+    ],
+    [
+     "Options",
+     "Dec 4 580P OI 729 · 570P OI 438"
+    ],
+    [
+     "Structure",
+     "**Dec 4 580/570 put spread @ $4.40** (20.275 − 15.875) · max $10 · BE **$575.60** · 1.27 : 1"
+    ],
+    [
+     "Entry / target / stop",
+     "Below S1 $582.62 → S2 $575.41 · stop: close **> $589.82** (prior close)"
+    ]
+   ]
+  }
+ ],
+ "deep_dive_note": "**NVDA (engine: bear −5, HIGH IV 93%).** The engine's bear-call credit spread 165/167.5 collects only **$0.34 on $2.50** (14% of width) — it **fails the ¼-width credit floor**, so no trade. **HPQ** is the only long setup (engine +1): Dec 4 31/34 call spread ≈ $0.94 for $3 max, but OI is 273/71 and analysts are 2 Buy / 11 Hold / 8 Sell with a $27.76 mean target — skip or trade the stock.",
+ "top_plays": [
+  {
+   "sent": "bear",
+   "title": "SHORT PLTR · Dec 4 $155/$140 put spread · $4.74 debit",
+   "paras": [
+    "Cleanest structure on the board: full bear stack under the 200 EMA, engine score −5, and the deepest option liquidity of today's setups (OI 3,143 / 1,448).",
+    "**Math:** max $15 vs $4.74 → **2.17 : 1**; breakeven **$150.27**; short strike ≈ the 1-week −1σ move.",
+    "**Risk:** a holiday short-covering bounce. **Stop:** close > S1 **$158.19** or −50% of debit."
+   ]
+  },
+  {
+   "sent": "bear",
+   "title": "SHORT MSFT · Dec 4 $480/$470 put spread · $3.63 debit",
+   "paras": [
+    "Lost its 50 EMA and is testing S2; the obvious magnet is the **200 EMA at $472.61**, which sits inside the spread. IV is only 43%, so the debit is cheap.",
+    "**Math:** max $10 vs $3.63 → **1.76 : 1**; breakeven **$476.38**.",
+    "**Risk:** the 200 EMA can act as support and bounce it. **Stop:** close > S1 **$489.10**."
+   ]
+  },
+  {
+   "sent": "bear",
+   "title": "SHORT META · Dec 4 $580/$570 put spread · $4.40 debit",
+   "paras": [
+    "Below its 200 EMA and every short-term average; the tight 10-wide spread targets S2 **$575.41**.",
+    "**Math:** max $10 vs $4.40 → **1.27 : 1**; breakeven **$575.60**.",
+    "**Risk:** META is showing relative strength today (−1.7% vs QQQ −3.75%). **These three are one tech-short bet — 1% NAV total, not each.** **Stop:** close > **$589.82**."
+   ]
+  }
+ ],
+ "avoid": [
+  [
+   "🔴 NVDA credit spreads",
+   "Credit too thin",
+   "165/167.5 call spread = $0.34 on $2.50 (14%) — fails the ¼-width floor"
+  ],
+  [
+   "🔴 AMBA, URBN, DELL options",
+   "No liquidity",
+   "ATM open interest 0 / 3 / 97; AMBA 36P quotes 2.05 × 3.80 — trade stock or skip"
+  ],
+  [
+   "🟠 Chasing shorts into the holiday",
+   "Squeeze risk",
+   "4 straight down days, VIX 32, Thursday closed, Friday 1 PM close — keep size small and use defined risk"
+  ],
+  [
+   "🔴 Nov 27 weeklies",
+   "Theta + half-day",
+   "Expire at 1 PM Friday after a closed Thursday — almost pure gamma/theta, no edge"
+  ],
+  [
+   "🔴 IONQ / OKLO",
+   "Falling knives",
+   "Bear stacks, IV 114–117%, chains under 300 OI"
+  ]
+ ],
+ "risk": [
+  [
+   "VIX",
+   "**32.47** (+23.2%)",
+   "🔴 stress"
+  ],
+  [
+   "Equity put/call",
+   "⚠️ not verified",
+   "—"
+  ],
+  [
+   "Breadth",
+   "⚠️ A/D not verified · proxy **RSP −0.64% vs SPY −2.31%** — cap-weighted tech is doing the damage",
+   "🟠"
+  ],
+  [
+   "Leading sectors",
+   "Staples XLP +0.43% · Utilities XLU +0.43% · Materials XLB +0.34% · Energy XLE +0.32% · Real estate +0.24%",
+   "🟢 defensive"
+  ],
+  [
+   "Lagging sectors",
+   "**Semis SMH −5.98%** · Tech XLK −4.40% · Discretionary XLY −2.27%",
+   "🔴"
+  ],
+  [
+   "Crude 1d",
+   "USO +2.13% · BNO +1.75%",
+   "🟠"
+  ],
+  [
+   "Rates",
+   "TLT +1.19% (yields down) ⚠️ 10Y−2Y not pulled",
+   "🟠"
+  ],
+  [
+   "Dollar",
+   "UUP +0.19%",
+   "🟠"
+  ],
+  [
+   "**Overall bias**",
+   "**RISK-OFF (stress)**",
+   "🔴"
+  ]
+ ],
+ "calendar": [
+  [
+   "Wed 11/25",
+   "—",
+   "Oct PCE (hot) · tariff headlines",
+   "Already out — drove today"
+  ],
+  [
+   "Thu 11/26",
+   "—",
+   "**Market closed**",
+   "Thanksgiving"
+  ],
+  [
+   "Fri 11/27",
+   "1:00 PM close",
+   "Half-day · Nov 27 weeklies expire",
+   "Thin liquidity; Black Friday retail read"
+  ],
+  [
+   "Mon 12/1",
+   "10:00",
+   "ISM manufacturing ⚠️",
+   "Date not verified"
+  ],
+  [
+   "Fri 12/4",
+   "8:30",
+   "November jobs report ⚠️ · Dec 4 expiry (today's ideas)",
+   "Date not verified"
+  ]
+ ],
+ "rules": [
+  [
+   "Max allocation",
+   "VIX > 25 → **1% NAV max per play**, and today's three tech shorts share **one 1% bucket**"
+  ],
+  [
+   "Profit taking",
+   "Half off at **+50%**; close at **75–80% of max value** — take gains into Friday's half-day rather than hold over the weekend"
+  ],
+  [
+   "Stop loss",
+   "**−50% of debit** or the underlying stop on a **daily close**"
+  ],
+  [
+   "Credit floor",
+   "Skip credit spreads collecting **< ¼ of width** at mid — today NVDA failed ($0.34 / $2.50)"
+  ],
+  [
+   "IV crush list",
+   "Panic IV (AMBA, OKLO, IONQ, AMD, DELL, NVDA) collapses fast if the tape stabilises — avoid buying premium there"
+  ],
+  [
+   "Theta watch",
+   "No Nov 27 contracts — closed Thursday + 1 PM expiry"
+  ],
+  [
+   "Holiday",
+   "Expect gaps on Friday's open after a closed Thursday; don't hold max-size risk through the break"
+  ]
+ ],
+ "unverified": "Exact PCE figures, tariff details (sources conflict), Nasdaq 100 bear-market status, Treasury yields and 2s10s, DXY / WTI / Brent levels, equity put/call, NYSE/Nasdaq A/D, short interest, insider activity, next week's data dates. Intraday snapshot at ≈ 10:40 AM ET — prices and option marks will move.",
+ "sources": [
+  [
+   "Yahoo Finance — live Nov 25",
+   "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-november-25-dow-sp-500-nasdaq-pce-inflation-data-091428237.html"
+  ],
+  [
+   "CNBC — biggest movers Nov 25",
+   "https://www.cnbc.com/2026/11/25/stocks-moving-the-most-today-live-updates.html"
+  ],
+  [
+   "FOREX.com — Nasdaq 100",
+   "https://www.forex.com/en/news-and-analysis/nasdaq-100-forecast-nasdaq-plunges-as-nvidia-selloff-continues/"
+  ],
+  [
+   "Piq Markets — Nasdaq open",
+   "https://piqmarkets.com/story/nasdaq-falls-3-3-at-the-open-as-ai-linked-stock-selloff-continues"
+  ],
+  [
+   "IUX — Nasdaq drops 3%",
+   "https://www.iux24.com/news/nasdaq-drops-three-percent-at-the-open-amid-ai-stock-selloff-and-tariff-concerns-20261125/"
+  ],
+  [
+   "Leaf Ye, CFA — morning brief",
+   "https://leafyecfa.substack.com/p/morning-brief-11252026"
+  ]
+ ]
+}
